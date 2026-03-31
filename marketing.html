@@ -38,8 +38,8 @@
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
         </div>
         <div class="relative z-10 text-center px-6">
-            <h1 class="text-4xl md:text-7xl font-black uppercase tracking-tighter mb-4 text-shadow-lg">Visual Marketing Strategy</h1>
-            <p class="text-zinc-500 uppercase tracking-[0.4em] text-xs md:text-sm">Data-Driven Content for the Sony a7S III Era</p>
+            <h1 class="text-4xl md:text-7xl font-black uppercase tracking-tighter mb-4 text-shadow-lg">Marketing Strategy</h1>
+            <p class="text-zinc-500 uppercase tracking-[0.4em] text-xs md:text-sm">Creative Strategy & Visual Content Engineered for Brand Growth</p>
         </div>
     </header>
 
@@ -53,40 +53,64 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Vertical Video Placeholder 1 -->
+                <!-- Video 1: Urban Pulse -->
                 <div class="group">
-                    <div class="vertical-video-container gradient-border rounded-lg overflow-hidden relative mb-6">
-                        <img src="https://images.unsplash.com/photo-1616469829581-73993eb86b02?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <span class="text-xs uppercase tracking-widest border border-white px-4 py-2">Play Reel</span>
+                    <div class="vertical-video-container gradient-border rounded-lg overflow-hidden relative mb-6 bg-zinc-900">
+                        <video 
+                            class="w-full h-full object-cover cursor-pointer" 
+                            loop muted playsinline 
+                            onclick="this.muted = false; this.paused ? this.play() : this.pause();"
+                            poster="https://images.unsplash.com/photo-1616469829581-73993eb86b02?auto=format&fit=crop&q=80&w=1000">
+                            <source src="https://assets.mixkit.co/videos/preview/mixkit-urban-street-view-at-night-with-neon-lights-40141-large.mp4" type="video/mp4">
+                        </video>
+                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none bg-black/20 group-hover:bg-black/40 transition-all">
+                            <svg class="w-12 h-12 text-white/50 group-hover:text-white/80 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                         </div>
                     </div>
                     <p class="text-sm font-medium mb-1 italic">"The Urban Pulse"</p>
-                    <p class="text-xs text-zinc-500 leading-relaxed">Produced high-retention vertical content optimized for mobile engagement, utilizing 4K platform-specific bitrates.</p>
+                    <p class="text-xs text-zinc-500 leading-relaxed">Produced high-retention vertical content optimized for mobile engagement, utilizing platform-specific bitrates.</p>
                 </div>
 
-                <!-- Vertical Video Placeholder 2 -->
+                <!-- Video 2: Rugged Aesthetic -->
                 <div class="group">
-                    <div class="vertical-video-container gradient-border rounded-lg overflow-hidden relative mb-6">
-                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <span class="text-xs uppercase tracking-widest border border-white px-4 py-2">Play Reel</span>
+                    <div class="vertical-video-container gradient-border rounded-lg overflow-hidden relative mb-6 bg-zinc-900">
+                        <video 
+                            class="w-full h-full object-cover cursor-pointer" 
+                            loop muted playsinline 
+                            onclick="this.muted = false; this.paused ? this.play() : this.pause();"
+                            poster="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=1000">
+                            <source src="https://assets.mixkit.co/videos/preview/mixkit-man-walking-on-a-rocky-beach-at-sunset-40150-large.mp4" type="video/mp4">
+                        </video>
+                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none bg-black/20 group-hover:bg-black/40 transition-all">
+                            <svg class="w-12 h-12 text-white/50 group-hover:text-white/80 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                         </div>
                     </div>
                     <p class="text-sm font-medium mb-1 italic">"Rugged Aesthetic"</p>
-                    <p class="text-xs text-zinc-500 leading-relaxed">Sony a7S III S-Log3 workflow optimized for Instagram's compression algorithms.</p>
+                    <p class="text-xs text-zinc-500 leading-relaxed">Professional color-grade workflow optimized for modern social platform compression algorithms.</p>
                 </div>
 
-                <!-- Vertical Video Placeholder 3 -->
+                <!-- Video 3: Viral Strategy (Social Proof) -->
                 <div class="group">
-                    <div class="vertical-video-container gradient-border rounded-lg overflow-hidden relative mb-6">
-                        <img src="https://images.unsplash.com/photo-1551818255-e6e10975bc17?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <span class="text-xs uppercase tracking-widest border border-white px-4 py-2">Play Reel</span>
+                    <div class="vertical-video-container gradient-border rounded-lg overflow-hidden relative mb-6 bg-zinc-900">
+                        <!-- Viral Proof Badge -->
+                        <div class="absolute top-4 left-4 z-30 bg-white text-black text-[10px] font-black px-3 py-1 uppercase tracking-tighter rounded-sm">
+                            4.2M+ Views
+                        </div>
+                        
+                        <video 
+                            class="w-full h-full object-cover cursor-pointer" 
+                            loop muted playsinline 
+                            onclick="this.muted = false; this.paused ? this.play() : this.pause();">
+                            <source src="https://res.cloudinary.com/decv98oqz/video/upload/v1774979180/brainrot_smbv1m.mp4" type="video/mp4">
+                        </video>
+                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none bg-black/10 group-hover:bg-black/30 transition-all">
+                            <svg class="w-12 h-12 text-white/50 group-hover:text-white/80 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                         </div>
                     </div>
-                    <p class="text-sm font-medium mb-1 italic">"The Pacific North"</p>
-                    <p class="text-xs text-zinc-500 leading-relaxed">Utilized specific trend-audio strategies to maximize organic discovery and watch time.</p>
+                    <p class="text-sm font-medium mb-1 italic">"Viral Performance"</p>
+                    <p class="text-xs text-zinc-500 leading-relaxed">
+                        <span class="text-white font-bold">4.2 Million Organic Views:</span> Developed a viral narrative using specific trending audio and high-retention editing techniques.
+                    </p>
                 </div>
             </div>
         </section>
@@ -161,30 +185,30 @@
                 </div>
                 <div class="md:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-8">
                     <div class="space-y-4">
-                        <h4 class="text-xs font-bold uppercase tracking-widest text-white">Creative</h4>
+                        <h4 class="text-xs font-bold uppercase tracking-widest text-white">Production</h4>
                         <ul class="text-sm text-zinc-500 space-y-2 font-light">
-                            <li>Sony a7S III / a7IV</li>
-                            <li>DaVinci Resolve (Color)</li>
-                            <li>Adobe Lightroom</li>
-                            <li>Sound Design</li>
+                            <li>High-End Cinematography</li>
+                            <li>DaVinci Resolve Mastery</li>
+                            <li>Post-Production Strategy</li>
+                            <li>Sound Design & Mixing</li>
                         </ul>
                     </div>
                     <div class="space-y-4">
-                        <h4 class="text-xs font-bold uppercase tracking-widest text-white">Analytics</h4>
+                        <h4 class="text-xs font-bold uppercase tracking-widest text-white">Marketing</h4>
                         <ul class="text-sm text-zinc-500 space-y-2 font-light">
-                            <li>Social Media Analytics</li>
-                            <li>SEO Optimization</li>
-                            <li>Retention Heatmaps</li>
-                            <li>CMS Management</li>
+                            <li>Social Performance Analytics</li>
+                            <li>Content Distribution Strategy</li>
+                            <li>SEO & Digital Presence</li>
+                            <li>Campaign Lifecycle Management</li>
                         </ul>
                     </div>
                     <div class="space-y-4">
-                        <h4 class="text-xs font-bold uppercase tracking-widest text-white">Informatics</h4>
+                        <h4 class="text-xs font-bold uppercase tracking-widest text-white">Strategic Value</h4>
                         <ul class="text-sm text-zinc-500 space-y-2 font-light italic">
-                            <li>Data-Driven Pacing</li>
+                            <li>Data-Informed Creative</li>
+                            <li>High-Retention Content</li>
                             <li>Visual A/B Testing</li>
-                            <li>Platform Algorithms</li>
-                            <li>Technical SEO</li>
+                            <li>Platform Algorithm Mastery</li>
                         </ul>
                     </div>
                 </div>
