@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing Strategy | Story of Leo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .text-shadow-lg { text-shadow: 0 4px 12px rgba(0, 0, 0, 0.9); }
+        .vertical-video-container { aspect-ratio: 9/16; }
+        .gradient-border {
+            border: 1px solid transparent;
+            background: linear-gradient(black, black) padding-box,
+                        linear-gradient(to bottom right, #3f3f46, #18181b) border-box;
+        }
+    </style>
+</head>
+<body class="bg-black text-zinc-100 selection:bg-zinc-800 selection:text-white">
+
+    <!-- Navigation Header -->
+    <nav class="fixed top-0 w-full z-50 px-6 py-8 flex justify-between items-center bg-gradient-to-b from-black/90 to-transparent backdrop-blur-sm">
+        <a href="index.html" class="text-sm font-bold tracking-[0.2em] uppercase">Story of Leo</a>
+        <div class="flex gap-8 text-[10px] md:text-xs uppercase tracking-[0.3em] font-medium">
+            <a href="index.html#services" class="hover:text-white/60 transition-colors">Back to Home</a>
+            <a href="#case-studies" class="hover:text-white/60 transition-colors">Case Studies</a>
+            <a href="#tech-stack" class="hover:text-white/60 transition-colors">Tech Stack</a>
+        </div>
+    </nav>
+
+    <!-- Cinematic Hero -->
+    <header class="relative h-[60vh] flex items-center justify-center overflow-hidden border-b border-zinc-900">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1493106819501-66d381c466f1?auto=format&fit=crop&q=80&w=2070" 
+                 alt="Cinematic Background" 
+                 class="w-full h-full object-cover opacity-40 grayscale">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+        </div>
+        <div class="relative z-10 text-center px-6">
+            <h1 class="text-4xl md:text-7xl font-black uppercase tracking-tighter mb-4 text-shadow-lg">Visual Marketing Strategy</h1>
+            <p class="text-zinc-500 uppercase tracking-[0.4em] text-xs md:text-sm">Data-Driven Content for the Sony a7S III Era</p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6">
+        
+        <!-- 1. The "Social-First" Content Section -->
+        <section id="social-first" class="py-24 border-b border-zinc-900">
+            <div class="mb-16">
+                <h2 class="text-xs uppercase tracking-[0.5em] text-zinc-500 mb-4">01 / Social-First</h2>
+                <h3 class="text-3xl md:text-5xl font-light tracking-tight">High-Retention Vertical Narrative</h3>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Vertical Video Placeholder 1 -->
+                <div class="group">
+                    <div class="vertical-video-container gradient-border rounded-lg overflow-hidden relative mb-6">
+                        <img src="https://images.unsplash.com/photo-1616469829581-73993eb86b02?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span class="text-xs uppercase tracking-widest border border-white px-4 py-2">Play Reel</span>
+                        </div>
+                    </div>
+                    <p class="text-sm font-medium mb-1 italic">"The Urban Pulse"</p>
+                    <p class="text-xs text-zinc-500 leading-relaxed">Produced high-retention vertical content optimized for mobile engagement, utilizing 4K platform-specific bitrates.</p>
+                </div>
+
+                <!-- Vertical Video Placeholder 2 -->
+                <div class="group">
+                    <div class="vertical-video-container gradient-border rounded-lg overflow-hidden relative mb-6">
+                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span class="text-xs uppercase tracking-widest border border-white px-4 py-2">Play Reel</span>
+                        </div>
+                    </div>
+                    <p class="text-sm font-medium mb-1 italic">"Rugged Aesthetic"</p>
+                    <p class="text-xs text-zinc-500 leading-relaxed">Sony a7S III S-Log3 workflow optimized for Instagram's compression algorithms.</p>
+                </div>
+
+                <!-- Vertical Video Placeholder 3 -->
+                <div class="group">
+                    <div class="vertical-video-container gradient-border rounded-lg overflow-hidden relative mb-6">
+                        <img src="https://images.unsplash.com/photo-1551818255-e6e10975bc17?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span class="text-xs uppercase tracking-widest border border-white px-4 py-2">Play Reel</span>
+                        </div>
+                    </div>
+                    <p class="text-sm font-medium mb-1 italic">"The Pacific North"</p>
+                    <p class="text-xs text-zinc-500 leading-relaxed">Utilized specific trend-audio strategies to maximize organic discovery and watch time.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Campaign Case Studies -->
+        <section id="case-studies" class="py-24 border-b border-zinc-900">
+            <div class="mb-16">
+                <h2 class="text-xs uppercase tracking-[0.5em] text-zinc-500 mb-4">02 / Case Studies</h2>
+                <h3 class="text-3xl md:text-5xl font-light tracking-tight">The "Why" Behind the Lens</h3>
+            </div>
+
+            <div class="space-y-32">
+                <!-- Case Study 1 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div class="aspect-video bg-zinc-900 rounded-lg overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1533107862482-0e6974b06ec4?auto=format&fit=crop&q=80&w=2000" class="w-full h-full object-cover grayscale opacity-70">
+                    </div>
+                    <div>
+                        <h4 class="text-2xl font-bold mb-6 italic tracking-tight">Project: PNW Outdoor Brand Identity</h4>
+                        <div class="space-y-6 text-sm">
+                            <div>
+                                <span class="block text-zinc-500 uppercase tracking-widest text-[10px] mb-1">Objective</span>
+                                <p class="text-zinc-300 font-light">Create a cohesive visual narrative for a local outdoors brand to pivot towards a "premium-rugged" market segment.</p>
+                            </div>
+                            <div>
+                                <span class="block text-zinc-500 uppercase tracking-widest text-[10px] mb-1">Execution</span>
+                                <p class="text-zinc-300 font-light">Shot on Sony a7S III with vintage prime lenses. Utilized desaturated, high-contrast color grading in DaVinci Resolve to evoke authenticity.</p>
+                            </div>
+                            <div class="p-4 bg-zinc-950 border-l-2 border-white/20">
+                                <span class="block text-white uppercase tracking-widest text-[10px] mb-1">Marketing Impact</span>
+                                <p class="text-white font-medium">Resulted in a 12-post cohesive grid that increased profile interactions by 42% over 30 days.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case Study 2 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div class="md:order-last aspect-video bg-zinc-900 rounded-lg overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?auto=format&fit=crop&q=80&w=2000" class="w-full h-full object-cover grayscale opacity-70">
+                    </div>
+                    <div>
+                        <h4 class="text-2xl font-bold mb-6 italic tracking-tight">Project: Tech Startup Social Launch</h4>
+                        <div class="space-y-6 text-sm">
+                            <div>
+                                <span class="block text-zinc-500 uppercase tracking-widest text-[10px] mb-1">Objective</span>
+                                <p class="text-zinc-300 font-light">Develop a series of high-energy teaser clips for a new mobile application launch targeting Gen Z developers.</p>
+                            </div>
+                            <div>
+                                <span class="block text-zinc-500 uppercase tracking-widest text-[10px] mb-1">Execution</span>
+                                <p class="text-zinc-300 font-light">Fast-paced kinetic typography blended with cinematic lifestyle shots. Used viewer retention heatmaps to optimize video pacing.</p>
+                            </div>
+                            <div class="p-4 bg-zinc-950 border-l-2 border-white/20">
+                                <span class="block text-white uppercase tracking-widest text-[10px] mb-1">Marketing Impact</span>
+                                <p class="text-white font-medium">Achieved a 68% average watch time across TikTok, significantly outperforming industry benchmarks for the sector.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. The Technical Stack (Informatics Edge) -->
+        <section id="tech-stack" class="py-24 border-b border-zinc-900">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+                <div class="md:col-span-4">
+                    <h2 class="text-xs uppercase tracking-[0.5em] text-zinc-500 mb-4">03 / Tech Stack</h2>
+                    <h3 class="text-3xl font-light tracking-tight">The Informatics Edge</h3>
+                    <p class="mt-6 text-sm text-zinc-400 font-light leading-relaxed">
+                        Beyond the lens: I analyze data to inform creative decisions, bridging the gap between aesthetics and analytics.
+                    </p>
+                </div>
+                <div class="md:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-8">
+                    <div class="space-y-4">
+                        <h4 class="text-xs font-bold uppercase tracking-widest text-white">Creative</h4>
+                        <ul class="text-sm text-zinc-500 space-y-2 font-light">
+                            <li>Sony a7S III / a7IV</li>
+                            <li>DaVinci Resolve (Color)</li>
+                            <li>Adobe Lightroom</li>
+                            <li>Sound Design</li>
+                        </ul>
+                    </div>
+                    <div class="space-y-4">
+                        <h4 class="text-xs font-bold uppercase tracking-widest text-white">Analytics</h4>
+                        <ul class="text-sm text-zinc-500 space-y-2 font-light">
+                            <li>Social Media Analytics</li>
+                            <li>SEO Optimization</li>
+                            <li>Retention Heatmaps</li>
+                            <li>CMS Management</li>
+                        </ul>
+                    </div>
+                    <div class="space-y-4">
+                        <h4 class="text-xs font-bold uppercase tracking-widest text-white">Informatics</h4>
+                        <ul class="text-sm text-zinc-500 space-y-2 font-light italic">
+                            <li>Data-Driven Pacing</li>
+                            <li>Visual A/B Testing</li>
+                            <li>Platform Algorithms</li>
+                            <li>Technical SEO</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Brand Narrative & Voice -->
+        <section id="narrative" class="py-24 border-b border-zinc-900">
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+                <div class="flex-1">
+                    <h2 class="text-xs uppercase tracking-[0.5em] text-zinc-500 mb-4">04 / Narrative</h2>
+                    <h3 class="text-3xl md:text-5xl font-light tracking-tight mb-8">Visual Psychology</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed mb-8 font-light">
+                        I understand that a brand is more than a logo. It's a mood, a tone, and a specific palette. I use warm, desaturated palettes to appeal to "authentic" and "nostalgic" audience preferences.
+                    </p>
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 bg-zinc-800 rounded-full"></div>
+                        <div class="w-12 h-12 bg-zinc-700 rounded-full"></div>
+                        <div class="w-12 h-12 bg-zinc-600 rounded-full"></div>
+                        <div class="w-12 h-12 bg-zinc-500 rounded-full"></div>
+                    </div>
+                </div>
+                <div class="flex-1 aspect-square bg-zinc-950 border border-zinc-900 p-8 grid grid-cols-2 gap-4">
+                    <div class="bg-zinc-900"></div>
+                    <div class="bg-zinc-900 opacity-50"></div>
+                    <div class="bg-zinc-900 opacity-30"></div>
+                    <div class="bg-zinc-900 opacity-10"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Personal Brand Proof -->
+        <section id="proof" class="py-24 text-center">
+            <h2 class="text-xs uppercase tracking-[0.5em] text-zinc-500 mb-4">05 / Social Proof</h2>
+            <h3 class="text-3xl md:text-5xl font-light tracking-tight mb-16">The Creator Journey</h3>
+            <div class="max-w-3xl mx-auto p-12 bg-zinc-950 border border-zinc-900 rounded-2xl">
+                <p class="text-lg md:text-2xl font-light text-zinc-300 italic mb-12">
+                    "I am my own first client. By managing my own digital presence, I've mastered the lifecycle of a visual asset—from capture to conversion."
+                </p>
+                <div class="grid grid-cols-3 gap-8">
+                    <div>
+                        <span class="block text-2xl font-bold text-white mb-1">X+</span>
+                        <span class="text-[10px] uppercase tracking-widest text-zinc-500">Followers</span>
+                    </div>
+                    <div>
+                        <span class="block text-2xl font-bold text-white mb-1">Y%</span>
+                        <span class="text-[10px] uppercase tracking-widest text-zinc-500">Engagement</span>
+                    </div>
+                    <div>
+                        <span class="block text-2xl font-bold text-white mb-1">Z</span>
+                        <span class="text-[10px] uppercase tracking-widest text-zinc-500">Campaigns</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="py-12 px-6 border-t border-zinc-900 text-zinc-500 text-[10px] uppercase tracking-[0.3em] flex flex-col md:flex-row justify-between items-center gap-8">
+        <div>&copy; 2026 Story of Leo. Personal Brand Proof.</div>
+        <div class="flex gap-8">
+            <a href="index.html" class="hover:text-white transition-colors">Home</a>
+            <a href="mailto:leo@example.com" class="hover:text-white transition-colors">Contact</a>
+        </div>
+    </footer>
+
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+</body>
+</html>

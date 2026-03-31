@@ -1,169 +1,186 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Leo Fan</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      color: #1a1a1a;
-      background: #fafafa;
-      line-height: 1.6;
-    }
-
-    .container {
-      max-width: 640px;
-      margin: 0 auto;
-      padding: 80px 24px;
-    }
-
-    .profile-img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 24px;
-      border: 3px solid #fff;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .tagline {
-      color: #666;
-      font-size: 1.1rem;
-      margin-bottom: 40px;
-    }
-
-    section { margin-bottom: 48px; }
-
-    h2 {
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: #999;
-      margin-bottom: 16px;
-    }
-
-    p { margin-bottom: 16px; color: #444; }
-
-    .projects {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .projects li {
-      padding: 20px;
-      background: #fff;
-      border: 1px solid #e8e8e8;
-      border-radius: 8px;
-    }
-
-    .projects li strong {
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .projects li span {
-      color: #666;
-      font-size: 0.95rem;
-    }
-
-    .links {
-      display: flex;
-      gap: 24px;
-    }
-
-    .links a {
-      color: #1a1a1a;
-      text-decoration: none;
-      font-weight: 500;
-      border-bottom: 1px solid #ccc;
-      transition: border-color 0.2s;
-    }
-
-    .links a:hover { border-color: #1a1a1a; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story of Leo | Videography & Photo Marketing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .text-shadow-lg { text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8); }
+    </style>
 </head>
-<body>
-  <div class="container">
-    <header>
-      <img src="leo3.png" alt="Leo Fan" class="profile-img">
-      <h1>Leo Fan</h1>
-      <p class="tagline">Software Engineer</p>
+<body class="bg-black text-zinc-100 selection:bg-zinc-800 selection:text-white">
+
+    <!-- Navigation Header -->
+    <nav class="fixed top-0 w-full z-50 px-6 py-8 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent backdrop-blur-sm">
+        <a href="#" class="text-sm font-bold tracking-[0.2em] uppercase">Story of Leo</a>
+        <div class="flex gap-8 text-[10px] md:text-xs uppercase tracking-[0.3em] font-medium">
+            <a href="marketing.html" class="hover:text-white/60 transition-colors">Marketing</a>
+            <a href="#gallery" class="hover:text-white/60 transition-colors">Gallery</a>
+            <a href="#about" class="hover:text-white/60 transition-colors">About</a>
+        </div>
+    </nav>
+
+    <!-- Priority 1: Hero Section (Cinematic Video Background) -->
+    <header class="relative h-screen w-full overflow-hidden flex items-center justify-center">
+        <!-- Background Video Overlay -->
+        <div class="absolute inset-0 z-10 bg-black/40 pointer-events-none"></div>
+        
+        <!-- Background Video -->
+        <video 
+            class="absolute inset-0 w-full h-full object-cover z-0" 
+            autoplay 
+            muted 
+            loop 
+            playsinline
+            poster="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=2070"
+        >
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-stars-in-the-night-sky-stop-motion-160-large.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Branding & CTA -->
+        <div class="relative z-20 text-center px-4 max-w-4xl mx-auto">
+            <h1 class="text-5xl md:text-8xl font-black uppercase tracking-tighter mb-4 opacity-0 animate-[fadeIn_1s_ease-out_forwards] text-shadow-lg">
+                Story of Leo
+            </h1>
+            <p class="text-lg md:text-2xl font-light tracking-[0.3em] uppercase opacity-0 animate-[fadeIn_1.5s_ease-out_forwards] delay-300 text-shadow-lg">
+                Visual Narrative & Strategic Marketing
+            </p>
+            <div class="mt-12 opacity-0 animate-[fadeIn_2s_ease-out_forwards] delay-700">
+                <a href="#services" class="border border-white/30 hover:bg-white hover:text-black transition-all duration-500 px-8 py-3 tracking-widest uppercase text-sm">
+                    Discover More
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 animate-bounce opacity-50">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
     </header>
 
-    <section>
-      <h2>About</h2>
-      <p>
-        Welcome to my corner of the internet. I'm Leo, a software engineer passionate about building scalable applications, exploring new technologies, and solving complex problems with elegant code.
-      </p>
-    </section>
+    <main>
+        <!-- About Section -->
+        <section id="about" class="py-24 md:py-40 px-6 max-w-5xl mx-auto text-center">
+            <h2 class="text-xs uppercase tracking-[0.5em] text-zinc-500 mb-8">My Philosophy</h2>
+            <p class="text-2xl md:text-4xl font-light leading-relaxed text-zinc-300">
+                I believe that every brand has a soul, and every soul has a story. My mission is to translate those stories into <span class="text-white italic">unforgettable visual experiences</span> that resonate and inspire.
+            </p>
+        </section>
 
-    <section>
-      <h2>Projects</h2>
-      <ul class="projects">
-        <li>
-          <strong>Portfolio Website</strong>
-          <span>A clean, responsive personal portfolio built with HTML, CSS, and modern web standards.</span>
-        </li>
-        <li>
-          <strong>Data Dashboard</strong>
-          <span>An interactive dashboard for visualizing real-time metrics and analytics data.</span>
-        </li>
-        <li>
-          <strong>Developer CLI</strong>
-          <span>A command-line interface tool designed to automate and streamline daily development workflows.</span>
-        </li>
-      </ul>
-    </section>
+        <!-- Priority 2: Marketing (Services Section) -->
+        <section id="services" class="py-24 md:py-40 px-6 max-w-7xl mx-auto border-y border-zinc-900">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-end mb-20">
+                <div class="md:col-span-6">
+                    <h2 class="text-xs uppercase tracking-[0.5em] text-zinc-500 mb-4">Core Expertise</h2>
+                    <p class="text-3xl md:text-5xl font-light leading-tight">
+                        I blend <span class="text-white font-normal">cinematic artistry</span> with 
+                        <span class="text-white font-normal">strategic visual marketing</span> to elevate your brand.
+                    </p>
+                </div>
+            </div>
 
-    <section>
-      <h2>Photography</h2>
-      <ul class="projects">
-        <li>
-          <strong>Landscape Series</strong>
-          <span>A collection of mountain and coastal photography from my travels.</span>
-        </li>
-        <li>
-          <strong>Street Photography</strong>
-          <span>Capturing the candid moments and architecture of urban life.</span>
-        </li>
-      </ul>
-    </section>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-32">
+                <!-- Videography -->
+                <div class="group">
+                    <div class="overflow-hidden mb-8 aspect-video">
+                        <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=2070" 
+                             alt="Videography" 
+                             class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100">
+                    </div>
+                    <h3 class="text-2xl font-medium mb-4 tracking-tight">Cinematic Videography</h3>
+                    <p class="text-zinc-400 font-light leading-relaxed">
+                        From brand films to documentary-style event coverage. I capture the essence of your story through high-end production and narrative editing.
+                    </p>
+                </div>
 
-    <section>
-      <h2>Videography</h2>
-      <ul class="projects">
-        <li>
-          <strong>Short Film: "The Journey"</strong>
-          <span>A visual narrative exploring the concept of time and movement.</span>
-        </li>
-        <li>
-          <strong>Travel Vlog</strong>
-          <span>Cinematic highlights from my recent trip across Japan.</span>
-        </li>
-      </ul>
-    </section>
+                <!-- Visual Marketing -->
+                <a href="marketing.html" class="group block">
+                    <div class="overflow-hidden mb-8 aspect-video">
+                        <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=2070" 
+                             alt="Visual Marketing" 
+                             class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100">
+                    </div>
+                    <h3 class="text-2xl font-medium mb-4 tracking-tight">Visual Marketing</h3>
+                    <p class="text-zinc-400 font-light leading-relaxed">
+                        Data-driven visual assets for social media, digital advertising, and brand identity. I create images that don't just look good—they convert.
+                    </p>
+                </a>
+            </div>
+        </section>
 
-    <section>
-      <h2>Contact</h2>
-      <div class="links">
-        <a href="https://github.com/starstrider10">GitHub</a>
-        <a href="mailto:leo.fan@example.com">Email</a>
-        <a href="https://linkedin.com/in/leofan">LinkedIn</a>
-      </div>
-    </section>
-  </div>
+        <!-- Priority 3: Gallery (3-Column Grid) -->
+        <section id="gallery" class="py-24 md:py-40 px-6 max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-baseline mb-16">
+                <h2 class="text-3xl md:text-5xl font-light tracking-tighter mb-4 md:mb-0">Selected Projects</h2>
+                <span class="text-xs uppercase tracking-[0.3em] text-zinc-600">Archive 2024-2025</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="group relative cursor-pointer overflow-hidden aspect-square md:aspect-[3/4]">
+                    <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&q=80&w=1925" 
+                         alt="Project 1" 
+                         class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-8 flex flex-col justify-end">
+                        <p class="text-xs uppercase tracking-widest text-zinc-400 mb-2">Short Film</p>
+                        <h4 class="text-xl">The Midnight Pulse</h4>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="group relative cursor-pointer overflow-hidden aspect-square md:aspect-[3/4]">
+                    <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=1964" 
+                         alt="Project 2" 
+                         class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-8 flex flex-col justify-end">
+                        <p class="text-xs uppercase tracking-widest text-zinc-400 mb-2">Brand Identity</p>
+                        <h4 class="text-xl">Urban Monolith</h4>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="group relative cursor-pointer overflow-hidden aspect-square md:aspect-[3/4]">
+                    <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=2070" 
+                         alt="Project 3" 
+                         class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-8 flex flex-col justify-end">
+                        <p class="text-xs uppercase tracking-widest text-zinc-400 mb-2">Social Campaign</p>
+                        <h4 class="text-xl">Ethereal Motion</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="py-40 bg-zinc-950 text-center px-6">
+            <h2 class="text-4xl md:text-7xl font-bold tracking-tighter mb-12">Let's create <br class="md:hidden"> something iconic.</h2>
+            <a href="mailto:leo@example.com" class="inline-block text-xl md:text-2xl font-light border-b border-white/20 hover:border-white transition-all pb-2 tracking-wide">
+                hello@storyofleo.com
+            </a>
+        </section>
+    </main>
+
+    <footer class="py-12 px-6 border-t border-zinc-900 text-zinc-500 text-xs uppercase tracking-[0.3em] flex flex-col md:flex-row justify-between items-center gap-8">
+        <div>&copy; 2026 Story of Leo. All Rights Reserved.</div>
+        <div class="flex gap-8">
+            <a href="#" class="hover:text-white transition-colors">Instagram</a>
+            <a href="#" class="hover:text-white transition-colors">Vimeo</a>
+            <a href="#" class="hover:text-white transition-colors">LinkedIn</a>
+        </div>
+    </footer>
+
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
 </body>
 </html>
