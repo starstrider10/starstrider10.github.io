@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | Story of Leo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .text-shadow-lg { text-shadow: 0 4px 12px rgba(0, 0, 0, 0.9); }
+        .gallery-image { transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease; }
+        .gallery-item:hover .gallery-image { transform: scale(1.05); opacity: 0.8; }
+    </style>
+</head>
+<body class="bg-[#1A1817] text-zinc-100 selection:bg-zinc-800 selection:text-white">
+
+    <!-- Navigation Header -->
+    <nav class="fixed top-0 w-full z-50 px-6 py-8 flex justify-between items-center bg-gradient-to-b from-[#1A1817]/90 to-transparent backdrop-blur-sm">
+        <a href="index.html" class="text-sm font-bold tracking-[0.2em] uppercase">Story of Leo</a>
+        <div class="flex gap-8 text-[10px] md:text-xs uppercase tracking-[0.3em] font-medium">
+            <a href="index.html" class="hover:text-[#FFB84D] transition-colors">Home</a>
+            <a href="marketing.html" class="hover:text-[#FFB84D] transition-colors">Marketing</a>
+            <a href="journal.html" class="hover:text-[#FFB84D] transition-colors">Journal</a>
+            <a href="about.html" class="hover:text-[#FFB84D] transition-colors">About</a>
+        </div>
+    </nav>
+
+    <main class="pt-32 px-6 max-w-7xl mx-auto">
+        
+        <!-- Header & Series Filter -->
+        <header class="mb-20">
+            <h1 class="text-xs uppercase tracking-[0.5em] text-zinc-500 mb-8 font-bold">Visual Archives</h1>
+            <div class="flex flex-wrap gap-8 md:gap-16 border-b border-zinc-900 pb-8">
+                <button onclick="filterGallery('all')" class="text-xl md:text-2xl font-light hover:text-[#FFB84D] transition-all tracking-tighter filter-btn active text-[#FFB84D]">All Work</button>
+                <button onclick="filterGallery('pointless-joy')" class="text-xl md:text-2xl font-light hover:text-[#FFB84D] transition-all tracking-tighter filter-btn">Pointless Joy</button>
+                <button onclick="filterGallery('urban')" class="text-xl md:text-2xl font-light hover:text-[#FFB84D] transition-all tracking-tighter filter-btn">Urban Archives</button>
+                <button onclick="filterGallery('motion')" class="text-xl md:text-2xl font-light hover:text-[#FFB84D] transition-all tracking-tighter filter-btn">Motion Stills</button>
+            </div>
+        </header>
+
+        <!-- Marketing Context Panel (Dynamic) -->
+        <section id="strategy-panel" class="mb-12 bg-[#2D3A3A]/20 border border-zinc-900 p-8 rounded-sm">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-8">
+                <div class="max-w-2xl">
+                    <h2 class="text-[10px] uppercase tracking-[0.3em] text-[#FFB84D] mb-4 font-bold">Strategic Context</h2>
+                    <p id="strategy-text" class="text-sm text-zinc-400 leading-relaxed font-light italic">
+                        Viewing the full archive. Each series is engineered with a specific visual narrative intended for high-end brand placement and digital storytelling.
+                    </p>
+                </div>
+                <div class="flex gap-4">
+                    <div class="px-4 py-2 border border-white/10 text-[9px] uppercase tracking-widest text-zinc-500">Sony a7S III</div>
+                    <div class="px-4 py-2 border border-white/10 text-[9px] uppercase tracking-widest text-zinc-500">DaVinci Resolve</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Grid -->
+        <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-24">
+            <!-- Image 1 (Pointless Joy) -->
+            <div class="gallery-item pointless-joy relative aspect-square bg-zinc-900 overflow-hidden cursor-pointer group">
+                <img src="https://res.cloudinary.com/decv98oqz/image/upload/v1774982246/20260302-LEO01418_htjlbj.jpg" class="gallery-image w-full h-full object-cover grayscale group-hover:grayscale-0" alt="Pointless Joy 1">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end">
+                    <span class="text-[8px] uppercase tracking-widest text-[#FFB84D]">Series: Pointless Joy</span>
+                </div>
+            </div>
+
+            <!-- Image 2 (Urban) -->
+            <div class="gallery-item urban relative aspect-square bg-zinc-900 overflow-hidden cursor-pointer group">
+                <img src="https://images.unsplash.com/photo-1493106819501-66d381c466f1?auto=format&fit=crop&q=80&w=1000" class="gallery-image w-full h-full object-cover grayscale group-hover:grayscale-0" alt="Urban 1">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end">
+                    <span class="text-[8px] uppercase tracking-widest text-[#FFB84D]">Series: Urban Archives</span>
+                </div>
+            </div>
+
+            <!-- Image 3 (Motion) -->
+            <div class="gallery-item motion relative aspect-square bg-zinc-900 overflow-hidden cursor-pointer group">
+                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&q=80&w=1000" class="gallery-image w-full h-full object-cover grayscale group-hover:grayscale-0" alt="Motion 1">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end">
+                    <span class="text-[8px] uppercase tracking-widest text-[#FFB84D]">Series: Motion Stills</span>
+                </div>
+            </div>
+
+            <!-- More placeholders to fill grid -->
+            <div class="gallery-item pointless-joy relative aspect-square bg-zinc-900 overflow-hidden cursor-pointer group">
+                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=1000" class="gallery-image w-full h-full object-cover grayscale group-hover:grayscale-0" alt="Pointless Joy 2">
+            </div>
+            <div class="gallery-item urban relative aspect-square bg-zinc-900 overflow-hidden cursor-pointer group">
+                <img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&q=80&w=1000" class="gallery-image w-full h-full object-cover grayscale group-hover:grayscale-0" alt="Urban 2">
+            </div>
+            <div class="gallery-item pointless-joy relative aspect-square bg-zinc-900 overflow-hidden cursor-pointer group">
+                <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=1000" class="gallery-image w-full h-full object-cover grayscale group-hover:grayscale-0" alt="Pointless Joy 3">
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <footer class="py-24 text-center border-t border-zinc-900">
+            <h2 class="text-3xl md:text-5xl font-light tracking-tighter mb-8 italic">Ready to tell a <span class="text-[#FFB84D]">new story?</span></h2>
+            <a href="mailto:hello@storyofleo.com" class="text-[10px] uppercase tracking-[0.4em] font-bold text-white border-b border-[#FFB84D]/30 hover:border-[#FFB84D] transition-all pb-2">
+                hello@storyofleo.com
+            </a>
+        </footer>
+
+    </main>
+
+    <script>
+        const strategies = {
+            'all': 'Viewing the full archive. Each series is engineered with a specific visual narrative intended for high-end brand placement and digital storytelling.',
+            'pointless-joy': 'Pointless Joy: A study in warm, nostalgic color theory. Engineered to build brand trust and human connection through a "film-look" rejection of clinical digital imagery.',
+            'urban': 'Urban Archives: High-contrast street photography focused on geometric composition and architectural silhouettes. Optimized for high-engagement social carousels.',
+            'motion': 'Motion Stills: Capturing the energy of movement. Technical focus on shutter drag and motion blur to create dynamic, "living" static assets for lifestyle brands.'
+        };
+
+        function filterGallery(category) {
+            // Update text
+            document.getElementById('strategy-text').innerText = strategies[category];
+            
+            // Filter items
+            const items = document.querySelectorAll('.gallery-item');
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Update button styles
+            const btns = document.querySelectorAll('.filter-btn');
+            btns.forEach(btn => btn.classList.remove('text-[#FFB84D]'));
+            event.target.classList.add('text-[#FFB84D]');
+        }
+    </script>
+
+</body>
+</html>
