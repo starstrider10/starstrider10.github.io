@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery | Story of Leo</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
@@ -33,9 +35,9 @@
             <h1 class="text-xs uppercase tracking-[0.5em] text-zinc-500 mb-8 font-bold">Visual Archives</h1>
             <div class="flex flex-wrap gap-8 md:gap-16 border-b border-zinc-900 pb-8">
                 <button onclick="filterGallery('all')" class="text-xl md:text-2xl font-light hover:text-[#FFB84D] transition-all tracking-tighter filter-btn active text-[#FFB84D]">All Work</button>
-                <button onclick="filterGallery('pointless-joy')" class="text-xl md:text-2xl font-light hover:text-[#FFB84D] transition-all tracking-tighter filter-btn">Pointless Joy</button>
-                <button onclick="filterGallery('urban')" class="text-xl md:text-2xl font-light hover:text-[#FFB84D] transition-all tracking-tighter filter-btn">Urban Archives</button>
-                <button onclick="filterGallery('motion')" class="text-xl md:text-2xl font-light hover:text-[#FFB84D] transition-all tracking-tighter filter-btn">Motion Stills</button>
+                <button onclick="filterGallery('portraiture')" class="text-xl md:text-2xl font-light hover:text-[#FFB84D] transition-all tracking-tighter filter-btn">Portraiture</button>
+                <button onclick="filterGallery('adventure')" class="text-xl md:text-2xl font-light hover:text-[#FFB84D] transition-all tracking-tighter filter-btn">Adventure</button>
+                <button onclick="filterGallery('street')" class="text-xl md:text-2xl font-light hover:text-[#FFB84D] transition-all tracking-tighter filter-btn">Street</button>
             </div>
         </header>
 
@@ -45,51 +47,55 @@
                 <div class="max-w-2xl">
                     <h2 class="text-[10px] uppercase tracking-[0.3em] text-[#FFB84D] mb-4 font-bold">Strategic Context</h2>
                     <p id="strategy-text" class="text-sm text-zinc-400 leading-relaxed font-light italic">
-                        Viewing the full archive. Each series is engineered with a specific visual narrative intended for high-end brand placement and digital storytelling.
+                        Viewing the full archive. Each genre is captured with intentional technical choices designed to evoke specific audience responses and brand values.
                     </p>
                 </div>
                 <div class="flex gap-4">
                     <div class="px-4 py-2 border border-white/10 text-[9px] uppercase tracking-widest text-zinc-500">Sony a7S III</div>
-                    <div class="px-4 py-2 border border-white/10 text-[9px] uppercase tracking-widest text-zinc-500">DaVinci Resolve</div>
+                    <div class="px-4 py-2 border border-white/10 text-[9px] uppercase tracking-widest text-zinc-500">Mastery of Light</div>
                 </div>
             </div>
         </section>
 
         <!-- Gallery Grid -->
         <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-24">
-            <!-- Image 1 (Pointless Joy) -->
-            <div class="gallery-item pointless-joy relative aspect-square bg-zinc-900 overflow-hidden cursor-pointer group">
-                <img src="https://res.cloudinary.com/decv98oqz/image/upload/v1774982246/20260302-LEO01418_htjlbj.jpg" class="gallery-image w-full h-full object-cover grayscale group-hover:grayscale-0" alt="Pointless Joy 1">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end">
-                    <span class="text-[8px] uppercase tracking-widest text-[#FFB84D]">Series: Pointless Joy</span>
+            <!-- Image 1 (Portraiture) -->
+            <div class="gallery-item portraiture relative aspect-square bg-zinc-900 overflow-hidden cursor-pointer group">
+                <img src="https://res.cloudinary.com/decv98oqz/image/upload/v1774982246/20260302-LEO01418_htjlbj.jpg" class="gallery-image w-full h-full object-cover grayscale group-hover:grayscale-0" alt="Portraiture 1">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end text-left">
+                    <span class="text-[8px] uppercase tracking-widest text-[#FFB84D]">Genre: Portraiture</span>
                 </div>
             </div>
 
-            <!-- Image 2 (Urban) -->
-            <div class="gallery-item urban relative aspect-square bg-zinc-900 overflow-hidden cursor-pointer group">
-                <img src="https://images.unsplash.com/photo-1493106819501-66d381c466f1?auto=format&fit=crop&q=80&w=1000" class="gallery-image w-full h-full object-cover grayscale group-hover:grayscale-0" alt="Urban 1">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end">
-                    <span class="text-[8px] uppercase tracking-widest text-[#FFB84D]">Series: Urban Archives</span>
+            <!-- Image 2 (Adventure) -->
+            <div class="gallery-item adventure relative aspect-square bg-zinc-900 overflow-hidden cursor-pointer group">
+                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=1000" class="gallery-image w-full h-full object-cover grayscale group-hover:grayscale-0" alt="Adventure 1">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end text-left">
+                    <span class="text-[8px] uppercase tracking-widest text-[#FFB84D]">Genre: Adventure</span>
                 </div>
             </div>
 
-            <!-- Image 3 (Motion) -->
-            <div class="gallery-item motion relative aspect-square bg-zinc-900 overflow-hidden cursor-pointer group">
-                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&q=80&w=1000" class="gallery-image w-full h-full object-cover grayscale group-hover:grayscale-0" alt="Motion 1">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end">
-                    <span class="text-[8px] uppercase tracking-widest text-[#FFB84D]">Series: Motion Stills</span>
+            <!-- Image 3 (Street) -->
+            <div class="gallery-item street relative aspect-square bg-zinc-900 overflow-hidden cursor-pointer group">
+                <img src="https://images.unsplash.com/photo-1493106819501-66d381c466f1?auto=format&fit=crop&q=80&w=1000" class="gallery-image w-full h-full object-cover grayscale group-hover:grayscale-0" alt="Street 1">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end text-left">
+                    <span class="text-[8px] uppercase tracking-widest text-[#FFB84D]">Genre: Street</span>
                 </div>
             </div>
 
-            <!-- More placeholders to fill grid -->
-            <div class="gallery-item pointless-joy relative aspect-square bg-zinc-900 overflow-hidden cursor-pointer group">
-                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=1000" class="gallery-image w-full h-full object-cover grayscale group-hover:grayscale-0" alt="Pointless Joy 2">
+            <!-- Placeholder 4 (Portraiture) -->
+            <div class="gallery-item portraiture relative aspect-square bg-zinc-900 overflow-hidden cursor-pointer group">
+                <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&q=80&w=1000" class="gallery-image w-full h-full object-cover grayscale group-hover:grayscale-0" alt="Portraiture 2">
             </div>
-            <div class="gallery-item urban relative aspect-square bg-zinc-900 overflow-hidden cursor-pointer group">
-                <img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&q=80&w=1000" class="gallery-image w-full h-full object-cover grayscale group-hover:grayscale-0" alt="Urban 2">
+
+            <!-- Placeholder 5 (Adventure) -->
+            <div class="gallery-item adventure relative aspect-square bg-zinc-900 overflow-hidden cursor-pointer group">
+                <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=1000" class="gallery-image w-full h-full object-cover grayscale group-hover:grayscale-0" alt="Adventure 2">
             </div>
-            <div class="gallery-item pointless-joy relative aspect-square bg-zinc-900 overflow-hidden cursor-pointer group">
-                <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=1000" class="gallery-image w-full h-full object-cover grayscale group-hover:grayscale-0" alt="Pointless Joy 3">
+
+            <!-- Placeholder 6 (Street) -->
+            <div class="gallery-item street relative aspect-square bg-zinc-900 overflow-hidden cursor-pointer group">
+                <img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&q=80&w=1000" class="gallery-image w-full h-full object-cover grayscale group-hover:grayscale-0" alt="Street 2">
             </div>
         </div>
 
@@ -105,31 +111,59 @@
 
     <script>
         const strategies = {
-            'all': 'Viewing the full archive. Each series is engineered with a specific visual narrative intended for high-end brand placement and digital storytelling.',
-            'pointless-joy': 'Pointless Joy: A study in warm, nostalgic color theory. Engineered to build brand trust and human connection through a "film-look" rejection of clinical digital imagery.',
-            'urban': 'Urban Archives: High-contrast street photography focused on geometric composition and architectural silhouettes. Optimized for high-engagement social carousels.',
-            'motion': 'Motion Stills: Capturing the energy of movement. Technical focus on shutter drag and motion blur to create dynamic, "living" static assets for lifestyle brands.'
+            'all': 'Viewing the full archive. Each genre is captured with intentional technical choices designed to evoke specific audience responses and brand values.',
+            'portraiture': 'Portraiture: Focusing on human connection and emotional depth. Utilized shallow depth of field and warm, authentic color grading to build immediate viewer trust.',
+            'adventure': 'Adventure: Highlighting freedom and exploration. Engineered for lifestyle and outdoor brands that value rugged authenticity and wide-scale narrative scope.',
+            'street': 'Street: Capturing the rhythmic pulse of urban life. Technical focus on geometric composition and high-contrast lighting to create high-engagement social assets.'
         };
 
         function filterGallery(category) {
             // Update text
             document.getElementById('strategy-text').innerText = strategies[category];
             
-            // Filter items
+            // Filter items with GSAP for smooth transition
             const items = document.querySelectorAll('.gallery-item');
-            items.forEach(item => {
-                if (category === 'all' || item.classList.contains(category)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
+            
+            gsap.to(items, {
+                duration: 0.3,
+                scale: 0.9,
+                opacity: 0,
+                onComplete: () => {
+                    items.forEach(item => {
+                        if (category === 'all' || item.classList.contains(category)) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                    gsap.to(".gallery-item:visible", {
+                        duration: 0.5,
+                        scale: 1,
+                        opacity: 1,
+                        stagger: 0.1,
+                        ease: "power2.out"
+                    });
                 }
             });
 
             // Update button styles
             const btns = document.querySelectorAll('.filter-btn');
             btns.forEach(btn => btn.classList.remove('text-[#FFB84D]'));
-            event.target.classList.add('text-[#FFB84D]');
+            
+            // Find the button that was actually clicked based on its text content
+            const activeBtn = Array.from(btns).find(btn => btn.textContent.toLowerCase() === (category === 'all' ? 'all work' : category));
+            if (activeBtn) activeBtn.classList.add('text-[#FFB84D]');
         }
+
+        // Initialize GSAP for initial load
+        gsap.from(".gallery-item", {
+            duration: 1,
+            y: 40,
+            opacity: 0,
+            stagger: 0.1,
+            ease: "power3.out",
+            delay: 0.2
+        });
     </script>
 
 </body>
