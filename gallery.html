@@ -31,9 +31,9 @@
     <main class="pt-32 px-6 max-w-7xl mx-auto">
         
         <!-- Header & Series Filter -->
-        <header class="mb-20">
-            <h1 class="text-xs uppercase tracking-[0.5em] text-zinc-500 mb-8 font-bold">Visual Archives</h1>
-            <div class="flex flex-wrap gap-8 md:gap-16 border-b border-zinc-900 pb-8">
+        <header class="mb-8">
+            <h1 class="text-xs uppercase tracking-[0.5em] text-zinc-500 mb-6 font-bold">Visual Archives</h1>
+            <div class="flex flex-wrap gap-8 md:gap-16 border-b border-zinc-900 pb-6">
                 <button onclick="filterGallery('all')" class="text-xl md:text-2xl font-light hover:text-[#FFB84D] transition-all tracking-tighter filter-btn active text-[#FFB84D]">All Work</button>
                 <button onclick="filterGallery('portraiture')" class="text-xl md:text-2xl font-light hover:text-[#FFB84D] transition-all tracking-tighter filter-btn">Portraiture</button>
                 <button onclick="filterGallery('adventure')" class="text-xl md:text-2xl font-light hover:text-[#FFB84D] transition-all tracking-tighter filter-btn">Adventure</button>
@@ -41,61 +41,29 @@
             </div>
         </header>
 
-        <!-- Marketing Context Panel (Dynamic) -->
-        <section id="strategy-panel" class="mb-12 bg-[#2D3A3A]/20 border border-zinc-900 p-8 rounded-sm">
-            <div class="flex flex-col md:flex-row justify-between items-start gap-8">
-                <div class="max-w-2xl">
-                    <h2 class="text-[10px] uppercase tracking-[0.3em] text-[#FFB84D] mb-4 font-bold">Strategic Context</h2>
-                    <p id="strategy-text" class="text-sm text-zinc-400 leading-relaxed font-light italic">
-                        Viewing the full archive. Each genre is captured with intentional technical choices designed to evoke specific audience responses and brand values.
-                    </p>
+        <!-- Hero / Album Preview Section -->
+        <div id="gallery-container" class="space-y-12 mb-32">
+            <!-- Dynamic Album Sections will be injected here -->
+        </div>
+
+        <!-- Album Modal -->
+        <div id="album-modal" class="fixed inset-0 z-[100] bg-black/95 hidden flex flex-col justify-center items-center p-4 transition-opacity duration-500 opacity-0 backdrop-blur-sm">
+            <button onclick="closeModal()" class="absolute top-8 right-8 text-white/20 hover:text-white text-5xl font-light transition-colors z-[110]">&times;</button>
+            
+            <div class="relative w-full max-w-5xl h-[85vh] flex items-center justify-center group">
+                <!-- Navigation Arrows - Brought closer and styled for better control -->
+                <button onclick="prevPhoto()" class="absolute left-4 z-[110] text-white/10 hover:text-[#FFB84D] text-6xl font-thin transition-all px-4 h-full flex items-center group-hover:text-white/30">&lsaquo;</button>
+                
+                <div class="w-full h-full flex items-center justify-center relative">
+                    <img id="modal-img" src="" class="max-w-full max-h-full object-contain shadow-[0_0_100px_rgba(0,0,0,0.8)] transition-opacity duration-300">
                 </div>
-                <div class="flex gap-4">
-                    <div class="px-4 py-2 border border-white/10 text-[9px] uppercase tracking-widest text-zinc-500">Sony a7S III</div>
-                    <div class="px-4 py-2 border border-white/10 text-[9px] uppercase tracking-widest text-zinc-500">Mastery of Light</div>
-                </div>
+                
+                <button onclick="nextPhoto()" class="absolute right-4 z-[110] text-white/10 hover:text-[#FFB84D] text-6xl font-thin transition-all px-4 h-full flex items-center group-hover:text-white/30">&rsaquo;</button>
             </div>
-        </section>
-
-        <!-- Gallery Grid -->
-        <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-24">
-            <!-- Image 1 (Portraiture) -->
-            <div class="gallery-item portraiture relative aspect-square bg-zinc-900 overflow-hidden cursor-pointer group">
-                <img src="https://res.cloudinary.com/decv98oqz/image/upload/v1774982246/20260302-LEO01418_htjlbj.jpg" class="gallery-image w-full h-full object-cover grayscale group-hover:grayscale-0" alt="Portraiture 1">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end text-left">
-                    <span class="text-[8px] uppercase tracking-widest text-[#FFB84D]">Genre: Portraiture</span>
-                </div>
-            </div>
-
-            <!-- Image 2 (Adventure) -->
-            <div class="gallery-item adventure relative aspect-square bg-zinc-900 overflow-hidden cursor-pointer group">
-                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=1000" class="gallery-image w-full h-full object-cover grayscale group-hover:grayscale-0" alt="Adventure 1">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end text-left">
-                    <span class="text-[8px] uppercase tracking-widest text-[#FFB84D]">Genre: Adventure</span>
-                </div>
-            </div>
-
-            <!-- Image 3 (Street) -->
-            <div class="gallery-item street relative aspect-square bg-zinc-900 overflow-hidden cursor-pointer group">
-                <img src="https://images.unsplash.com/photo-1493106819501-66d381c466f1?auto=format&fit=crop&q=80&w=1000" class="gallery-image w-full h-full object-cover grayscale group-hover:grayscale-0" alt="Street 1">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end text-left">
-                    <span class="text-[8px] uppercase tracking-widest text-[#FFB84D]">Genre: Street</span>
-                </div>
-            </div>
-
-            <!-- Placeholder 4 (Portraiture) -->
-            <div class="gallery-item portraiture relative aspect-square bg-zinc-900 overflow-hidden cursor-pointer group">
-                <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&q=80&w=1000" class="gallery-image w-full h-full object-cover grayscale group-hover:grayscale-0" alt="Portraiture 2">
-            </div>
-
-            <!-- Placeholder 5 (Adventure) -->
-            <div class="gallery-item adventure relative aspect-square bg-zinc-900 overflow-hidden cursor-pointer group">
-                <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=1000" class="gallery-image w-full h-full object-cover grayscale group-hover:grayscale-0" alt="Adventure 2">
-            </div>
-
-            <!-- Placeholder 6 (Street) -->
-            <div class="gallery-item street relative aspect-square bg-zinc-900 overflow-hidden cursor-pointer group">
-                <img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&q=80&w=1000" class="gallery-image w-full h-full object-cover grayscale group-hover:grayscale-0" alt="Street 2">
+            
+            <div class="mt-8 flex flex-col items-center z-[110]">
+                <span id="modal-model-name" class="text-[9px] uppercase tracking-[0.6em] text-[#FFB84D] mb-2 font-bold opacity-80"></span>
+                <div id="modal-counter" class="text-[8px] uppercase tracking-[0.4em] text-white/30"></div>
             </div>
         </div>
 
@@ -109,6 +77,7 @@
 
     </main>
 
+    <script src="portraits.js"></script>
     <script>
         const strategies = {
             'all': 'Viewing the full archive. Each genre is captured with intentional technical choices designed to evoke specific audience responses and brand values.',
@@ -117,53 +86,305 @@
             'street': 'Street: Capturing the rhythmic pulse of urban life. Technical focus on geometric composition and high-contrast lighting to create high-engagement social assets.'
         };
 
-        function filterGallery(category) {
-            // Update text
-            document.getElementById('strategy-text').innerText = strategies[category];
-            
-            // Filter items with GSAP for smooth transition
-            const items = document.querySelectorAll('.gallery-item');
-            
-            gsap.to(items, {
-                duration: 0.3,
-                scale: 0.9,
-                opacity: 0,
-                onComplete: () => {
-                    items.forEach(item => {
-                        if (category === 'all' || item.classList.contains(category)) {
-                            item.style.display = 'block';
-                        } else {
-                            item.style.display = 'none';
-                        }
-                    });
-                    gsap.to(".gallery-item:visible", {
-                        duration: 0.5,
-                        scale: 1,
-                        opacity: 1,
-                        stagger: 0.1,
-                        ease: "power2.out"
-                    });
-                }
-            });
+        let currentAlbum = [];
+        let currentIndex = 0;
+        let currentModel = "";
 
-            // Update button styles
+        function renderGallery(category = 'all') {
+            try {
+                const container = document.getElementById('gallery-container');
+                container.innerHTML = ''; 
+
+                const getModelName = (id) => {
+                    const parts = id.split('-');
+                    return parts.length >= 3 ? parts[2].split('_')[0].toLowerCase() : 'unknown';
+                };
+
+                const getDisplayName = (id, folder) => {
+                    const parts = id.split('-');
+                    if (folder === 'portraits') {
+                        return parts.length >= 3 ? parts[2].split('_')[0].toUpperCase() : 'PORTRAIT';
+                    }
+                    if (parts.length < 2) return '';
+                    let name = parts[1];
+                    return name.replace(/([A-Z])/g, ' $1').trim().replace(/^\w/, c => c.toUpperCase());
+                };
+
+                const heroId = "20260331-LEO02454-christie";
+
+                if (category === 'all' || category === 'adventure') {
+                    // Collect Assets for Floating View
+                    let assets = [];
+                    if (category === 'all') {
+                        assets = [...(galleryData.portraits || []), ...(galleryData.adventure || [])];
+                    } else {
+                        assets = galleryData.adventure || [];
+                    }
+
+                    // Filters
+                    assets = assets.filter(p => {
+                        if (p.folder === 'portraits') {
+                            const name = getModelName(p.public_id);
+                            if (name === 'quynh') return false;
+                            if (p.public_id.includes('20250528-A9200129-kat')) return false;
+                        }
+                        return true;
+                    });
+
+                    const archiveSection = document.createElement('section');
+                    archiveSection.className = 'relative h-[100vh] w-[100vw] -mx-6 mt-4 mb-32 overflow-hidden bg-[#0A0A0A]';
+                    archiveSection.innerHTML = `
+                        <div class="absolute inset-0 flex items-center justify-center z-0 pointer-events-none">
+                            <h2 class="text-[12vw] font-black text-white/[0.03] uppercase tracking-tighter">${category === 'all' ? 'Archives' : 'Adventure'}</h2>
+                        </div>
+                        <div id="floating-archive" class="relative w-full h-full"></div>
+                    `;
+                    container.appendChild(archiveSection);
+                    const archive = archiveSection.querySelector('#floating-archive');
+
+                    let focusedItem = null;
+
+                    assets.forEach((p, i) => {
+                        const item = document.createElement('div');
+                        const isMobile = window.innerWidth < 768;
+                        
+                        const laneCount = isMobile ? 3 : 4;
+                        const lane = i % laneCount;
+                        const topPos = isMobile ? (20 + (lane * 40)) : (15 + (lane * 25)); 
+                        
+                        const rotation = (Math.random() - 0.5) * 15;
+                        const width = isMobile ? (140 + Math.random() * 50) : (260 + Math.random() * 90);
+                        const displayName = getDisplayName(p.public_id, p.folder);
+
+                        item.className = 'absolute cursor-pointer z-10';
+                        item.style.top = `${topPos}%`;
+                        item.style.width = `${width}px`;
+                        
+                        item.innerHTML = `
+                            <div class="w-fit mx-auto relative p-1 md:p-1.5 bg-zinc-900 shadow-2xl group overflow-hidden border border-white/5 transition-all duration-700">
+                                <img src="${p.url}" class="h-auto max-h-[50vh] object-contain saturate-[0.5] hover:saturate-100 transition-all duration-1000">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-end pointer-events-none text-center p-4 pb-6">
+                                    <span class="text-[7px] md:text-[9px] uppercase tracking-[0.4em] text-white font-bold mb-1 leading-tight">${displayName}</span>
+                                    <span class="text-[5px] md:text-[6px] uppercase tracking-widest text-[#FFB84D] opacity-70">Click to Select</span>
+                                </div>
+                            </div>
+                        `;
+                        
+                        archive.appendChild(item);
+
+                        const screenWidth = window.innerWidth;
+                        const buffer = 600;
+                        const totalWidth = screenWidth + (buffer * 2);
+                        const duration = isMobile ? (30 + Math.random() * 20) : (60 + Math.random() * 40);
+
+                        const initialX = (i / assets.length) * totalWidth - buffer;
+                        gsap.set(item, { x: initialX, rotation: rotation });
+
+                        const tl = gsap.timeline({ repeat: -1 });
+                        tl.to(item, {
+                            x: -buffer,
+                            duration: duration * ((initialX + buffer) / totalWidth),
+                            ease: "none"
+                        });
+                        tl.set(item, { x: screenWidth + buffer });
+                        tl.to(item, {
+                            x: -buffer,
+                            duration: duration,
+                            ease: "none"
+                        });
+
+                        item._tl = tl;
+                        item._rotation = rotation;
+
+                        item.onclick = (e) => {
+                            e.stopPropagation();
+                            if (focusedItem === item) {
+                                openAlbum(assets, 'Gallery Archive', i);
+                                returnToStream(item);
+                                return;
+                            }
+                            if (focusedItem) returnToStream(focusedItem);
+                            focusedItem = item;
+                            tl.pause();
+                            item.style.zIndex = "2000";
+                            
+                            const rect = archiveSection.getBoundingClientRect();
+                            const sectionCenterY = rect.height / 2;
+                            const currentItemTop = (topPos / 100) * rect.height;
+                            const targetYOffset = sectionCenterY - currentItemTop - (item.offsetHeight / 2);
+
+                            gsap.to(item, { 
+                                x: screenWidth / 2, 
+                                xPercent: -50,
+                                y: targetYOffset,
+                                scale: isMobile ? 1.8 : 1.6, 
+                                rotation: 0,
+                                duration: 1, 
+                                ease: "expo.out" 
+                            });
+                            item.querySelector('span:last-child').innerText = "Click again to view full";
+                        };
+                    });
+
+                    function returnToStream(el) {
+                        el.style.zIndex = "10";
+                        gsap.to(el, { 
+                            x: gsap.getProperty(el, "x"),
+                            xPercent: 0,
+                            y: 0, 
+                            scale: 1, 
+                            rotation: el._rotation,
+                            duration: 1, 
+                            ease: "power3.inOut",
+                            onComplete: () => el._tl.play()
+                        });
+                        el.querySelector('span:last-child').innerText = "Click to Select";
+                        focusedItem = null;
+                    }
+
+                    archiveSection.onclick = () => {
+                        if (focusedItem) returnToStream(focusedItem);
+                    };
+
+                    return;
+                }
+
+                // RENDER ALBUMS FOR PORTRAITURE
+                const assets = galleryData.portraits || [];
+                const groups = assets.reduce((acc, p) => {
+                    const name = getModelName(p.public_id);
+                    if (name === 'quynh') return acc;
+                    if (p.public_id.includes('20250528-A9200129-kat')) return acc;
+                    if (!acc[name]) acc[name] = [];
+                    acc[name].push(p);
+                    return acc;
+                }, {});
+
+                const sortedModels = Object.keys(groups).sort((a, b) => {
+                    if (a === 'christie') return -1;
+                    if (b === 'christie') return 1;
+                    return groups[b].length - groups[a].length;
+                });
+
+                sortedModels.forEach((modelName) => {
+                    const photos = groups[modelName];
+                    if (modelName === 'christie') {
+                        photos.sort((a, b) => a.public_id.includes(heroId) ? -1 : (b.public_id.includes(heroId) ? 1 : 0));
+                    }
+
+                    const section = document.createElement('section');
+                    section.className = 'album-section group cursor-pointer';
+                    
+                    if (modelName === 'christie') {
+                        section.className += ' relative h-[90vh] overflow-hidden rounded-sm';
+                        section.innerHTML = `
+                            <img src="${photos[0].url}" class="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-105" alt="Hero">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-8 md:p-16">
+                                <span class="text-[10px] uppercase tracking-[0.6em] text-[#FFB84D] mb-4 font-bold">Featured Series</span>
+                                <h2 class="text-4xl md:text-7xl font-light tracking-tighter capitalize mb-4">${modelName}</h2>
+                                <p class="text-[10px] uppercase tracking-[0.3em] text-white/40">Click to enter the archive (${photos.length} frames)</p>
+                            </div>
+                        `;
+                    } else {
+                        section.className += ' relative h-[50vh] md:h-[60vh] overflow-hidden rounded-sm mx-auto max-w-6xl mt-12';
+                        section.innerHTML = `
+                            <img src="${photos[0].url}" class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105" alt="${modelName}">
+                            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all duration-700 flex flex-col justify-center items-center">
+                                <span class="text-[9px] uppercase tracking-[0.4em] text-[#FFB84D] mb-2 font-bold">Series</span>
+                                <h3 class="text-3xl md:text-5xl font-light tracking-tighter capitalize text-white">${modelName}</h3>
+                                <span class="mt-4 text-[8px] uppercase tracking-widest text-white/50 opacity-0 group-hover:opacity-100 transition-opacity underline decoration-[#FFB84D]/30 underline-offset-8">Explore Album</span>
+                            </div>
+                        `;
+                    }
+                    section.onclick = () => openAlbum(photos, modelName);
+                    container.appendChild(section);
+                });
+
+                gsap.from(".album-section", {
+                    duration: 1.2,
+                    y: 40,
+                    opacity: 0,
+                    stagger: 0.2,
+                    ease: "power3.out"
+                });
+
+            } catch (e) {
+                console.error("Error rendering gallery:", e);
+            }
+        }
+
+        function filterGallery(category) {
             const btns = document.querySelectorAll('.filter-btn');
             btns.forEach(btn => btn.classList.remove('text-[#FFB84D]'));
             
-            // Find the button that was actually clicked based on its text content
-            const activeBtn = Array.from(btns).find(btn => btn.textContent.toLowerCase() === (category === 'all' ? 'all work' : category));
+            const activeBtn = Array.from(btns).find(btn => btn.textContent.toLowerCase().includes(category));
             if (activeBtn) activeBtn.classList.add('text-[#FFB84D]');
+
+            renderGallery(category);
         }
 
-        // Initialize GSAP for initial load
-        gsap.from(".gallery-item", {
-            duration: 1,
-            y: 40,
-            opacity: 0,
-            stagger: 0.1,
-            ease: "power3.out",
-            delay: 0.2
+        function openAlbum(photos, name, startIndex = 0) {
+            currentAlbum = photos;
+            currentModel = name;
+            currentIndex = startIndex;
+            updateModal();
+            
+            const modal = document.getElementById('album-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => modal.classList.add('opacity-100'), 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('album-modal');
+            modal.classList.remove('opacity-100');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = 'auto';
+            }, 500);
+        }
+
+        function updateModal() {
+            const photo = currentAlbum[currentIndex];
+            const img = document.getElementById('modal-img');
+            
+            // Set current image
+            img.src = photo.url;
+            document.getElementById('modal-model-name').innerText = currentModel;
+            document.getElementById('modal-counter').innerText = `${currentIndex + 1} / ${currentAlbum.length}`;
+
+            // Smart Preloading: Load next and previous images in the background
+            const nextIdx = (currentIndex + 1) % currentAlbum.length;
+            const prevIdx = (currentIndex - 1 + currentAlbum.length) % currentAlbum.length;
+            
+            new Image().src = currentAlbum[nextIdx].url;
+            new Image().src = currentAlbum[prevIdx].url;
+        }
+
+        function nextPhoto() {
+            currentIndex = (currentIndex + 1) % currentAlbum.length;
+            updateModal();
+        }
+
+        function prevPhoto() {
+            currentIndex = (currentIndex - 1 + currentAlbum.length) % currentAlbum.length;
+            updateModal();
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('album-modal');
+            if (modal.classList.contains('hidden')) return;
+            
+            if (e.key === 'ArrowRight') nextPhoto();
+            if (e.key === 'ArrowLeft') prevPhoto();
+            if (e.key === 'Escape') closeModal();
         });
+
+        // Initialize
+        renderGallery('all');
     </script>
 
 </body>

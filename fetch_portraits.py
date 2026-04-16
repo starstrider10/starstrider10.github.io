@@ -1,23 +1,41 @@
 import cloudinary
 import cloudinary.api
 import os
+import json
 
-# Note: This script assumes you have CLOUDINARY_URL set in your environment
-# or you can manually configure it here:
-# cloudinary.config( 
-#   cloud_name = "your_cloud_name", 
-#   api_key = "your_api_key", 
-#   api_secret = "your_api_secret" 
-# )
-
-def list_folders():
+# The CLOUDINARY_URL is loaded from the environment
+def fetch_all_assets():
     try:
-        result = cloudinary.api.subfolders("")
-        print("Available root folders:")
-        for folder in result.get('folders', []):
-            print(f"- {folder['name']} (Path: {folder['path']})")
+        # Define the folders you want to sync
+        folders = ['portraits', 'adventure', 'street']
+        all_assets = {}
+
+        for folder in folders:
+            print(f"Fetching {folder} from Cloudinary...")
+            result = cloudinary.Search() \
+              .expression(f'folder:{folder}') \
+              .max_results(500) \
+              .execute()
+            
+            assets = []
+            for resource in result.get('resources', []):
+                assets.append({
+                    'public_id': resource['public_id'],
+                    'url': resource['secure_url'],
+                    'created_at': resource['created_at'],
+                    'folder': folder
+                })
+            all_assets[folder] = assets
+            print(f"Found {len(assets)} assets in {folder}")
+            
+        # Save to JS for local browser access
+        with open('portraits.js', 'w') as f:
+            f.write(f"const galleryData = {json.dumps(all_assets, indent=2)};")
+            
+        print("\nSuccessfully updated portraits.js with all categories.")
+
     except Exception as e:
         print(f"Error: {e}")
 
 if __name__ == "__main__":
-    list_folders()
+    fetch_all_assets()
