@@ -24,9 +24,22 @@
     <!-- Navigation Header -->
     <nav class="fixed top-0 w-full z-50 px-6 py-8 flex justify-between items-center bg-gradient-to-b from-[#1A1817]/90 to-transparent backdrop-blur-sm">
         <a href="index.html" class="text-sm font-bold tracking-[0.2em] uppercase">Story of Leo</a>
-        <div class="flex gap-8 text-[10px] md:text-xs uppercase tracking-[0.3em] font-medium">
-            <a href="index.html#services" class="hover:text-[#FFB84D] transition-colors">Back to Home</a>
-            <a href="gallery.html" class="hover:text-[#FFB84D] transition-colors">Gallery</a>
+        <div class="flex gap-8 text-[10px] md:text-xs uppercase tracking-[0.3em] font-medium items-center">
+            <a href="marketing.html" class="hover:text-[#FFB84D] transition-colors">Marketing</a>
+            
+            <!-- Gallery Dropdown -->
+            <div class="relative group">
+                <a href="gallery.html" class="hover:text-[#FFB84D] transition-colors">Gallery</a>
+                <div class="absolute left-0 mt-2 w-48 bg-[#1A1817]/95 backdrop-blur-md border border-zinc-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 flex flex-col py-2">
+                    <a href="gallery.html?filter=portraiture" class="px-4 py-2 hover:bg-zinc-800 transition-colors">Portraiture</a>
+                    <a href="gallery.html?filter=adventure" class="px-4 py-2 hover:bg-zinc-800 transition-colors">Adventure (All)</a>
+                    <a href="gallery.html?filter=backpacking" class="px-4 py-2 hover:bg-zinc-800 transition-colors">Backpacking</a>
+                    <a href="gallery.html?filter=outdoors" class="px-4 py-2 hover:bg-zinc-800 transition-colors">Outdoors</a>
+                    <div class="h-[1px] bg-zinc-800 my-1 mx-4"></div>
+                    <a href="gallery.html?filter=sakura" class="px-4 py-2 hover:bg-zinc-800 transition-colors text-zinc-500">Sakura Series</a>
+                </div>
+            </div>
+
             <a href="journal.html" class="hover:text-[#FFB84D] transition-colors">Journal</a>
             <a href="about.html" class="hover:text-[#FFB84D] transition-colors">About</a>
         </div>
@@ -35,9 +48,9 @@
     <!-- Cinematic Hero -->
     <header class="relative h-[60vh] flex items-center justify-center overflow-hidden border-b border-zinc-900">
         <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1493106819501-66d381c466f1?auto=format&fit=crop&q=80&w=2070" 
+            <img src="leoworking.jpg" 
                  alt="Cinematic Background" 
-                 class="w-full h-full object-cover opacity-20 grayscale">
+                 class="w-full h-full object-cover opacity-20">
             <div class="absolute inset-0 bg-gradient-to-t from-[#1A1817] via-[#1A1817]/20 to-transparent"></div>
         </div>
         <div class="relative z-10 text-center px-6">
@@ -130,16 +143,16 @@
                     <div class="space-y-4">
                         <div class="grid grid-cols-1 gap-4">
                             <div class="aspect-video bg-zinc-900 rounded-sm overflow-hidden border border-zinc-800 relative group">
-                                <img src="https://images.unsplash.com/photo-1533107862482-0e6974b06ec4?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover grayscale opacity-70 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-700">
+                                <img src="https://images.unsplash.com/photo-1533107862482-0e6974b06ec4?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-all duration-700 grayscale group-hover:grayscale-0">
                                 <div class="absolute bottom-4 left-4 text-[8px] uppercase tracking-[0.3em] text-white/60">Part I: The Hook</div>
                             </div>
                             <div class="grid grid-cols-2 gap-4">
                                 <div class="aspect-video bg-zinc-900 rounded-sm overflow-hidden border border-zinc-800 relative group">
-                                    <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover grayscale opacity-70 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-700">
+                                    <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-all duration-700 grayscale group-hover:grayscale-0">
                                     <div class="absolute bottom-4 left-4 text-[8px] uppercase tracking-[0.3em] text-white/60">Part II: The Journey</div>
                                 </div>
                                 <div class="aspect-video bg-zinc-900 rounded-sm overflow-hidden border border-zinc-800 relative group">
-                                    <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover grayscale opacity-70 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-700">
+                                    <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-all duration-700 grayscale group-hover:grayscale-0">
                                     <div class="absolute bottom-4 left-4 text-[8px] uppercase tracking-[0.3em] text-white/60">Part III: The Resolution</div>
                                 </div>
                             </div>
@@ -181,8 +194,8 @@
 
                 <!-- Case Study 2 -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                    <div class="md:order-last aspect-video bg-zinc-900 rounded-lg overflow-hidden border border-zinc-800">
-                        <img src="https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?auto=format&fit=crop&q=80&w=2000" class="w-full h-full object-cover grayscale opacity-70">
+                    <div class="md:order-last aspect-video bg-zinc-900 rounded-lg overflow-hidden border border-zinc-800 group">
+                        <img src="https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?auto=format&fit=crop&q=80&w=2000" class="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-all duration-700 grayscale group-hover:grayscale-0">
                     </div>
                     <div>
                         <h4 class="text-2xl font-bold mb-6 italic tracking-tight">Project: Tech Startup Social Launch</h4>
@@ -273,7 +286,7 @@
                 <div class="w-full aspect-video bg-black border border-zinc-900 relative group overflow-hidden shadow-2xl">
                     <img src="https://res.cloudinary.com/decv98oqz/image/upload/v1774982246/20260302-LEO01418_htjlbj.jpg" 
                          alt="Pointless Joy Campaign Photo" 
-                         class="absolute inset-0 w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000">
+                         class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-1000 grayscale group-hover:grayscale-0">
                     <div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-[#1A1817]/80 to-transparent pointer-events-none">
                         <h4 class="text-lg font-light italic text-white tracking-tight">Color Palette Demonstration</h4>
                     </div>
@@ -312,7 +325,7 @@
                     <a href="https://www.instagram.com/leo.inframe/" target="_blank" class="group relative h-64 overflow-hidden bg-black border border-zinc-900 flex items-center justify-center p-8 transition-all hover:border-[#FFB84D]/30">
                         <!-- Blurred Background Image -->
                         <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=1000" 
-                             class="absolute inset-0 w-full h-full object-cover blur-2xl grayscale opacity-20 group-hover:blur-sm group-hover:grayscale-0 group-hover:opacity-40 transition-all duration-1000" 
+                             class="absolute inset-0 w-full h-full object-cover blur-2xl opacity-20 group-hover:blur-sm group-hover:opacity-40 transition-all duration-1000" 
                              alt="Instagram Visuals">
                         
                         <div class="relative z-10 text-center">
@@ -325,7 +338,7 @@
                     <!-- TikTok Portal -->
                     <a href="https://www.tiktok.com/@leo.inframe" target="_blank" class="group relative h-64 overflow-hidden bg-black border border-zinc-900 flex items-center justify-center p-8 transition-all hover:border-[#FFB84D]/30">
                         <img src="https://images.unsplash.com/photo-1551818255-e6e10975bc17?auto=format&fit=crop&q=80&w=1000" 
-                             class="absolute inset-0 w-full h-full object-cover blur-2xl grayscale opacity-20 group-hover:blur-sm group-hover:grayscale-0 group-hover:opacity-40 transition-all duration-1000" 
+                             class="absolute inset-0 w-full h-full object-cover blur-2xl opacity-20 group-hover:blur-sm group-hover:opacity-40 transition-all duration-1000" 
                              alt="TikTok Narrative">
                         
                         <div class="relative z-10 text-center">
@@ -338,7 +351,7 @@
                     <!-- YouTube Portal -->
                     <a href="https://www.youtube.com/@leo.inframe/featured" target="_blank" class="group relative h-64 overflow-hidden bg-black border border-zinc-900 flex items-center justify-center p-8 transition-all hover:border-[#FFB84D]/30">
                         <img src="https://images.unsplash.com/photo-1493106819501-66d381c466f1?auto=format&fit=crop&q=80&w=1000" 
-                             class="absolute inset-0 w-full h-full object-cover blur-2xl grayscale opacity-20 group-hover:blur-sm group-hover:grayscale-0 group-hover:opacity-40 transition-all duration-1000" 
+                             class="absolute inset-0 w-full h-full object-cover blur-2xl opacity-20 group-hover:blur-sm group-hover:opacity-40 transition-all duration-1000" 
                              alt="YouTube Stories">
                         
                         <div class="relative z-10 text-center">

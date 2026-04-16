@@ -20,10 +20,23 @@
     <!-- Navigation Header -->
     <nav class="fixed top-0 w-full z-50 px-6 py-8 flex justify-between items-center bg-gradient-to-b from-[#1A1817]/90 to-transparent backdrop-blur-sm">
         <a href="index.html" class="text-sm font-bold tracking-[0.2em] uppercase">Story of Leo</a>
-        <div class="flex gap-8 text-[10px] md:text-xs uppercase tracking-[0.3em] font-medium">
-            <a href="index.html" class="hover:text-[#FFB84D] transition-colors">Home</a>
+        <div class="flex gap-8 text-[10px] md:text-xs uppercase tracking-[0.3em] font-medium items-center">
             <a href="marketing.html" class="hover:text-[#FFB84D] transition-colors">Marketing</a>
-            <a href="gallery.html" class="hover:text-[#FFB84D] transition-colors">Gallery</a>
+            
+            <!-- Gallery Dropdown -->
+            <div class="relative group">
+                <a href="gallery.html" class="hover:text-[#FFB84D] transition-colors">Gallery</a>
+                <div class="absolute left-0 mt-2 w-48 bg-[#1A1817]/95 backdrop-blur-md border border-zinc-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 flex flex-col py-2">
+                    <a href="gallery.html?filter=portraiture" class="px-4 py-2 hover:bg-zinc-800 transition-colors">Portraiture</a>
+                    <a href="gallery.html?filter=adventure" class="px-4 py-2 hover:bg-zinc-800 transition-colors">Adventure (All)</a>
+                    <a href="gallery.html?filter=backpacking" class="px-4 py-2 hover:bg-zinc-800 transition-colors">Backpacking</a>
+                    <a href="gallery.html?filter=outdoors" class="px-4 py-2 hover:bg-zinc-800 transition-colors">Outdoors</a>
+                    <div class="h-[1px] bg-zinc-800 my-1 mx-4"></div>
+                    <a href="gallery.html?filter=sakura" class="px-4 py-2 hover:bg-zinc-800 transition-colors text-zinc-500">Sakura Series</a>
+                </div>
+            </div>
+
+            <a href="journal.html" class="hover:text-[#FFB84D] transition-colors">Journal</a>
             <a href="about.html" class="hover:text-[#FFB84D] transition-colors">About</a>
         </div>
     </nav>

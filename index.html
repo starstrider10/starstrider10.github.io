@@ -15,10 +15,23 @@
 
     <!-- Navigation Header -->
     <nav class="fixed top-0 w-full z-50 px-6 py-8 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent backdrop-blur-sm">
-        <a href="#" class="text-sm font-bold tracking-[0.2em] uppercase">Story of Leo</a>
-        <div class="flex gap-8 text-[10px] md:text-xs uppercase tracking-[0.3em] font-medium">
+        <a href="index.html" class="text-sm font-bold tracking-[0.2em] uppercase">Story of Leo</a>
+        <div class="flex gap-8 text-[10px] md:text-xs uppercase tracking-[0.3em] font-medium items-center">
             <a href="marketing.html" class="hover:text-white/60 transition-colors">Marketing</a>
-            <a href="gallery.html" class="hover:text-white/60 transition-colors">Gallery</a>
+            
+            <!-- Gallery Dropdown -->
+            <div class="relative group">
+                <a href="gallery.html" class="hover:text-white/60 transition-colors">Gallery</a>
+                <div class="absolute left-0 mt-2 w-48 bg-black/90 backdrop-blur-md border border-zinc-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 flex flex-col py-2">
+                    <a href="gallery.html?filter=portraiture" class="px-4 py-2 hover:bg-zinc-800 transition-colors">Portraiture</a>
+                    <a href="gallery.html?filter=adventure" class="px-4 py-2 hover:bg-zinc-800 transition-colors">Adventure (All)</a>
+                    <a href="gallery.html?filter=backpacking" class="px-4 py-2 hover:bg-zinc-800 transition-colors">Backpacking</a>
+                    <a href="gallery.html?filter=outdoors" class="px-4 py-2 hover:bg-zinc-800 transition-colors">Outdoors</a>
+                    <div class="h-[1px] bg-zinc-800 my-1 mx-4"></div>
+                    <a href="gallery.html?filter=sakura" class="px-4 py-2 hover:bg-zinc-800 transition-colors text-zinc-500">Sakura Series</a>
+                </div>
+            </div>
+
             <a href="journal.html" class="hover:text-white/60 transition-colors">Journal</a>
             <a href="about.html" class="hover:text-white/60 transition-colors">About</a>
         </div>
@@ -92,7 +105,7 @@
                     <div class="overflow-hidden mb-8 aspect-video">
                         <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=2070" 
                              alt="Videography" 
-                             class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100">
+                             class="w-full h-full object-cover transition-all duration-700 scale-105 group-hover:scale-100 grayscale group-hover:grayscale-0">
                     </div>
                     <h3 class="text-2xl font-medium mb-4 tracking-tight">Cinematic Videography</h3>
                     <p class="text-zinc-400 font-light leading-relaxed">
@@ -105,7 +118,7 @@
                     <div class="overflow-hidden mb-8 aspect-video">
                         <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=2070" 
                              alt="Visual Marketing" 
-                             class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100">
+                             class="w-full h-full object-cover transition-all duration-700 scale-105 group-hover:scale-100 grayscale group-hover:grayscale-0">
                     </div>
                     <h3 class="text-2xl font-medium mb-4 tracking-tight">Visual Marketing</h3>
                     <p class="text-zinc-400 font-light leading-relaxed">
@@ -127,7 +140,7 @@
                 <div class="group relative cursor-pointer overflow-hidden aspect-square md:aspect-[3/4]">
                     <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&q=80&w=1925" 
                          alt="Project 1" 
-                         class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110">
+                         class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-8 flex flex-col justify-end">
                         <p class="text-xs uppercase tracking-widest text-zinc-400 mb-2">Short Film</p>
                         <h4 class="text-xl">The Midnight Pulse</h4>
@@ -138,7 +151,7 @@
                 <div class="group relative cursor-pointer overflow-hidden aspect-square md:aspect-[3/4]">
                     <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=1964" 
                          alt="Project 2" 
-                         class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110">
+                         class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-8 flex flex-col justify-end">
                         <p class="text-xs uppercase tracking-widest text-zinc-400 mb-2">Brand Identity</p>
                         <h4 class="text-xl">Urban Monolith</h4>
@@ -149,7 +162,7 @@
                 <div class="group relative cursor-pointer overflow-hidden aspect-square md:aspect-[3/4]">
                     <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=2070" 
                          alt="Project 3" 
-                         class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110">
+                         class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-8 flex flex-col justify-end">
                         <p class="text-xs uppercase tracking-widest text-zinc-400 mb-2">Social Campaign</p>
                         <h4 class="text-xl">Ethereal Motion</h4>

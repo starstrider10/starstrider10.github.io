@@ -20,9 +20,22 @@
     <!-- Navigation Header -->
     <nav class="fixed top-0 w-full z-50 px-6 py-8 flex justify-between items-center bg-gradient-to-b from-[#1A1817]/90 to-transparent backdrop-blur-sm">
         <a href="index.html" class="text-sm font-bold tracking-[0.2em] uppercase">Story of Leo</a>
-        <div class="flex gap-8 text-[10px] md:text-xs uppercase tracking-[0.3em] font-medium">
-            <a href="index.html" class="hover:text-[#FFB84D] transition-colors">Home</a>
+        <div class="flex gap-8 text-[10px] md:text-xs uppercase tracking-[0.3em] font-medium items-center">
             <a href="marketing.html" class="hover:text-[#FFB84D] transition-colors">Marketing</a>
+            
+            <!-- Gallery Dropdown -->
+            <div class="relative group">
+                <a href="gallery.html" class="hover:text-[#FFB84D] transition-colors">Gallery</a>
+                <div class="absolute left-0 mt-2 w-48 bg-[#1A1817]/95 backdrop-blur-md border border-zinc-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 flex flex-col py-2">
+                    <a href="gallery.html?filter=portraiture" class="px-4 py-2 hover:bg-zinc-800 transition-colors">Portraiture</a>
+                    <a href="gallery.html?filter=adventure" class="px-4 py-2 hover:bg-zinc-800 transition-colors">Adventure (All)</a>
+                    <a href="gallery.html?filter=backpacking" class="px-4 py-2 hover:bg-zinc-800 transition-colors">Backpacking</a>
+                    <a href="gallery.html?filter=outdoors" class="px-4 py-2 hover:bg-zinc-800 transition-colors">Outdoors</a>
+                    <div class="h-[1px] bg-zinc-800 my-1 mx-4"></div>
+                    <a href="gallery.html?filter=sakura" class="px-4 py-2 hover:bg-zinc-800 transition-colors text-zinc-500">Sakura Series</a>
+                </div>
+            </div>
+
             <a href="journal.html" class="hover:text-[#FFB84D] transition-colors">Journal</a>
             <a href="about.html" class="hover:text-[#FFB84D] transition-colors">About</a>
         </div>
@@ -33,10 +46,30 @@
         <!-- Header & Series Filter -->
         <header class="mb-8">
             <h1 class="text-xs uppercase tracking-[0.5em] text-zinc-500 mb-6 font-bold">Visual Archives</h1>
-            <div class="flex flex-wrap gap-8 md:gap-16 border-b border-zinc-900 pb-6">
+            <div class="flex flex-wrap gap-8 md:gap-16 border-b border-zinc-900 pb-6 items-center">
                 <button onclick="filterGallery('all')" class="text-xl md:text-2xl font-light hover:text-[#FFB84D] transition-all tracking-tighter filter-btn active text-[#FFB84D]">All Work</button>
-                <button onclick="filterGallery('portraiture')" class="text-xl md:text-2xl font-light hover:text-[#FFB84D] transition-all tracking-tighter filter-btn">Portraiture</button>
-                <button onclick="filterGallery('adventure')" class="text-xl md:text-2xl font-light hover:text-[#FFB84D] transition-all tracking-tighter filter-btn">Adventure</button>
+                
+                <div class="relative group h-full py-2">
+                    <button onclick="filterGallery('portraiture')" class="text-xl md:text-2xl font-light hover:text-[#FFB84D] transition-all tracking-tighter filter-btn flex items-center gap-3">
+                        Portraiture <span class="text-[8px] opacity-40 translate-y-[1px] group-hover:rotate-180 transition-transform">▼</span>
+                    </button>
+                    <div class="absolute top-full left-0 mt-0 bg-[#1A1817] border border-zinc-800/50 py-4 px-6 hidden group-hover:block z-50 min-w-[180px] shadow-2xl backdrop-blur-md">
+                        <button onclick="filterGallery('sakura')" class="block text-[10px] uppercase tracking-[0.3em] hover:text-[#FFB84D] transition-colors py-2 text-left w-full filter-btn">Sakura Series</button>
+                        <button onclick="filterGallery('portraiture')" class="block text-[10px] uppercase tracking-[0.3em] hover:text-[#FFB84D] transition-colors py-2 text-left w-full filter-btn">All Portraits</button>
+                    </div>
+                </div>
+
+                <div class="relative group h-full py-2">
+                    <button onclick="filterGallery('adventure')" class="text-xl md:text-2xl font-light hover:text-[#FFB84D] transition-all tracking-tighter filter-btn flex items-center gap-3">
+                        Adventure <span class="text-[8px] opacity-40 translate-y-[1px] group-hover:rotate-180 transition-transform">▼</span>
+                    </button>
+                    <div class="absolute top-full left-0 mt-0 bg-[#1A1817] border border-zinc-800/50 py-4 px-6 hidden group-hover:block z-50 min-w-[180px] shadow-2xl backdrop-blur-md">
+                        <button onclick="filterGallery('backpacking')" class="block text-[10px] uppercase tracking-[0.3em] hover:text-[#FFB84D] transition-colors py-2 text-left w-full filter-btn">Backpacking</button>
+                        <button onclick="filterGallery('outdoors')" class="block text-[10px] uppercase tracking-[0.3em] hover:text-[#FFB84D] transition-colors py-2 text-left w-full filter-btn">Outdoors</button>
+                        <button onclick="filterGallery('adventure')" class="block text-[10px] uppercase tracking-[0.3em] hover:text-[#FFB84D] transition-colors py-2 text-left w-full filter-btn">All Adventure</button>
+                    </div>
+                </div>
+
                 <button onclick="filterGallery('street')" class="text-xl md:text-2xl font-light hover:text-[#FFB84D] transition-all tracking-tighter filter-btn">Street</button>
             </div>
         </header>
@@ -82,7 +115,10 @@
         const strategies = {
             'all': 'Viewing the full archive. Each genre is captured with intentional technical choices designed to evoke specific audience responses and brand values.',
             'portraiture': 'Portraiture: Focusing on human connection and emotional depth. Utilized shallow depth of field and warm, authentic color grading to build immediate viewer trust.',
+            'sakura': 'Sakura Series: A collection featuring Anabel, Sandy, and Christie, captured during the peak of spring. This series emphasizes the ephemeral beauty of the season.',
             'adventure': 'Adventure: Highlighting freedom and exploration. Engineered for lifestyle and outdoor brands that value rugged authenticity and wide-scale narrative scope.',
+            'backpacking': 'Backpacking: Capturing the essence of self-reliance and the journey. Focused on raw, unposed moments and the vastness of the wilderness.',
+            'outdoors': 'Outdoors: Exploring the natural world and outdoor lifestyle. Emphasizing lighting, texture, and the relationship between humans and nature.',
             'street': 'Street: Capturing the rhythmic pulse of urban life. Technical focus on geometric composition and high-contrast lighting to create high-engagement social assets.'
         };
 
@@ -110,32 +146,50 @@
                     return name.replace(/([A-Z])/g, ' $1').trim().replace(/^\w/, c => c.toUpperCase());
                 };
 
-                const heroId = "20260331-LEO02454-christie";
-
-                if (category === 'all' || category === 'adventure') {
+                if (category === 'all' || category === 'adventure' || category === 'street' || category === 'backpacking' || category === 'outdoors') {
                     // Collect Assets for Floating View
                     let assets = [];
+                    const backpackingAssets = galleryData['adventure/backpacking'] || [];
+                    const outdoorsAssets = galleryData['adventure/outdoors'] || [];
+                    
                     if (category === 'all') {
-                        assets = [...(galleryData.portraits || []), ...(galleryData.adventure || [])];
-                    } else {
-                        assets = galleryData.adventure || [];
+                        assets = [
+                            ...(galleryData.portraits || []), 
+                            ...backpackingAssets,
+                            ...outdoorsAssets,
+                            ...(galleryData.street || [])
+                        ];
+                    } else if (category === 'adventure') {
+                        assets = [...backpackingAssets, ...outdoorsAssets];
+                    } else if (category === 'street') {
+                        assets = galleryData.street || [];
+                    } else if (category === 'backpacking') {
+                        assets = backpackingAssets;
+                    } else if (category === 'outdoors') {
+                        assets = outdoorsAssets;
                     }
 
-                    // Filters
+                    // Apply Filters
                     assets = assets.filter(p => {
                         if (p.folder === 'portraits') {
                             const name = getModelName(p.public_id);
                             if (name === 'quynh') return false;
                             if (p.public_id.includes('20250528-A9200129-kat')) return false;
+                            if (p.public_id.includes('20250606-A9200391-jimmy')) return false;
                         }
                         return true;
                     });
+
+                    if (assets.length === 0) {
+                        container.innerHTML = `<div class="py-20 text-center text-zinc-500 uppercase tracking-widest text-sm">No assets found in ${category}</div>`;
+                        return;
+                    }
 
                     const archiveSection = document.createElement('section');
                     archiveSection.className = 'relative h-[100vh] w-[100vw] -mx-6 mt-4 mb-32 overflow-hidden bg-[#0A0A0A]';
                     archiveSection.innerHTML = `
                         <div class="absolute inset-0 flex items-center justify-center z-0 pointer-events-none">
-                            <h2 class="text-[12vw] font-black text-white/[0.03] uppercase tracking-tighter">${category === 'all' ? 'Archives' : 'Adventure'}</h2>
+                            <h2 class="text-[12vw] font-black text-white/[0.03] uppercase tracking-tighter">${category === 'all' ? 'Archives' : category}</h2>
                         </div>
                         <div id="floating-archive" class="relative w-full h-full"></div>
                     `;
@@ -162,7 +216,7 @@
                         
                         item.innerHTML = `
                             <div class="w-fit mx-auto relative p-1 md:p-1.5 bg-zinc-900 shadow-2xl group overflow-hidden border border-white/5 transition-all duration-700">
-                                <img src="${p.url}" class="h-auto max-h-[50vh] object-contain saturate-[0.5] hover:saturate-100 transition-all duration-1000">
+                                <img src="${p.url}" class="h-auto max-h-[50vh] object-contain transition-all duration-1000 saturate-[0.4] group-hover:saturate-100">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-end pointer-events-none text-center p-4 pb-6">
                                     <span class="text-[7px] md:text-[9px] uppercase tracking-[0.4em] text-white font-bold mb-1 leading-tight">${displayName}</span>
                                     <span class="text-[5px] md:text-[6px] uppercase tracking-widest text-[#FFB84D] opacity-70">Click to Select</span>
@@ -249,55 +303,55 @@
                     return;
                 }
 
-                // RENDER ALBUMS FOR PORTRAITURE
-                const assets = galleryData.portraits || [];
-                const groups = assets.reduce((acc, p) => {
+                // RENDER ALBUMS FOR PORTRAITURE OR SAKURA
+                let portraits = (galleryData.portraits || []).filter(p => {
                     const name = getModelName(p.public_id);
-                    if (name === 'quynh') return acc;
-                    if (p.public_id.includes('20250528-A9200129-kat')) return acc;
+                    if (name === 'quynh') return false;
+                    if (p.public_id.includes('20250528-A9200129-kat')) return false;
+                    if (p.public_id.includes('20250606-A9200391-jimmy')) return false;
+                    
+                    if (category === 'sakura') {
+                        // Smart filter: check tags, filename keyword, or the original hardcoded names
+                        const hasSakuraTag = p.tags && p.tags.includes('sakura');
+                        const hasSakuraKeyword = p.public_id.toLowerCase().includes('sakura');
+                        const isOriginalSakuraModel = ['anabel', 'sandy', 'christie'].includes(name);
+                        
+                        return hasSakuraTag || hasSakuraKeyword || isOriginalSakuraModel;
+                    }
+                    return true;
+                });
+
+                const albumGrid = document.createElement('div');
+                albumGrid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mt-12';
+                container.appendChild(albumGrid);
+
+                // Group by model
+                const groups = portraits.reduce((acc, p) => {
+                    const name = getModelName(p.public_id);
                     if (!acc[name]) acc[name] = [];
                     acc[name].push(p);
                     return acc;
                 }, {});
 
-                const sortedModels = Object.keys(groups).sort((a, b) => {
-                    if (a === 'christie') return -1;
-                    if (b === 'christie') return 1;
-                    return groups[b].length - groups[a].length;
-                });
-
-                sortedModels.forEach((modelName) => {
+                Object.keys(groups).sort().forEach(modelName => {
                     const photos = groups[modelName];
-                    if (modelName === 'christie') {
-                        photos.sort((a, b) => a.public_id.includes(heroId) ? -1 : (b.public_id.includes(heroId) ? 1 : 0));
-                    }
-
-                    const section = document.createElement('section');
-                    section.className = 'album-section group cursor-pointer';
+                    const section = document.createElement('div');
+                    section.className = 'album-section group cursor-pointer relative h-[50vh] overflow-hidden rounded-sm bg-zinc-900';
                     
-                    if (modelName === 'christie') {
-                        section.className += ' relative h-[90vh] overflow-hidden rounded-sm';
-                        section.innerHTML = `
-                            <img src="${photos[0].url}" class="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-105" alt="Hero">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-8 md:p-16">
-                                <span class="text-[10px] uppercase tracking-[0.6em] text-[#FFB84D] mb-4 font-bold">Featured Series</span>
-                                <h2 class="text-4xl md:text-7xl font-light tracking-tighter capitalize mb-4">${modelName}</h2>
-                                <p class="text-[10px] uppercase tracking-[0.3em] text-white/40">Click to enter the archive (${photos.length} frames)</p>
-                            </div>
-                        `;
-                    } else {
-                        section.className += ' relative h-[50vh] md:h-[60vh] overflow-hidden rounded-sm mx-auto max-w-6xl mt-12';
-                        section.innerHTML = `
-                            <img src="${photos[0].url}" class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105" alt="${modelName}">
-                            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all duration-700 flex flex-col justify-center items-center">
-                                <span class="text-[9px] uppercase tracking-[0.4em] text-[#FFB84D] mb-2 font-bold">Series</span>
-                                <h3 class="text-3xl md:text-5xl font-light tracking-tighter capitalize text-white">${modelName}</h3>
-                                <span class="mt-4 text-[8px] uppercase tracking-widest text-white/50 opacity-0 group-hover:opacity-100 transition-opacity underline decoration-[#FFB84D]/30 underline-offset-8">Explore Album</span>
-                            </div>
-                        `;
-                    }
+                    // Label for Sakura photos if in portraiture view
+                    const isSakura = ['anabel', 'sandy', 'christie'].includes(modelName);
+                    const label = isSakura ? 'Sakura' : 'Series';
+
+                    section.innerHTML = `
+                        <img src="${photos[0].url}" class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105 saturate-[0.4] group-hover:saturate-100" alt="${modelName}">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all duration-700 flex flex-col justify-center items-center">
+                            <span class="text-[9px] uppercase tracking-[0.4em] text-[#FFB84D] mb-2 font-bold">${label}</span>
+                            <h3 class="text-3xl font-light tracking-tighter capitalize text-white">${modelName}</h3>
+                            <span class="mt-4 text-[8px] uppercase tracking-widest text-white/50 opacity-0 group-hover:opacity-100 transition-opacity underline decoration-[#FFB84D]/30 underline-offset-8">Explore Album</span>
+                        </div>
+                    `;
                     section.onclick = () => openAlbum(photos, modelName);
-                    container.appendChild(section);
+                    albumGrid.appendChild(section);
                 });
 
                 gsap.from(".album-section", {
@@ -315,10 +369,21 @@
 
         function filterGallery(category) {
             const btns = document.querySelectorAll('.filter-btn');
-            btns.forEach(btn => btn.classList.remove('text-[#FFB84D]'));
+            btns.forEach(btn => btn.classList.remove('text-[#FFB84D]', 'active'));
             
-            const activeBtn = Array.from(btns).find(btn => btn.textContent.toLowerCase().includes(category));
-            if (activeBtn) activeBtn.classList.add('text-[#FFB84D]');
+            btns.forEach(btn => {
+                const onclick = btn.getAttribute('onclick');
+                if (onclick && onclick.includes(`'${category}'`)) {
+                    btn.classList.add('text-[#FFB84D]', 'active');
+                    
+                    // If it's a dropdown item, also highlight the parent
+                    const parentGroup = btn.closest('.group');
+                    if (parentGroup) {
+                        const parentBtn = parentGroup.querySelector('button.filter-btn');
+                        if (parentBtn) parentBtn.classList.add('text-[#FFB84D]');
+                    }
+                }
+            });
 
             renderGallery(category);
         }
@@ -384,7 +449,25 @@
         });
 
         // Initialize
-        renderGallery('all');
+        const urlParams = new URLSearchParams(window.location.search);
+        const initialCategory = urlParams.get('filter') || 'all';
+        renderGallery(initialCategory);
+        
+        // Ensure the correct button is highlighted on load
+        setTimeout(() => {
+            const btns = document.querySelectorAll('.filter-btn');
+            btns.forEach(btn => {
+                const onclick = btn.getAttribute('onclick');
+                if (onclick && onclick.includes(`'${initialCategory}'`)) {
+                    btn.classList.add('text-[#FFB84D]', 'active');
+                    const parentGroup = btn.closest('.group');
+                    if (parentGroup) {
+                        const parentBtn = parentGroup.querySelector('button.filter-btn');
+                        if (parentBtn) parentBtn.classList.add('text-[#FFB84D]');
+                    }
+                }
+            });
+        }, 100);
     </script>
 
 </body>

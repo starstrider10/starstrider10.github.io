@@ -7,7 +7,7 @@ import json
 def fetch_all_assets():
     try:
         # Define the folders you want to sync
-        folders = ['portraits', 'adventure', 'street']
+        folders = ['portraits', 'adventure/backpacking', 'adventure/outdoors', 'street']
         all_assets = {}
 
         for folder in folders:
@@ -19,11 +19,16 @@ def fetch_all_assets():
             
             assets = []
             for resource in result.get('resources', []):
+                tags = resource.get('tags', [])
+                if 'backpacking' in folder and 'backpacking' not in tags:
+                    tags.append('backpacking')
+                
                 assets.append({
                     'public_id': resource['public_id'],
                     'url': resource['secure_url'],
                     'created_at': resource['created_at'],
-                    'folder': folder
+                    'folder': folder,
+                    'tags': tags
                 })
             all_assets[folder] = assets
             print(f"Found {len(assets)} assets in {folder}")

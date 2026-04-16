@@ -9,6 +9,19 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
         .text-shadow-lg { text-shadow: 0 4px 12px rgba(0, 0, 0, 0.9); }
+        
+        .dreamer-effect {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+            position: relative;
+        }
+        .dreamer-effect:hover {
+            background: linear-gradient(to right, #7DD3FC, #D8B4FE);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px rgba(125, 211, 252, 0.3));
+            transform: scale(1.05) rotate(-1deg);
+        }
     </style>
 </head>
 <body class="bg-[#1A1817] text-zinc-100 selection:bg-zinc-800 selection:text-white">
@@ -16,64 +29,88 @@
     <!-- Navigation Header -->
     <nav class="fixed top-0 w-full z-50 px-6 py-8 flex justify-between items-center bg-gradient-to-b from-[#1A1817]/90 to-transparent backdrop-blur-sm">
         <a href="index.html" class="text-sm font-bold tracking-[0.2em] uppercase">Story of Leo</a>
-        <div class="flex gap-8 text-[10px] md:text-xs uppercase tracking-[0.3em] font-medium">
-            <a href="index.html" class="hover:text-[#FFB84D] transition-colors">Home</a>
+        <div class="flex gap-8 text-[10px] md:text-xs uppercase tracking-[0.3em] font-medium items-center">
             <a href="marketing.html" class="hover:text-[#FFB84D] transition-colors">Marketing</a>
-            <a href="gallery.html" class="hover:text-[#FFB84D] transition-colors">Gallery</a>
+            
+            <!-- Gallery Dropdown -->
+            <div class="relative group">
+                <a href="gallery.html" class="hover:text-[#FFB84D] transition-colors">Gallery</a>
+                <div class="absolute left-0 mt-2 w-48 bg-[#1A1817]/95 backdrop-blur-md border border-zinc-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 flex flex-col py-2">
+                    <a href="gallery.html?filter=portraiture" class="px-4 py-2 hover:bg-zinc-800 transition-colors">Portraiture</a>
+                    <a href="gallery.html?filter=adventure" class="px-4 py-2 hover:bg-zinc-800 transition-colors">Adventure (All)</a>
+                    <a href="gallery.html?filter=backpacking" class="px-4 py-2 hover:bg-zinc-800 transition-colors">Backpacking</a>
+                    <a href="gallery.html?filter=outdoors" class="px-4 py-2 hover:bg-zinc-800 transition-colors">Outdoors</a>
+                    <div class="h-[1px] bg-zinc-800 my-1 mx-4"></div>
+                    <a href="gallery.html?filter=sakura" class="px-4 py-2 hover:bg-zinc-800 transition-colors text-zinc-500">Sakura Series</a>
+                </div>
+            </div>
+
             <a href="journal.html" class="hover:text-[#FFB84D] transition-colors">Journal</a>
+            <a href="about.html" class="hover:text-[#FFB84D] transition-colors">About</a>
         </div>
     </nav>
 
     <main class="pt-32 pb-24 px-6 max-w-7xl mx-auto">
         
-        <!-- About Hero / Photo Section -->
-        <section class="mb-24">
-            <div class="w-full aspect-[21/9] bg-zinc-900 border border-zinc-800 relative overflow-hidden group">
-                <!-- Photo Placeholder -->
-                <img src="https://images.unsplash.com/photo-1493106819501-66d381c466f1?auto=format&fit=crop&q=80&w=2070" 
-                     alt="Leo BTS" 
-                     class="w-full h-full object-cover opacity-40 grayscale group-hover:opacity-60 group-hover:grayscale-0 transition-all duration-1000">
-                <div class="absolute inset-0 flex items-center justify-center">
-                    <h1 class="text-4xl md:text-7xl font-black uppercase tracking-tighter text-shadow-lg">The Vision</h1>
+        <!-- About Section -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center mb-32">
+            <!-- Left: Portrait -->
+            <div class="lg:col-span-5">
+                <div class="relative aspect-[4/5] overflow-hidden bg-zinc-900 border border-zinc-800 group">
+                    <img src="leo3.png" 
+                         alt="Leo" 
+                         class="w-full h-full object-cover transition-all duration-1000 scale-105 group-hover:scale-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#1A1817] via-transparent to-transparent opacity-40"></div>
                 </div>
             </div>
-        </section>
-
-        <!-- About Text Content -->
-        <section class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-            <div class="lg:col-span-4">
-                <h2 class="text-xs uppercase tracking-[0.5em] text-zinc-500 mb-4 font-bold">Biography</h2>
-                <p class="text-zinc-400 text-sm italic border-l-2 border-[#FFB84D]/30 pl-6 py-2">
-                    Informatics student, Sony a7S III practitioner, and visual strategist based in the Pacific Northwest.
-                </p>
-            </div>
             
-            <div class="lg:col-span-8 space-y-8">
-                <h3 class="text-3xl md:text-5xl font-light tracking-tight leading-tight">
-                    I believe storytelling is the bridge between <span class="text-[#FFB84D]">raw human emotion</span> and <span class="text-white italic">strategic brand growth.</span>
-                </h3>
+            <!-- Right: Biography -->
+            <div class="lg:col-span-7 space-y-12">
+                <div>
+                    <h2 class="text-xs uppercase tracking-[0.5em] text-zinc-500 mb-6 font-bold">The Artist</h2>
+                    <h1 class="text-4xl md:text-6xl font-light tracking-tight leading-tight">
+                        Scenario: If you were given the choice of living forever, or dying tomorrow, <span class="text-[#FFB84D]">what would you do?</span>
+                    </h1>
+                </div>
                 
-                <div class="space-y-6 text-zinc-400 text-sm md:text-base leading-relaxed font-light max-w-3xl">
+                <div class="space-y-6 text-zinc-400 text-sm md:text-lg leading-relaxed font-light max-w-2xl">
                     <p>
-                        [Insert your personal story here. Talk about your journey as a creator, why you chose Informatics, and how your technical background informs your creative eye. Mention your love for the Sony system and the Pacific Northwest landscape.]
+                        I believe that I’ve come a long way as a creative. Looking back, I’ve always surrounded myself with art. I’ve done so much—drawing, playing music, and singing—I guess it took me a long time to fully realize my identity as an artist. A creative. A <span class="dreamer-effect font-bold">dreamer</span>.
                     </p>
                     <p>
-                        My work is characterized by a commitment to authenticity and a rejection of the "clinical" digital look. By embracing warm tones, intentional lighting, and sequential narratives, I help brands find their soul in a crowded digital space.
+                        I’ve always struggled with my identity when it came to who I fit in with and where I belonged. And while it seems like a never-ending question, I know that more importantly, I am a <span class="dreamer-effect font-bold">dreamer</span>.
                     </p>
                     <p>
-                        Whether I'm deep in the woods for a "Pointless Joy" sprint or analyzing retention heatmaps for a marketing launch, my goal is the same: to create visual experiences that matter.
+                        There’s so many more things I want to make, create, learn, craft. Every time I hear of a new medium, I am struck by how intriguing it would be to learn it. Living forever is the only choice I could consider. I do not fear what I don’t know, be it existential threat, or future disaster. There is too much in this world for me to miss out on.
                     </p>
                 </div>
 
                 <!-- Personal Links / CTA -->
-                <div class="pt-12 flex gap-12">
+                <div class="pt-8 flex gap-12">
                     <a href="mailto:hello@storyofleo.com" class="text-[10px] uppercase tracking-[0.4em] font-bold text-white border-b border-[#FFB84D]/30 hover:border-[#FFB84D] transition-all pb-2">
                         Get in Touch
                     </a>
-                    <a href="marketing.html" class="text-[10px] uppercase tracking-[0.4em] font-bold text-white border-b border-[#FFB84D]/30 hover:border-[#FFB84D] transition-all pb-2">
-                        View Strategy
+                    <a href="https://www.instagram.com/leo.inframe/" target="_blank" class="text-[10px] uppercase tracking-[0.4em] font-bold text-white border-b border-[#FFB84D]/30 hover:border-[#FFB84D] transition-all pb-2">
+                        Instagram
                     </a>
                 </div>
+            </div>
+        </section>
+
+        <!-- Bits of Life Section -->
+        <section class="border-t border-zinc-900 pt-24">
+            <div class="flex justify-between items-baseline mb-16">
+                <h2 class="text-2xl md:text-4xl font-light tracking-tighter">Glimpses of Life</h2>
+                <span class="text-xs uppercase tracking-[0.3em] text-zinc-600">Off the Clock</span>
+            </div>
+            
+            <!-- Grid for future lifestyle photos -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+                <!-- Placeholder for future content -->
+                <div class="aspect-square bg-zinc-900/50 border border-zinc-800/50 flex items-center justify-center italic text-zinc-800 text-[10px] uppercase tracking-widest">Coming Soon</div>
+                <div class="aspect-square bg-zinc-900/50 border border-zinc-800/50 flex items-center justify-center italic text-zinc-800 text-[10px] uppercase tracking-widest">Coming Soon</div>
+                <div class="aspect-square bg-zinc-900/50 border border-zinc-800/50 flex items-center justify-center italic text-zinc-800 text-[10px] uppercase tracking-widest">Coming Soon</div>
+                <div class="aspect-square bg-zinc-900/50 border border-zinc-800/50 flex items-center justify-center italic text-zinc-800 text-[10px] uppercase tracking-widest">Coming Soon</div>
             </div>
         </section>
 
