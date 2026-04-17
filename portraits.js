@@ -1,6 +1,20 @@
 const galleryData = {
   "portraits": [
     {
+      "public_id": "20260302-LEO01312-caleb-_vgv9ua",
+      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776451194/20260302-LEO01312-caleb-_vgv9ua.jpg",
+      "created_at": "2026-04-17T18:39:54+00:00",
+      "folder": "portraits",
+      "tags": []
+    },
+    {
+      "public_id": "20260302-LEO01299-caleb-_o0qwdb",
+      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776451189/20260302-LEO01299-caleb-_o0qwdb.jpg",
+      "created_at": "2026-04-17T18:39:49+00:00",
+      "folder": "portraits",
+      "tags": []
+    },
+    {
       "public_id": "20250404-LEO06515-sandy_rq3twv",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776367256/20250404-LEO06515-sandy_rq3twv.jpg",
       "created_at": "2026-04-16T19:20:56+00:00",
