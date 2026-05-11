@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agency | Story of Leo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        .accent-text { color: #FFB84D; }
+        .accent-border { border-color: #FFB84D; }
+        .accent-bg { background-color: #FFB84D; }
+        .bento-card {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #221F1E;
+            transition: all 0.4s ease;
+        }
+        .bento-card:hover {
+            border-color: #FFB84D;
+            transform: translateY(-2px);
+        }
+        /* Enhanced contrast for sub-text */
+        .sub-text { color: #A1A1AA; } 
+        .high-contrast { color: #FFFFFF; }
+    </style>
+</head>
+<body class="bg-[#131110] text-white selection:bg-[#FFB84D] selection:text-black">
+
+    <!-- Minimal Nav -->
+    <nav class="fixed top-0 w-full z-50 px-6 py-6 flex justify-between items-center bg-[#131110]/90 backdrop-blur-md border-b border-white/10">
+        <a href="index.html" class="text-[10px] font-black tracking-[0.3em] uppercase">Story of Leo</a>
+        <div class="flex gap-6 text-[9px] uppercase tracking-[0.2em] font-bold">
+            <a href="agency.html" class="accent-text">Agency</a>
+            <a href="marketing.html" class="hover:text-zinc-400 transition-colors">Portfolio</a>
+            <a href="about.html" class="hover:text-zinc-400 transition-colors">About</a>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-12 px-6 max-w-7xl mx-auto min-h-screen flex flex-col">
+        
+        <!-- Header: The Hook (Screwloose Inspired) -->
+        <header class="mb-16">
+            <div class="flex items-center gap-4 mb-8">
+                <span class="h-[1px] w-12 bg-[#FFB84D]"></span>
+                <span class="text-[10px] font-black uppercase tracking-[0.4em] accent-text">The Creative Edge</span>
+            </div>
+            <h1 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-[0.95] max-w-4xl">
+                Gen-Z Cinematic, Viral Narratives <br> 
+                <span class="text-[#FFB84D]">For Wellness Brands & <br>Emotive Storytellers.</span>
+            </h1>
+        </header>
+
+        <!-- High-Contrast Bento Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 lg:gap-5">
+            
+            <!-- 1. THE PROBLEM (Large Card) -->
+            <div class="md:col-span-8 bento-card p-8 md:p-12 flex flex-col justify-between group">
+                <div>
+                    <span class="text-[10px] font-bold accent-text uppercase tracking-widest mb-10 block">01 / The Void</span>
+                    <h2 class="text-2xl md:text-5xl font-light tracking-tight leading-tight mb-8 high-contrast">
+                        Organizations are drowning in <span class="italic font-normal">"brainrot" noise.</span>
+                    </h2>
+                </div>
+                <p class="sub-text text-sm md:text-lg leading-relaxed max-w-2xl group-hover:text-white transition-colors">
+                    High-performance storytelling often defaults to low-value content. We bridge the gap for creators struggling to build genuine emotional authority in a fragmented digital landscape.
+                </p>
+            </div>
+
+            <!-- Specs Stack -->
+            <div class="md:col-span-4 grid grid-cols-1 gap-4">
+                <div class="bento-card p-8 flex items-center justify-between">
+                    <div>
+                        <p class="text-[10px] font-bold uppercase tracking-widest accent-text mb-1">Hardware</p>
+                        <p class="text-xs font-bold uppercase tracking-tight high-contrast">Sony a7S III Workflow</p>
+                    </div>
+                    <div class="text-[10px] border border-zinc-700 px-2 py-1">4K/120</div>
+                </div>
+                <div class="bento-card p-8 flex items-center justify-between">
+                    <div>
+                        <p class="text-[10px] font-bold uppercase tracking-widest accent-text mb-1">Color Science</p>
+                        <p class="text-xs font-bold uppercase tracking-tight high-contrast">DaVinci Resolve Studio</p>
+                    </div>
+                    <div class="text-[10px] border border-zinc-700 px-2 py-1">LOG3</div>
+                </div>
+                <div class="bento-card p-8 flex items-center justify-between">
+                    <div>
+                        <p class="text-[10px] font-bold uppercase tracking-widest accent-text mb-1">Strategic</p>
+                        <p class="text-xs font-bold uppercase tracking-tight high-contrast">Social-First Retention</p>
+                    </div>
+                    <div class="text-[10px] border border-zinc-700 px-2 py-1">GEN-Z</div>
+                </div>
+            </div>
+
+            <!-- 2. THE PERSONAS (Medium Card) -->
+            <div class="md:col-span-4 bento-card p-8 md:p-12 flex flex-col">
+                <span class="text-[10px] font-bold accent-text uppercase tracking-widest mb-10 block">02 / For Who</span>
+                <div class="space-y-8 flex-grow">
+                    <div>
+                        <h4 class="text-lg font-bold uppercase tracking-widest mb-3 high-contrast">Wellness Brands</h4>
+                        <p class="sub-text text-xs leading-relaxed">Scaling authority for health-focused organizations that value vitality.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold uppercase tracking-widest mb-3 high-contrast">Mission-Driven</h4>
+                        <p class="sub-text text-xs leading-relaxed">Translating complex human experiences into viral, emotive narratives.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. THE SOLUTION (Large Card) -->
+            <div class="md:col-span-8 bento-card p-8 md:p-12 flex flex-col justify-between group bg-gradient-to-br from-[#221F1E] to-[#1A1817]">
+                <div>
+                    <span class="text-[10px] font-bold accent-text uppercase tracking-widest mb-10 block">03 / The Fix</span>
+                    <h2 class="text-2xl md:text-4xl font-light tracking-tight leading-tight mb-8 high-contrast">
+                        Transforming raw experience into <br> <span class="accent-text font-black">"Impact Films"</span> & short-form series.
+                    </h2>
+                </div>
+                <div class="flex flex-col md:flex-row gap-8 items-end justify-between">
+                    <p class="sub-text text-sm md:text-base leading-relaxed max-w-md group-hover:text-white transition-colors">
+                        We don't just "edit." We engineer retention-focused visual assets that build long-term brand equity and human connection.
+                    </p>
+                    <a href="marketing.html" class="text-[9px] font-black uppercase tracking-[0.2em] bg-white text-black px-8 py-4 hover:bg-[#FFB84D] transition-all whitespace-nowrap">Explore Portfolio</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer: The Call -->
+        <footer class="mt-20 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 border-t border-white/10 pt-16">
+            <div>
+                <p class="text-[10px] uppercase tracking-[0.4em] accent-text font-bold mb-4">Start the conversation</p>
+                <a href="mailto:hello@storyofleo.com" class="text-2xl md:text-4xl font-black hover:text-[#FFB84D] transition-colors tracking-tighter">hello@storyofleo.com</a>
+            </div>
+            <div class="text-[9px] uppercase tracking-[0.2em] text-zinc-600 font-bold">
+                Seattle-Based / Available Worldwide
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        window.addEventListener('load', () => {
+            gsap.from("header > *", { duration: 1, y: 30, opacity: 0, stagger: 0.15, ease: "power4.out" });
+            gsap.from(".bento-card", { duration: 1.2, y: 40, opacity: 0, stagger: 0.1, ease: "power3.out", delay: 0.5 });
+        });
+    </script>
+
+</body>
+</html>
