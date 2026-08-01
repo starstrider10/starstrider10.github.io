@@ -81,9 +81,7 @@ function renderGallery(category = 'all') {
             assets = assets.filter(p => {
                 if (p.folder === 'portraits') {
                     const name = getModelName(p.public_id);
-                    if (name === 'quynh') return false;
-                    if (p.public_id.includes('20250528-A9200129-kat')) return false;
-                    if (p.public_id.includes('20250606-A9200391-jimmy')) return false;
+                    if (name === 'quynh' || name === 'megan') return false;
                 }
                 return true;
             });
@@ -256,15 +254,8 @@ function renderGallery(category = 'all') {
         // RENDER ALBUMS FOR PORTRAITURE OR SAKURA
         let portraits = (galleryData.portraits || []).filter(p => {
             const name = getModelName(p.public_id);
-            if (name === 'quynh') return false;
-            if (p.public_id.includes('20250528-A9200129-kat')) return false;
-            if (p.public_id.includes('20250606-A9200391-jimmy')) return false;
-            
             if (category === 'sakura') {
-                const hasSakuraTag = p.tags && p.tags.includes('sakura');
-                const hasSakuraKeyword = p.public_id.toLowerCase().includes('sakura');
-                const isOriginalSakuraModel = ['anabel', 'sandy', 'christie'].includes(name);
-                return hasSakuraTag || hasSakuraKeyword || isOriginalSakuraModel;
+                return (p.tags && p.tags.includes('sakura')) || ['anabel', 'sandy', 'christie'].includes(name);
             }
             return true;
         });
@@ -275,27 +266,30 @@ function renderGallery(category = 'all') {
 
         const groups = portraits.reduce((acc, p) => {
             const name = getModelName(p.public_id);
-            if (!acc[name]) acc[name] = [];
-            acc[name].push(p);
+            const groupName = ['anabel', 'sandy'].includes(name) ? 'Sakura Series' : name.charAt(0).toUpperCase() + name.slice(1);
+            if (!acc[groupName]) acc[groupName] = [];
+            acc[groupName].push(p);
             return acc;
         }, {});
 
-        Object.keys(groups).sort().forEach(modelName => {
-            const photos = groups[modelName];
+        Object.keys(groups).sort().forEach(groupName => {
+            const photos = groups[groupName];
+            if (photos.length < 4) return; // Filter out subjects/sets with < 4 images
+            const displayPhotos = photos.slice(0, 6); // 4 to 6 cohesive shots
+
             const section = document.createElement('div');
             section.className = 'album-section group cursor-pointer relative h-[50vh] overflow-hidden rounded-sm bg-zinc-900';
-            const isSakura = ['anabel', 'sandy', 'christie'].includes(modelName);
-            const label = isSakura ? 'Sakura' : 'Series';
+            const label = groupName === 'Sakura Series' ? 'Sakura' : 'Series';
 
             section.innerHTML = `
-                <img src="${optimizeUrl(photos[0].url, 800)}" loading="lazy" class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105 saturate-[0.4] group-hover:saturate-100" alt="${modelName}">
+                <img src="${optimizeUrl(displayPhotos[0].url, 800)}" loading="lazy" class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105 saturate-[0.4] group-hover:saturate-100" alt="${groupName}">
                 <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all duration-700 flex flex-col justify-center items-center">
                     <span class="text-[9px] uppercase tracking-[0.4em] text-[#FFB84D] mb-2 font-bold">${label}</span>
-                    <h3 class="text-3xl font-light tracking-tighter capitalize text-white">${modelName}</h3>
+                    <h3 class="text-3xl font-light tracking-tighter capitalize text-white">${groupName}</h3>
                     <span class="mt-4 text-[8px] uppercase tracking-widest text-white/50 opacity-0 group-hover:opacity-100 transition-opacity underline decoration-[#FFB84D]/30 underline-offset-8">Explore Album</span>
                 </div>
             `;
-            section.onclick = () => openAlbum(photos, modelName);
+            section.onclick = () => openAlbum(displayPhotos, groupName);
             albumGrid.appendChild(section);
         });
 
