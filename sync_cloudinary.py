@@ -18,7 +18,7 @@ if 'CLOUDINARY_URL' in os.environ:
     cloudinary.config(cloud_name=cloud_name, api_key=api_key, api_secret=api_secret)
 
 RAW_DIR = sys.argv[1] if len(sys.argv) > 1 else os.environ.get(
-    "RAW_DIR", "/Users/leofan/Documents/creative play! /website portfolio"
+    "RAW_DIR", "/Users/leofan/Documents/website portfolio"
 )
 IMAGE_EXTS = {'.jpg', '.jpeg', '.png', '.webp', '.gif', '.heic'}
 
@@ -84,9 +84,9 @@ def sync_and_fetch():
             all_assets[folder] = assets
             print(f"Found {len(assets)} assets in {folder}")
 
-    with open('portraits.js', 'w') as f:
+    with open('gallery-data.js', 'w') as f:
         f.write(f"const galleryData = {json.dumps(all_assets, indent=2)};\n")
-    print("\nSuccessfully updated portraits.js.")
+    print("\nSuccessfully updated gallery-data.js.")
 
 if __name__ == '__main__':
     sync_and_fetch()

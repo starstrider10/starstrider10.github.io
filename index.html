@@ -3,62 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Story of Leo | Videography & Photo Marketing</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <title>Story of Leo | Fine Art Prints & Outdoor Photography</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="style.css">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .text-shadow-lg { text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8); }
+        @import "tailwindcss";
+
+        @theme {
+            --color-offblack: #121212;
+            --color-offwhite: #F9F9FB;
+            --color-mutedslate: #6E727A;
+            --font-serif: "Playfair Display", Georgia, serif;
+            --font-sans: "Inter", "DM Sans", sans-serif;
+        }
     </style>
 </head>
-<body class="bg-black text-zinc-100 selection:bg-zinc-800 selection:text-white">
+<body class="bg-offwhite text-offblack font-sans selection:bg-offblack selection:text-offwhite">
 
     <!-- Navigation Header -->
-    <nav class="fixed top-0 w-full z-50 px-6 py-8 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent backdrop-blur-sm">
-        <a href="index.html" class="text-sm font-bold tracking-[0.2em] uppercase">Story of Leo</a>
-        <div class="flex gap-8 text-[10px] md:text-xs uppercase tracking-[0.3em] font-medium items-center">
-            <a href="index.html" class="hover:text-white/60 transition-colors">Home</a>
-            <a href="gallery.html" class="hover:text-white/60 transition-colors">Gallery</a>
-            <a href="journal.html" class="hover:text-white/60 transition-colors">Journal</a>
-            <a href="about.html" class="hover:text-white/60 transition-colors">About</a>
+    <nav class="fixed top-0 w-full z-50 px-6 py-6 flex justify-between items-center bg-offwhite/90 border-b border-mutedslate/20 backdrop-blur-md">
+        <a href="index.html" class="text-sm font-bold tracking-[0.2em] uppercase text-offblack font-sans">Story of Leo</a>
+        <div class="flex gap-8 text-[10px] md:text-xs uppercase tracking-[0.3em] font-medium items-center font-sans">
+            <a href="index.html" class="text-offblack hover:text-mutedslate transition-colors">Home</a>
+            <a href="gallery.html" class="text-offblack hover:text-mutedslate transition-colors">Prints & Gallery</a>
+            <a href="journal.html" class="text-offblack hover:text-mutedslate transition-colors">Journal</a>
+            <a href="about.html" class="text-offblack hover:text-mutedslate transition-colors">About</a>
         </div>
     </nav>
 
-    <!-- Priority 1: Hero Section (Cinematic Video Background) -->
-    <header class="relative h-screen w-full overflow-hidden flex items-center justify-center">
-        <!-- Background Video Overlay -->
-        <div class="absolute inset-0 z-10 bg-black/40 pointer-events-none"></div>
+    <!-- Hero Section (Static Photo Hero) -->
+    <header class="relative h-screen w-full overflow-hidden flex items-center justify-center bg-offblack">
+        <!-- Background Photo Overlay -->
+        <div class="absolute inset-0 z-10 bg-offblack/40 pointer-events-none"></div>
         
-        <!-- Background Video -->
-        <video 
-            class="absolute inset-0 w-full h-full object-cover z-0" 
-            autoplay 
-            muted 
-            loop 
-            playsinline
-            poster="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=2070"
+        <!-- Background Photo -->
+        <img 
+            src="https://res.cloudinary.com/decv98oqz/image/upload/f_auto,q_auto,w_2500/homepage/hero_poster.jpg" 
+            alt="Story of Leo Fine Art Photography" 
+            class="absolute inset-0 w-full h-full object-cover z-0"
         >
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-stars-in-the-night-sky-stop-motion-160-large.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
 
         <!-- Branding & CTA -->
         <div class="relative z-20 text-center px-4 max-w-4xl mx-auto">
-            <h1 class="text-5xl md:text-8xl font-black uppercase tracking-tighter mb-4 opacity-0 animate-[fadeIn_1s_ease-out_forwards] text-shadow-lg">
+            <h1 class="text-5xl md:text-8xl font-normal font-serif tracking-tight mb-4 text-white drop-shadow-md">
                 Story of Leo
             </h1>
-            <p class="text-lg md:text-2xl font-light tracking-[0.3em] uppercase opacity-0 animate-[fadeIn_1.5s_ease-out_forwards] delay-300 text-shadow-lg">
-                Visual Narrative & Strategic Marketing
+            <p class="text-lg md:text-2xl font-light tracking-[0.3em] uppercase text-white/90 font-sans drop-shadow-sm">
+                Fine Art Prints & Outdoor Photography
             </p>
-            <div class="mt-12 opacity-0 animate-[fadeIn_2s_ease-out_forwards] delay-700">
-                <a href="#services" class="border border-white/30 hover:bg-white hover:text-black transition-all duration-500 px-8 py-3 tracking-widest uppercase text-sm">
-                    Discover More
+            <div class="mt-12 flex justify-center gap-6">
+                <a href="#store" class="border border-white/80 bg-white/10 text-white hover:bg-white hover:text-offblack transition-all duration-500 px-8 py-3 tracking-widest uppercase text-sm font-sans backdrop-blur-sm">
+                    Explore Prints
+                </a>
+                <a href="#services" class="border border-white/40 text-white hover:border-white transition-all duration-500 px-8 py-3 tracking-widest uppercase text-sm font-sans">
+                    Shoot Services
                 </a>
             </div>
         </div>
 
         <!-- Scroll Indicator -->
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 animate-bounce opacity-50">
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 animate-bounce opacity-60 text-white">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
             </svg>
@@ -66,123 +70,161 @@
     </header>
 
     <main>
-        <!-- About Section -->
-        <section id="about" class="py-24 md:py-40 px-6 max-w-5xl mx-auto text-center">
-            <h2 class="text-xs uppercase tracking-[0.5em] text-zinc-500 mb-8">My Philosophy</h2>
-            <p class="text-2xl md:text-4xl font-light leading-relaxed text-zinc-300">
-                I believe that every brand has a soul, and every soul has a story. My mission is to translate those stories into <span class="text-white italic">unforgettable visual experiences</span> that resonate and inspire.
+        <!-- Philosophy Section -->
+        <section id="about" class="py-24 md:py-36 px-6 max-w-5xl mx-auto text-center">
+            <h2 class="text-xs uppercase tracking-[0.5em] text-mutedslate mb-8 font-bold font-sans">Artistry & Vision</h2>
+            <p class="text-2xl md:text-4xl font-normal leading-relaxed text-offblack font-serif">
+                Capturing raw natural light, quiet wilderness moments, and authentic human emotion. Crafted for <span class="italic text-offblack">gallery-quality physical spaces</span> and lasting digital archives.
             </p>
         </section>
 
-        <!-- Priority 2: Marketing (Services Section) -->
-        <section id="services" class="py-24 md:py-40 px-6 max-w-7xl mx-auto border-y border-zinc-900">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-end mb-20">
-                <div class="md:col-span-6">
-                    <h2 class="text-xs uppercase tracking-[0.5em] text-zinc-500 mb-4">Core Expertise</h2>
-                    <p class="text-3xl md:text-5xl font-light leading-tight">
-                        I blend <span class="text-white font-normal">cinematic artistry</span> with 
-                        <span class="text-white font-normal">strategic visual marketing</span> to elevate your brand.
+        <!-- Revenue Pillars Section -->
+        <section id="services" class="py-24 md:py-36 px-6 max-w-7xl mx-auto border-y border-mutedslate/20">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-end mb-16">
+                <div class="md:col-span-8">
+                    <h2 class="text-xs uppercase tracking-[0.5em] text-mutedslate mb-4 font-bold font-sans">Core Offerings</h2>
+                    <p class="text-3xl md:text-5xl font-normal leading-tight font-serif text-offblack">
+                        Three focus pillars, built around <span class="italic font-normal">visual craftsmanship</span> and client collaboration.
                     </p>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-32">
-                <!-- Videography -->
-                <div class="group">
-                    <div class="overflow-hidden mb-8 aspect-video">
-                        <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=2070" 
-                             alt="Videography" 
-                             class="w-full h-full object-cover transition-all duration-700 scale-105 group-hover:scale-100 grayscale group-hover:grayscale-0">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <!-- Pillar 1: Fine Art Prints -->
+                <div class="group border border-mutedslate/20 p-8 rounded-sm bg-white shadow-sm hover:border-mutedslate transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="overflow-hidden mb-6 aspect-[4/3]">
+                            <img src="https://res.cloudinary.com/decv98oqz/image/upload/f_auto,q_auto,w_800/v1776373117/20250405-LEO06783-cascades_range_mt_fmcslp.jpg" 
+                                 alt="Fine Art Nature Prints" 
+                                 class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105">
+                        </div>
+                        <span class="text-[10px] uppercase tracking-[0.3em] text-mutedslate font-bold font-sans">Primary Anchor</span>
+                        <h3 class="text-2xl font-normal mt-2 mb-4 tracking-tight font-serif text-offblack">Fine Art Prints</h3>
+                        <p class="text-mutedslate text-sm font-light leading-relaxed font-sans mb-6">
+                            Limited and open edition archival prints. Curated collections spanning Pacific Northwest peaks, alpine mist, and coastal silence.
+                        </p>
                     </div>
-                    <h3 class="text-2xl font-medium mb-4 tracking-tight">Cinematic Videography</h3>
-                    <p class="text-zinc-400 font-light leading-relaxed">
-                        From brand films to documentary-style event coverage. I capture the essence of your story through high-end production and narrative editing.
-                    </p>
+                    <a href="gallery.html" class="text-xs uppercase tracking-widest text-offblack border-b border-offblack/40 hover:border-offblack pb-1 self-start font-sans">Browse Collection &rarr;</a>
                 </div>
 
-                <!-- Visual Marketing -->
-                <a href="marketing.html" class="group block">
-                    <div class="overflow-hidden mb-8 aspect-video">
-                        <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=2070" 
-                             alt="Visual Marketing" 
-                             class="w-full h-full object-cover transition-all duration-700 scale-105 group-hover:scale-100 grayscale group-hover:grayscale-0">
+                <!-- Pillar 2: Client Photography Services -->
+                <div class="group border border-mutedslate/20 p-8 rounded-sm bg-white shadow-sm hover:border-mutedslate transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="overflow-hidden mb-6 aspect-[4/3]">
+                            <img src="https://res.cloudinary.com/decv98oqz/image/upload/f_auto,q_auto,w_800/v1776367252/20250331-LEO05614-anabel_tzhkoc.jpg" 
+                                 alt="Client Photography Services" 
+                                 class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105">
+                        </div>
+                        <span class="text-[10px] uppercase tracking-[0.3em] text-mutedslate font-bold font-sans">Custom Commissions</span>
+                        <h3 class="text-2xl font-normal mt-2 mb-4 tracking-tight font-serif text-offblack">Portraits & Lifestyle</h3>
+                        <p class="text-mutedslate text-sm font-light leading-relaxed font-sans mb-6">
+                            Environmental portraits, outdoor lifestyle sessions, and commercial imagery for outdoor brands and individuals.
+                        </p>
                     </div>
-                    <h3 class="text-2xl font-medium mb-4 tracking-tight">Visual Marketing</h3>
-                    <p class="text-zinc-400 font-light leading-relaxed">
-                        Data-driven visual assets for social media, digital advertising, and brand identity. I create images that don't just look good—they convert.
-                    </p>
-                </a>
+                    <a href="mailto:hello@storyofleo.com?subject=Inquiry:%20Photography%20Session" class="text-xs uppercase tracking-widest text-offblack border-b border-offblack/40 hover:border-offblack pb-1 self-start font-sans">Book a Session &rarr;</a>
+                </div>
+
+                <!-- Pillar 3: Journal & Digital Assets -->
+                <div class="group border border-mutedslate/20 p-8 rounded-sm bg-white shadow-sm hover:border-mutedslate transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="overflow-hidden mb-6 aspect-[4/3]">
+                            <img src="https://res.cloudinary.com/decv98oqz/image/upload/f_auto,q_auto,w_800/v1778177040/leoworking_dv7wgo.jpg" 
+                                 alt="Journal & Digital Assets" 
+                                 class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105">
+                        </div>
+                        <span class="text-[10px] uppercase tracking-[0.3em] text-mutedslate font-bold font-sans">Audience & Devlog</span>
+                        <h3 class="text-2xl font-normal mt-2 mb-4 tracking-tight font-serif text-offblack">0 to 100 Journal</h3>
+                        <p class="text-mutedslate text-sm font-light leading-relaxed font-sans mb-6">
+                            Behind-the-scenes logs of building a photography brand, technical guides, Lightroom presets, and wallpaper releases.
+                        </p>
+                    </div>
+                    <a href="journal.html" class="text-xs uppercase tracking-widest text-offblack border-b border-offblack/40 hover:border-offblack pb-1 self-start font-sans">Read Journal &rarr;</a>
+                </div>
             </div>
         </section>
 
-        <!-- Priority 3: Gallery (3-Column Grid) -->
-        <section id="gallery" class="py-24 md:py-40 px-6 max-w-7xl mx-auto">
+        <!-- Featured Print Collection Grid -->
+        <section id="store" class="py-24 md:py-36 px-6 max-w-7xl mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-baseline mb-16">
-                <h2 class="text-3xl md:text-5xl font-light tracking-tighter mb-4 md:mb-0">Selected Projects</h2>
-                <span class="text-xs uppercase tracking-[0.3em] text-zinc-600">Archive 2024-2025</span>
+                <div>
+                    <h2 class="text-xs uppercase tracking-[0.5em] text-mutedslate mb-2 font-bold font-sans">Curated Store</h2>
+                    <h3 class="text-3xl md:text-5xl font-normal tracking-tight font-serif text-offblack">Featured Fine Art Prints</h3>
+                </div>
+                <a href="gallery.html" class="text-xs uppercase tracking-[0.3em] text-mutedslate hover:text-offblack transition-colors font-sans mt-4 md:mt-0">View All Prints &rarr;</a>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Project 1 -->
-                <div class="group relative cursor-pointer overflow-hidden aspect-square md:aspect-[3/4]">
-                    <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&q=80&w=1925" 
-                         alt="Project 1" 
-                         class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-8 flex flex-col justify-end">
-                        <p class="text-xs uppercase tracking-widest text-zinc-400 mb-2">Short Film</p>
-                        <h4 class="text-xl">The Midnight Pulse</h4>
+                <!-- Print 1 -->
+                <div class="group relative overflow-hidden border border-mutedslate/20 bg-white p-4">
+                    <div class="overflow-hidden aspect-[4/3] mb-4">
+                        <img src="https://res.cloudinary.com/decv98oqz/image/upload/f_auto,q_auto,w_1000/v1776373117/20250405-LEO06783-cascades_range_mt_fmcslp.jpg" 
+                             alt="Cascades Range Mist" 
+                             class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="text-lg font-serif text-offblack">Cascades Range Ridge</h4>
+                            <p class="text-xs text-mutedslate font-sans mt-1">Archival Matte • Sizes up to 24x36"</p>
+                        </div>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-offblack font-sans">From $85</span>
                     </div>
                 </div>
 
-                <!-- Project 2 -->
-                <div class="group relative cursor-pointer overflow-hidden aspect-square md:aspect-[3/4]">
-                    <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=1964" 
-                         alt="Project 2" 
-                         class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-8 flex flex-col justify-end">
-                        <p class="text-xs uppercase tracking-widest text-zinc-400 mb-2">Brand Identity</p>
-                        <h4 class="text-xl">Urban Monolith</h4>
+                <!-- Print 2 -->
+                <div class="group relative overflow-hidden border border-mutedslate/20 bg-white p-4">
+                    <div class="overflow-hidden aspect-[4/3] mb-4">
+                        <img src="https://res.cloudinary.com/decv98oqz/image/upload/f_auto,q_auto,w_1000/v1776373120/20250524-LEO08273-baker-_mt_gomwwt.jpg" 
+                             alt="Mount Baker Glow" 
+                             class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="text-lg font-serif text-offblack">Mount Baker Glow</h4>
+                            <p class="text-xs text-mutedslate font-sans mt-1">Fine Art Canvas • Sizes up to 30x45"</p>
+                        </div>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-offblack font-sans">From $110</span>
                     </div>
                 </div>
 
-                <!-- Project 3 -->
-                <div class="group relative cursor-pointer overflow-hidden aspect-square md:aspect-[3/4]">
-                    <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=2070" 
-                         alt="Project 3" 
-                         class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-8 flex flex-col justify-end">
-                        <p class="text-xs uppercase tracking-widest text-zinc-400 mb-2">Social Campaign</p>
-                        <h4 class="text-xl">Ethereal Motion</h4>
+                <!-- Print 3 -->
+                <div class="group relative overflow-hidden border border-mutedslate/20 bg-white p-4">
+                    <div class="overflow-hidden aspect-[4/3] mb-4">
+                        <img src="https://res.cloudinary.com/decv98oqz/image/upload/f_auto,q_auto,w_1000/v1785549250/adventure/backpacking/2025-turtles-DSC02317_xcg51t.jpg" 
+                             alt="Turtle Alpine Solitude" 
+                             class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="text-lg font-serif text-offblack">Alpine Solitude</h4>
+                            <p class="text-xs text-mutedslate font-sans mt-1">Museum Luster • Sizes up to 24x36"</p>
+                        </div>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-offblack font-sans">From $95</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Final CTA -->
-        <section class="py-40 bg-zinc-950 text-center px-6">
-            <h2 class="text-4xl md:text-7xl font-bold tracking-tighter mb-12">Let's create <br class="md:hidden"> something iconic.</h2>
-            <a href="mailto:hello@storyofleo.com" class="inline-block text-xl md:text-2xl font-light border-b border-white/20 hover:border-white transition-all pb-2 tracking-wide">
+        <!-- Final Call to Action -->
+        <section class="py-36 bg-offwhite border-t border-mutedslate/20 text-center px-6">
+            <h2 class="text-4xl md:text-7xl font-normal tracking-tight mb-8 font-serif text-offblack">Acquire a piece, <br class="md:hidden"> or tell a story.</h2>
+            <p class="text-mutedslate text-sm md:text-base max-w-xl mx-auto mb-12 font-sans">
+                For custom print dimensions, commercial licensing, or booking photography sessions, reach out directly.
+            </p>
+            <a href="mailto:hello@storyofleo.com" class="inline-block text-xl md:text-2xl font-light border-b border-offblack/40 hover:border-offblack text-offblack transition-all pb-2 tracking-wide font-sans">
                 hello@storyofleo.com
             </a>
         </section>
     </main>
 
-    <footer class="py-12 px-6 border-t border-zinc-900 text-zinc-500 text-xs uppercase tracking-[0.3em] flex flex-col md:flex-row justify-between items-center gap-8">
+    <footer class="py-12 px-6 border-t border-mutedslate/20 text-mutedslate text-xs uppercase tracking-[0.3em] font-sans flex flex-col md:flex-row justify-between items-center gap-8 max-w-7xl mx-auto">
         <div>&copy; 2026 Story of Leo. All Rights Reserved.</div>
         <div class="flex gap-8">
-            <a href="index.html" class="hover:text-white transition-colors">Home</a>
-            <a href="gallery.html" class="hover:text-white transition-colors">Gallery</a>
-            <a href="journal.html" class="hover:text-white transition-colors">Journal</a>
-            <a href="about.html" class="hover:text-white transition-colors">About</a>
+            <a href="index.html" class="hover:text-offblack transition-colors">Home</a>
+            <a href="gallery.html" class="hover:text-offblack transition-colors">Prints & Gallery</a>
+            <a href="journal.html" class="hover:text-offblack transition-colors">Journal</a>
+            <a href="about.html" class="hover:text-offblack transition-colors">About</a>
         </div>
     </footer>
-
-    <style>
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
 
 </body>
 </html>

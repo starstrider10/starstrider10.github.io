@@ -1,12 +1,11 @@
-
 const strategies = {
-    'all': 'Viewing the full archive. Each genre is captured with intentional technical choices designed to evoke specific audience responses and brand values.',
-    'portraiture': 'Portraiture: Focusing on human connection and emotional depth. Utilized shallow depth of field and warm, authentic color grading to build immediate viewer trust.',
-    'sakura': 'Sakura Series: A collection featuring Anabel, Sandy, and Christie, captured during the peak of spring. This series emphasizes the ephemeral beauty of the season.',
-    'adventure': 'Adventure: Highlighting freedom and exploration. Engineered for lifestyle and outdoor brands that value rugged authenticity and wide-scale narrative scope.',
-    'backpacking': 'Backpacking: Capturing the essence of self-reliance and the journey. Focused on raw, unposed moments and the vastness of the wilderness.',
-    'outdoors': 'Outdoors: Exploring the natural world and outdoor lifestyle. Emphasizing lighting, texture, and the relationship between humans and nature.',
-    'street': 'Street: Capturing the rhythmic pulse of urban life. Technical focus on geometric composition and high-contrast lighting to create high-engagement social assets.'
+    'all': 'Viewing the full archive. Fine art nature photography, environmental portraiture, and wilderness documentation.',
+    'portraiture': 'Portraiture & Outdoor Lifestyle: Focusing on authentic human connection, atmospheric light, and natural character.',
+    'sakura': 'Sakura Series: Fine art seasonal portraiture capturing the fleeting beauty of spring in natural light.',
+    'adventure': 'Outdoor & Fine Art: Alpine landscapes, wilderness expanses, and quiet moments in the backcountry.',
+    'backpacking': 'Backpacking: Visual stories from deep trails, self-reliance, and mountain solitude.',
+    'outdoors': 'Outdoors: Curated fine art imagery emphasizing mountain mist, natural textures, and open horizons.',
+    'street': 'Street & Urban: Geometric compositions and shadow studies capturing urban geometry and daily life.'
 };
 
 let currentAlbum = [];
@@ -87,15 +86,15 @@ function renderGallery(category = 'all') {
             });
 
             if (assets.length === 0) {
-                container.innerHTML = `<div class="py-20 text-center text-zinc-500 uppercase tracking-widest text-sm">No assets found in ${category}</div>`;
+                container.innerHTML = `<div class="py-20 text-center text-[#6E727A] uppercase tracking-widest text-sm font-sans">No assets found in ${category}</div>`;
                 return;
             }
 
             const archiveSection = document.createElement('section');
-            archiveSection.className = 'relative h-[100vh] w-[100vw] -mx-6 mt-4 mb-32 overflow-hidden bg-[#0A0A0A]';
+            archiveSection.className = 'relative h-[100vh] w-[100vw] -mx-6 mt-4 mb-32 overflow-hidden bg-[#F9F9FB] border-y border-[#6E727A]/20';
             archiveSection.innerHTML = `
                 <div class="absolute inset-0 flex items-center justify-center z-0 pointer-events-none">
-                    <h2 class="text-[12vw] font-black text-white/[0.03] uppercase tracking-tighter">${category === 'all' ? 'Archives' : category}</h2>
+                    <h2 class="text-[12vw] font-serif text-[#121212]/[0.04] uppercase tracking-tighter">${category === 'all' ? 'Archives' : category}</h2>
                 </div>
                 <div id="floating-archive" class="relative w-full h-full"></div>
             `;
@@ -119,11 +118,11 @@ function renderGallery(category = 'all') {
                 item.style.width = `${width}px`;
                 
                 item.innerHTML = `
-                    <div class="w-fit mx-auto relative p-1 md:p-1.5 bg-zinc-900 shadow-2xl group overflow-hidden border border-white/5 transition-all duration-700">
-                        <img src="${optimizeUrl(p.url, 600)}" loading="lazy" class="h-auto max-h-[50vh] object-contain transition-all duration-1000 saturate-[0.4] group-hover:saturate-100">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-end pointer-events-none text-center p-4 pb-6">
-                            <span class="text-[7px] md:text-[9px] uppercase tracking-[0.4em] text-white font-bold mb-1 leading-tight">${displayName}</span>
-                            <span class="text-[5px] md:text-[6px] uppercase tracking-widest text-[#FFB84D] opacity-70">Click to Select</span>
+                    <div class="w-fit mx-auto relative p-1 md:p-1.5 bg-white shadow-md group overflow-hidden border border-[#6E727A]/30 transition-all duration-700">
+                        <img src="${optimizeUrl(p.url, 600)}" loading="lazy" class="h-auto max-h-[50vh] object-contain transition-all duration-1000 saturate-[0.85] group-hover:saturate-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#121212]/90 via-[#121212]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-end pointer-events-none text-center p-4 pb-6">
+                            <span class="text-[7px] md:text-[9px] uppercase tracking-[0.4em] text-[#F9F9FB] font-bold mb-1 leading-tight font-sans">${displayName}</span>
+                            <span class="text-[5px] md:text-[6px] uppercase tracking-widest text-[#F9F9FB]/80 font-sans">Click to Select</span>
                         </div>
                     </div>
                 `;
@@ -216,7 +215,7 @@ function renderGallery(category = 'all') {
             }
 
             if (assets.length === 0) {
-                container.innerHTML = `<div class="py-20 text-center text-zinc-500 uppercase tracking-widest text-sm">No assets found in ${category}</div>`;
+                container.innerHTML = `<div class="py-20 text-center text-[#6E727A] uppercase tracking-widest text-sm font-sans">No assets found in ${category}</div>`;
                 return;
             }
 
@@ -225,14 +224,14 @@ function renderGallery(category = 'all') {
             
             assets.forEach((p, i) => {
                 const item = document.createElement('div');
-                item.className = 'group cursor-pointer relative aspect-[4/5] overflow-hidden bg-zinc-900 border border-white/5';
+                item.className = 'group cursor-pointer relative aspect-[4/5] overflow-hidden bg-white border border-[#6E727A]/20';
                 const displayName = getDisplayName(p.public_id, p.folder);
                 
                 item.innerHTML = `
-                    <img src="${optimizeUrl(p.url, 800)}" loading="lazy" class="w-full h-full object-cover transition-all duration-1000 saturate-[0.4] group-hover:saturate-100 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-                        <span class="text-[10px] uppercase tracking-[0.3em] text-white font-bold mb-1">${displayName}</span>
-                        <span class="text-[8px] uppercase tracking-widest text-[#FFB84D]">View Fullscreen</span>
+                    <img src="${optimizeUrl(p.url, 800)}" loading="lazy" class="w-full h-full object-cover transition-all duration-1000 saturate-[0.85] group-hover:saturate-100 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#121212]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <span class="text-[10px] uppercase tracking-[0.3em] text-[#F9F9FB] font-bold mb-1 font-sans">${displayName}</span>
+                        <span class="text-[8px] uppercase tracking-widest text-[#F9F9FB]/80 font-sans">View Fullscreen</span>
                     </div>
                 `;
                 item.onclick = () => openAlbum(assets, category.toUpperCase(), i);
@@ -278,15 +277,15 @@ function renderGallery(category = 'all') {
             const displayPhotos = photos.slice(0, 6); // 4 to 6 cohesive shots
 
             const section = document.createElement('div');
-            section.className = 'album-section group cursor-pointer relative h-[50vh] overflow-hidden rounded-sm bg-zinc-900';
+            section.className = 'album-section group cursor-pointer relative h-[50vh] overflow-hidden rounded-sm bg-white border border-[#6E727A]/20 shadow-sm';
             const label = groupName === 'Sakura Series' ? 'Sakura' : 'Series';
 
             section.innerHTML = `
-                <img src="${optimizeUrl(displayPhotos[0].url, 800)}" loading="lazy" class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105 saturate-[0.4] group-hover:saturate-100" alt="${groupName}">
-                <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all duration-700 flex flex-col justify-center items-center">
-                    <span class="text-[9px] uppercase tracking-[0.4em] text-[#FFB84D] mb-2 font-bold">${label}</span>
-                    <h3 class="text-3xl font-light tracking-tighter capitalize text-white">${groupName}</h3>
-                    <span class="mt-4 text-[8px] uppercase tracking-widest text-white/50 opacity-0 group-hover:opacity-100 transition-opacity underline decoration-[#FFB84D]/30 underline-offset-8">Explore Album</span>
+                <img src="${optimizeUrl(displayPhotos[0].url, 800)}" loading="lazy" class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105 saturate-[0.85] group-hover:saturate-100" alt="${groupName}">
+                <div class="absolute inset-0 bg-[#121212]/30 group-hover:bg-[#121212]/10 transition-all duration-700 flex flex-col justify-center items-center">
+                    <span class="text-[9px] uppercase tracking-[0.4em] text-white mb-2 font-bold font-sans">${label}</span>
+                    <h3 class="text-4xl font-serif font-normal tracking-tight text-white drop-shadow-md">${groupName}</h3>
+                    <span class="mt-4 text-[8px] uppercase tracking-widest text-white/90 opacity-0 group-hover:opacity-100 transition-opacity underline decoration-white/40 underline-offset-8 font-sans">Explore Album</span>
                 </div>
             `;
             section.onclick = () => openAlbum(displayPhotos, groupName);
@@ -308,16 +307,16 @@ function renderGallery(category = 'all') {
 
 function filterGallery(category) {
     const btns = document.querySelectorAll('.filter-btn');
-    btns.forEach(btn => btn.classList.remove('text-[#FFB84D]', 'active'));
+    btns.forEach(btn => btn.classList.remove('text-[#121212]', 'active', 'border-b', 'border-[#121212]'));
     
     btns.forEach(btn => {
         const onclick = btn.getAttribute('onclick');
         if (onclick && onclick.includes(`'${category}'`)) {
-            btn.classList.add('text-[#FFB84D]', 'active');
+            btn.classList.add('text-[#121212]', 'active');
             const parentGroup = btn.closest('.group');
             if (parentGroup) {
                 const parentBtn = parentGroup.querySelector('button.filter-btn');
-                if (parentBtn) parentBtn.classList.add('text-[#FFB84D]');
+                if (parentBtn) parentBtn.classList.add('text-[#121212]');
             }
         }
     });
@@ -356,11 +355,36 @@ function updateModal() {
     document.getElementById('modal-model-name').innerText = currentModel;
     document.getElementById('modal-counter').innerText = `${currentIndex + 1} / ${currentAlbum.length}`;
 
+    updatePrintPrice();
+
     const nextIdx = (currentIndex + 1) % currentAlbum.length;
     const prevIdx = (currentIndex - 1 + currentAlbum.length) % currentAlbum.length;
     
     new Image().src = optimizeUrl(currentAlbum[nextIdx].url, 2000);
     new Image().src = optimizeUrl(currentAlbum[prevIdx].url, 2000);
+}
+
+function updatePrintPrice() {
+    if (!currentAlbum || currentAlbum.length === 0) return;
+    const photo = currentAlbum[currentIndex];
+    const select = document.getElementById('print-size-select');
+    const buyBtn = document.getElementById('buy-print-btn');
+    if (!select || !buyBtn) return;
+
+    const size = select.value;
+    const photoId = photo.public_id || 'Photo';
+
+    // If a shopify link/handle is added to the photo object in gallery-data.js, use it:
+    if (photo.shopify_url) {
+        buyBtn.href = photo.shopify_url;
+        buyBtn.innerText = "Buy on Shopify Store \u2192";
+    } else {
+        // Preload fallback: Direct mailto reservation link
+        const subject = encodeURIComponent(`Fine Art Print Request: ${photoId} (${size})`);
+        const body = encodeURIComponent(`Hi Leo,\n\nI would like to order a fine art print of:\nImage: ${photoId}\nSize: ${size}\n\nPlease let me know availability and payment details!\n\nBest,`);
+        buyBtn.href = `mailto:hello@storyofleo.com?subject=${subject}&body=${body}`;
+        buyBtn.innerText = "Inquire Fine Art Print \u2192";
+    }
 }
 
 function nextPhoto() {
@@ -392,11 +416,11 @@ window.addEventListener('load', () => {
         btns.forEach(btn => {
             const onclick = btn.getAttribute('onclick');
             if (onclick && onclick.includes(`'${initialCategory}'`)) {
-                btn.classList.add('text-[#FFB84D]', 'active');
+                btn.classList.add('text-[#121212]', 'active');
                 const parentGroup = btn.closest('.group');
                 if (parentGroup) {
                     const parentBtn = parentGroup.querySelector('button.filter-btn');
-                    if (parentBtn) parentBtn.classList.add('text-[#FFB84D]');
+                    if (parentBtn) parentBtn.classList.add('text-[#121212]');
                 }
             }
         });

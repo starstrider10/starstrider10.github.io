@@ -5,40 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Journal | Story of Leo</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        offblack: '#121212',
+                        offwhite: '#F9F9FB',
+                        mutedslate: '#6E727A'
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Inter', 'DM Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="style.css">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .text-shadow-lg { text-shadow: 0 4px 12px rgba(0, 0, 0, 0.9); }
-        .prose h1 { font-size: 2.25rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.05em; margin-bottom: 2rem; color: white; }
-        .prose p { margin-bottom: 1.5rem; color: #a1a1aa; line-height: 1.8; }
+        .prose h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 2.25rem; font-weight: 400; text-transform: uppercase; letter-spacing: -0.02em; margin-bottom: 2rem; color: #121212; }
+        .prose p { margin-bottom: 1.5rem; color: #6E727A; line-height: 1.8; font-family: 'Inter', sans-serif; }
         .prose { max-width: 65ch; }
     </style>
 </head>
-<body class="bg-[#1A1817] text-zinc-100 selection:bg-zinc-800 selection:text-white">
+<body class="bg-[#F9F9FB] text-[#121212] selection:bg-[#121212] selection:text-[#F9F9FB]">
 
     <!-- Navigation Header -->
-    <nav class="fixed top-0 w-full z-50 px-6 py-8 flex justify-between items-center bg-gradient-to-b from-[#1A1817]/90 to-transparent backdrop-blur-sm">
-        <a href="index.html" class="text-sm font-bold tracking-[0.2em] uppercase">Story of Leo</a>
-        <div class="flex gap-8 text-[10px] md:text-xs uppercase tracking-[0.3em] font-medium items-center">
-            <a href="agency.html" class="hover:text-[#FFB84D] transition-colors">Agency</a>
-            <a href="marketing.html" class="hover:text-[#FFB84D] transition-colors">Marketing</a>
+    <nav class="fixed top-0 w-full z-50 px-6 py-6 flex justify-between items-center bg-[#F9F9FB]/90 border-b border-[#6E727A]/20 backdrop-blur-md">
+        <a href="index.html" class="text-sm font-bold tracking-[0.2em] uppercase text-[#121212] font-sans">Story of Leo</a>
+        <div class="flex gap-8 text-[10px] md:text-xs uppercase tracking-[0.3em] font-medium items-center font-sans">
+            <a href="index.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">Home</a>
             
             <!-- Gallery Dropdown -->
             <div class="relative group">
-                <a href="gallery.html" class="hover:text-[#FFB84D] transition-colors">Gallery</a>
-                <div class="absolute left-0 mt-2 w-48 bg-[#1A1817]/95 backdrop-blur-md border border-zinc-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 flex flex-col py-2">
-                    <a href="gallery.html?filter=portraiture" class="px-4 py-2 hover:bg-zinc-800 transition-colors">Portraiture</a>
-                    <a href="gallery.html?filter=adventure" class="px-4 py-2 hover:bg-zinc-800 transition-colors">Adventure (All)</a>
-                    <a href="gallery.html?filter=backpacking" class="px-4 py-2 hover:bg-zinc-800 transition-colors">Backpacking</a>
-                    <a href="gallery.html?filter=outdoors" class="px-4 py-2 hover:bg-zinc-800 transition-colors">Outdoors</a>
-                    <div class="h-[1px] bg-zinc-800 my-1 mx-4"></div>
-                    <a href="gallery.html?filter=sakura" class="px-4 py-2 hover:bg-zinc-800 transition-colors text-zinc-500">Sakura Series</a>
+                <a href="gallery.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">Gallery</a>
+                <div class="absolute left-0 mt-2 w-48 bg-[#F9F9FB] border border-[#6E727A]/30 shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 flex flex-col py-2 z-50">
+                    <a href="gallery.html?filter=portraiture" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#121212] transition-colors">Portraiture</a>
+                    <a href="gallery.html?filter=adventure" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#121212] transition-colors">Adventure (All)</a>
+                    <a href="gallery.html?filter=backpacking" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#121212] transition-colors">Backpacking</a>
+                    <a href="gallery.html?filter=outdoors" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#121212] transition-colors">Outdoors</a>
+                    <div class="h-[1px] bg-[#6E727A]/20 my-1 mx-4"></div>
+                    <a href="gallery.html?filter=sakura" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#6E727A] transition-colors">Sakura Series</a>
                 </div>
             </div>
 
-            <a href="journal.html" class="hover:text-[#FFB84D] transition-colors">Journal</a>
-            <a href="about.html" class="hover:text-[#FFB84D] transition-colors">About</a>
+            <a href="journal.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">Journal</a>
+            <a href="about.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">About</a>
         </div>
     </nav>
 
@@ -46,21 +60,21 @@
         
         <div id="journal-index">
             <header class="mb-24">
-                <h1 class="text-xs uppercase tracking-[0.5em] text-zinc-500 mb-8 font-bold">The Journal</h1>
-                <h2 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-12">
+                <h1 class="text-xs uppercase tracking-[0.5em] text-[#6E727A] mb-8 font-bold font-sans">The Journal</h1>
+                <h2 class="text-4xl md:text-7xl font-normal font-serif tracking-tight leading-none mb-12 text-[#121212]">
                     Stories, Experiments, <br>& Insights.
                 </h2>
-                <p class="text-zinc-400 text-lg md:text-2xl font-light italic max-w-3xl leading-relaxed">
+                <p class="text-[#6E727A] text-lg md:text-2xl font-light italic max-w-3xl leading-relaxed font-sans">
                     A space for long-form thoughts on visual strategy, technical production, and the pursuit of "Pointless Joy."
                 </p>
             </header>
 
             <!-- Dynamic Journal Feed -->
-            <section class="mb-32 border-t border-zinc-900 pt-24">
+            <section class="mb-32 border-t border-[#6E727A]/20 pt-24">
                 <div id="post-list" class="grid grid-cols-1 md:grid-cols-2 gap-24">
                     <!-- Posts will be injected here -->
                     <div class="md:col-span-2 py-20 text-center animate-pulse">
-                        <p class="text-zinc-600 uppercase tracking-widest text-[10px]">Loading Archives...</p>
+                        <p class="text-[#6E727A] uppercase tracking-widest text-[10px] font-sans">Loading Archives...</p>
                     </div>
                 </div>
             </section>
@@ -68,11 +82,11 @@
 
         <!-- Single Post View (Hidden by default) -->
         <div id="post-view" class="hidden pt-12 pb-32">
-            <button onclick="showIndex()" class="mb-16 text-[10px] uppercase tracking-[0.4em] text-[#FFB84D] flex items-center gap-4 hover:translate-x-[-4px] transition-transform font-bold">
+            <button onclick="showIndex()" class="mb-16 text-[10px] uppercase tracking-[0.4em] text-[#121212] flex items-center gap-4 hover:translate-x-[-4px] transition-transform font-bold font-sans">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                 Back to Journal
             </button>
-            <article id="post-content" class="prose prose-invert mx-auto">
+            <article id="post-content" class="prose mx-auto">
                 <!-- Content injected here -->
             </article>
         </div>
@@ -93,9 +107,9 @@
 
                 if (!Array.isArray(files) || files.length === 0) {
                     postList.innerHTML = `
-                        <div class="md:col-span-2 py-40 text-center bg-zinc-950 border border-zinc-900 rounded-sm">
-                            <span class="text-[10px] uppercase tracking-[0.5em] text-[#FFB84D] mb-4 block">First entries dropping soon</span>
-                            <h3 class="text-2xl font-light italic text-zinc-500">Developing the narrative...</h3>
+                        <div class="md:col-span-2 py-32 text-center bg-white border border-[#6E727A]/20 rounded-sm shadow-sm">
+                            <span class="text-[10px] uppercase tracking-[0.5em] text-[#6E727A] mb-4 block font-sans">First entries dropping soon</span>
+                            <h3 class="text-2xl font-normal font-serif italic text-[#121212]">Developing the narrative...</h3>
                         </div>
                     `;
                     return;
@@ -105,16 +119,16 @@
                     const title = file.name.replace('.md', '').replace(/-/g, ' ');
                     const postCard = `
                         <div onclick="loadPost('${file.path}')" class="group cursor-pointer">
-                            <span class="text-[10px] uppercase tracking-[0.3em] text-zinc-600 group-hover:text-[#FFB84D] transition-colors">Digital Entry</span>
-                            <h3 class="text-2xl md:text-3xl font-light mt-4 mb-6 group-hover:italic transition-all capitalize">${title}</h3>
-                            <div class="w-12 h-[1px] bg-zinc-800 group-hover:w-full transition-all duration-700"></div>
+                            <span class="text-[10px] uppercase tracking-[0.3em] text-[#6E727A] group-hover:text-[#121212] transition-colors font-sans">Digital Entry</span>
+                            <h3 class="text-2xl md:text-3xl font-serif font-normal mt-4 mb-6 group-hover:italic transition-all capitalize text-[#121212]">${title}</h3>
+                            <div class="w-12 h-[1px] bg-[#6E727A]/30 group-hover:w-full transition-all duration-700"></div>
                         </div>
                     `;
                     postList.innerHTML += postCard;
                 });
             } catch (error) {
                 console.error('Error fetching posts:', error);
-                document.getElementById('post-list').innerHTML = '<p class="text-zinc-500 italic text-center md:col-span-2">Journal temporarily unavailable.</p>';
+                document.getElementById('post-list').innerHTML = '<p class="text-[#6E727A] italic text-center md:col-span-2 font-sans">Journal temporarily unavailable.</p>';
             }
         }
 
@@ -142,12 +156,12 @@
         fetchPosts();
     </script>
 
-    <footer class="py-12 px-6 border-t border-zinc-900 text-zinc-500 text-[10px] uppercase tracking-[0.3em] flex flex-col md:flex-row justify-between items-center gap-8 max-w-7xl mx-auto">
+    <footer class="py-12 px-6 border-t border-[#6E727A]/20 text-[#6E727A] text-[10px] uppercase tracking-[0.3em] font-sans flex flex-col md:flex-row justify-between items-center gap-8 max-w-7xl mx-auto">
         <div>&copy; 2026 Story of Leo. All Rights Reserved.</div>
         <div class="flex gap-8">
-            <a href="https://www.instagram.com/leo.inframe/" target="_blank" class="hover:text-white transition-colors">Instagram</a>
-            <a href="https://www.tiktok.com/@leo.inframe" target="_blank" class="hover:text-white transition-colors">TikTok</a>
-            <a href="https://www.youtube.com/@leo.inframe/featured" target="_blank" class="hover:text-white transition-colors">YouTube</a>
+            <a href="https://www.instagram.com/leo.inframe/" target="_blank" class="hover:text-[#121212] transition-colors">Instagram</a>
+            <a href="https://www.tiktok.com/@leo.inframe" target="_blank" class="hover:text-[#121212] transition-colors">TikTok</a>
+            <a href="https://www.youtube.com/@leo.inframe/featured" target="_blank" class="hover:text-[#121212] transition-colors">YouTube</a>
         </div>
     </footer>
 

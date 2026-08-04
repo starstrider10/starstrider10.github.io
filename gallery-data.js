@@ -1,6 +1,78 @@
 const galleryData = {
   "adventure/backpacking": [
     {
+      "public_id": "adventure/backpacking/2024-taipei101-_LEO4428_fhu2vx",
+      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1785868410/adventure/backpacking/2024-taipei101-_LEO4428_fhu2vx.jpg",
+      "created_at": "2026-08-04T18:33:30+00:00",
+      "folder": "adventure/backpacking",
+      "tags": [
+        "backpacking"
+      ]
+    },
+    {
+      "public_id": "adventure/backpacking/2024-batuCaves-fireshow-_LEO1677_f1utmg",
+      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1785868409/adventure/backpacking/2024-batuCaves-fireshow-_LEO1677_f1utmg.jpg",
+      "created_at": "2026-08-04T18:33:29+00:00",
+      "folder": "adventure/backpacking",
+      "tags": [
+        "backpacking"
+      ]
+    },
+    {
+      "public_id": "adventure/backpacking/2024-taiwan-steepRidge-_LEO9481_pqtruu",
+      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1785868406/adventure/backpacking/2024-taiwan-steepRidge-_LEO9481_pqtruu.jpg",
+      "created_at": "2026-08-04T18:33:26+00:00",
+      "folder": "adventure/backpacking",
+      "tags": [
+        "backpacking"
+      ]
+    },
+    {
+      "public_id": "adventure/backpacking/2024-tamsui-sunset-_LEO2236_zfbd35",
+      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1785868404/adventure/backpacking/2024-tamsui-sunset-_LEO2236_zfbd35.jpg",
+      "created_at": "2026-08-04T18:33:24+00:00",
+      "folder": "adventure/backpacking",
+      "tags": [
+        "backpacking"
+      ]
+    },
+    {
+      "public_id": "adventure/backpacking/2024-shifen-lanterns-_LEO1332_hv5bsb",
+      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1785868402/adventure/backpacking/2024-shifen-lanterns-_LEO1332_hv5bsb.jpg",
+      "created_at": "2026-08-04T18:33:22+00:00",
+      "folder": "adventure/backpacking",
+      "tags": [
+        "backpacking"
+      ]
+    },
+    {
+      "public_id": "adventure/backpacking/2024-tamsui-coastline-_LEO2336_rn3byk",
+      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1785868399/adventure/backpacking/2024-tamsui-coastline-_LEO2336_rn3byk.jpg",
+      "created_at": "2026-08-04T18:33:19+00:00",
+      "folder": "adventure/backpacking",
+      "tags": [
+        "backpacking"
+      ]
+    },
+    {
+      "public_id": "adventure/backpacking/2024-shifen-oldStreet-_LEO1219_ibsn5f",
+      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1785868398/adventure/backpacking/2024-shifen-oldStreet-_LEO1219_ibsn5f.jpg",
+      "created_at": "2026-08-04T18:33:18+00:00",
+      "folder": "adventure/backpacking",
+      "tags": [
+        "backpacking"
+      ]
+    },
+    {
+      "public_id": "adventure/backpacking/2025-turtles-DSC02317_xcg51t",
+      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1785549250/adventure/backpacking/2025-turtles-DSC02317_xcg51t.jpg",
+      "created_at": "2026-08-01T01:54:10+00:00",
+      "folder": "adventure/backpacking",
+      "tags": [
+        "backpacking"
+      ]
+    },
+    {
       "public_id": "2024-\u6de1\u6c34\u6d77\u5cb8-_LEO2336_nahlhp",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776317934/2024-%E6%B7%A1%E6%B0%B4%E6%B5%B7%E5%B2%B8-_LEO2336_nahlhp.jpg",
       "created_at": "2026-04-16T05:38:54+00:00",
@@ -144,7 +216,30 @@ const galleryData = {
       "tags": []
     }
   ],
+  "homepage": [
+    {
+      "public_id": "homepage/hero_poster",
+      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1785866925/homepage/hero_poster.jpg",
+      "created_at": "2026-08-04T18:08:45+00:00",
+      "folder": "homepage",
+      "tags": []
+    }
+  ],
   "portraits": [
+    {
+      "public_id": "portraits/20240928-lantern-_LEO9750_izpadg",
+      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1785549250/portraits/20240928-lantern-_LEO9750_izpadg.jpg",
+      "created_at": "2026-08-01T01:54:10+00:00",
+      "folder": "portraits",
+      "tags": []
+    },
+    {
+      "public_id": "portraits/20241203-seattleSkyline-DSCF3961_lwdswj",
+      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1785549249/portraits/20241203-seattleSkyline-DSCF3961_lwdswj.jpg",
+      "created_at": "2026-08-01T01:54:09+00:00",
+      "folder": "portraits",
+      "tags": []
+    },
     {
       "public_id": "20260302-LEO01312-caleb-_vgv9ua",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776451194/20260302-LEO01312-caleb-_vgv9ua.jpg",
@@ -164,99 +259,98 @@ const galleryData = {
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776367256/20250404-LEO06515-sandy_rq3twv.jpg",
       "created_at": "2026-04-16T19:20:56+00:00",
       "folder": "portraits",
-      "tags": [
-        "sakura"
-      ]
+      "tags": []
     },
     {
       "public_id": "20250404-LEO06415-sandy_uwivd0",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776367255/20250404-LEO06415-sandy_uwivd0.jpg",
       "created_at": "2026-04-16T19:20:55+00:00",
       "folder": "portraits",
-      "tags": [
-        "sakura"
-      ]
+      "tags": []
     },
     {
       "public_id": "20250404-LEO06204-sandy_h7d3uu",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776367253/20250404-LEO06204-sandy_h7d3uu.jpg",
       "created_at": "2026-04-16T19:20:53+00:00",
       "folder": "portraits",
-      "tags": [
-        "sakura"
-      ]
+      "tags": []
     },
     {
       "public_id": "20250331-LEO05614-anabel_tzhkoc",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776367252/20250331-LEO05614-anabel_tzhkoc.jpg",
       "created_at": "2026-04-16T19:20:52+00:00",
       "folder": "portraits",
-      "tags": [
-        "sakura"
-      ]
+      "tags": []
     },
     {
       "public_id": "20250331-LEO05535-anabel_ju8x6c",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776367251/20250331-LEO05535-anabel_ju8x6c.jpg",
       "created_at": "2026-04-16T19:20:51+00:00",
       "folder": "portraits",
-      "tags": [
-        "sakura"
-      ]
+      "tags": []
     },
     {
       "public_id": "20250331-LEO05491-anabel_dhtvvq",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776367251/20250331-LEO05491-anabel_dhtvvq.jpg",
       "created_at": "2026-04-16T19:20:51+00:00",
       "folder": "portraits",
-      "tags": [
-        "sakura"
-      ]
+      "tags": []
     },
     {
       "public_id": "20260331-LEO02645-christie_ynp7ql",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776312213/20260331-LEO02645-christie_ynp7ql.jpg",
       "created_at": "2026-04-16T04:03:33+00:00",
       "folder": "portraits",
-      "tags": [
-        "sakura"
-      ]
+      "tags": []
     },
     {
       "public_id": "20260331-LEO02454-christie_vpilnj",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776312211/20260331-LEO02454-christie_vpilnj.jpg",
       "created_at": "2026-04-16T04:03:31+00:00",
       "folder": "portraits",
-      "tags": [
-        "sakura"
-      ]
+      "tags": []
     },
     {
       "public_id": "20260331-LEO02435-christie_b1utmx",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776312210/20260331-LEO02435-christie_b1utmx.jpg",
       "created_at": "2026-04-16T04:03:30+00:00",
       "folder": "portraits",
-      "tags": [
-        "sakura"
-      ]
+      "tags": []
     },
     {
       "public_id": "20260331-LEO02409-christie_b9fuye",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776312209/20260331-LEO02409-christie_b9fuye.jpg",
       "created_at": "2026-04-16T04:03:29+00:00",
       "folder": "portraits",
-      "tags": [
-        "sakura"
-      ]
+      "tags": []
     },
     {
       "public_id": "20260331-LEO02395-christie_wrauru",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776312207/20260331-LEO02395-christie_wrauru.jpg",
       "created_at": "2026-04-16T04:03:27+00:00",
       "folder": "portraits",
-      "tags": [
-        "sakura"
-      ]
+      "tags": []
+    },
+    {
+      "public_id": "20260329-LEO01897-quynh_ru8j9k",
+      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776312206/20260329-LEO01897-quynh_ru8j9k.jpg",
+      "created_at": "2026-04-16T04:03:26+00:00",
+      "folder": "portraits",
+      "tags": []
+    },
+    {
+      "public_id": "20260302-LEO01464-megan_rmlipv",
+      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776312204/20260302-LEO01464-megan_rmlipv.jpg",
+      "created_at": "2026-04-16T04:03:24+00:00",
+      "folder": "portraits",
+      "tags": []
+    },
+    {
+      "public_id": "20260302-LEO01418-megan_l6o749",
+      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776312203/20260302-LEO01418-megan_l6o749.jpg",
+      "created_at": "2026-04-16T04:03:23+00:00",
+      "folder": "portraits",
+      "tags": []
     },
     {
       "public_id": "20260302-LEO01335-caleb_gxbqua",
