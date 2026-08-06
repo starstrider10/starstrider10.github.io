@@ -21,13 +21,27 @@
 <body class="bg-offwhite text-offblack font-sans selection:bg-offblack selection:text-offwhite">
 
     <!-- Navigation Header -->
-    <nav class="fixed top-0 w-full z-50 px-6 py-6 flex justify-between items-center bg-offwhite/90 border-b border-mutedslate/20 backdrop-blur-md">
-        <a href="index.html" class="text-sm font-bold tracking-[0.2em] uppercase text-offblack font-sans">Story of Leo</a>
+    <nav class="fixed top-0 w-full z-50 px-6 py-6 flex justify-between items-center bg-[#F9F9FB]/90 border-b border-[#6E727A]/20 backdrop-blur-md">
+        <a href="index.html" class="text-sm font-bold tracking-[0.2em] uppercase text-[#121212] font-sans">Story of Leo</a>
         <div class="flex gap-8 text-[10px] md:text-xs uppercase tracking-[0.3em] font-medium items-center font-sans">
-            <a href="index.html" class="text-offblack hover:text-mutedslate transition-colors">Home</a>
-            <a href="gallery.html" class="text-offblack hover:text-mutedslate transition-colors">Prints & Gallery</a>
-            <a href="journal.html" class="text-offblack hover:text-mutedslate transition-colors">Journal</a>
-            <a href="about.html" class="text-offblack hover:text-mutedslate transition-colors">About</a>
+            <a href="index.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">Home</a>
+            
+            <!-- Gallery Dropdown -->
+            <div class="relative group">
+                <a href="gallery.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">Gallery</a>
+                <div class="absolute left-0 mt-2 w-52 bg-[#F9F9FB] border border-[#6E727A]/30 shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 flex flex-col py-2 z-50">
+                    <a href="gallery.html?filter=prints" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#121212] font-bold transition-colors">Fine Art Prints</a>
+                    <a href="gallery.html?filter=portraiture" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#121212] transition-colors">Portraiture</a>
+                    <a href="gallery.html?filter=adventure" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#121212] transition-colors">Adventure (All)</a>
+                    <a href="gallery.html?filter=backpacking" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#121212] transition-colors">Backpacking</a>
+                    <a href="gallery.html?filter=outdoors" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#121212] transition-colors">Outdoors</a>
+                    <div class="h-[1px] bg-[#6E727A]/20 my-1 mx-4"></div>
+                    <a href="gallery.html?filter=sakura" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#6E727A] transition-colors">Sakura Series</a>
+                </div>
+            </div>
+
+            <a href="journal.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">Journal</a>
+            <a href="about.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">About</a>
         </div>
     </nav>
 

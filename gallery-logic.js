@@ -5,7 +5,12 @@ const strategies = {
     'adventure': 'Outdoor & Fine Art: Alpine landscapes, wilderness expanses, and quiet moments in the backcountry.',
     'backpacking': 'Backpacking: Visual stories from deep trails, self-reliance, and mountain solitude.',
     'outdoors': 'Outdoors: Curated fine art imagery emphasizing mountain mist, natural textures, and open horizons.',
-    'street': 'Street & Urban: Geometric compositions and shadow studies capturing urban geometry and daily life.'
+    'street': 'Street & Urban: Geometric compositions and shadow studies capturing urban geometry and daily life.',
+    'prints': 'Fine Art Prints Collection: Curated archival prints across alpine landscapes, ocean mist, iconic cityscapes, and wildlife.',
+    'prints:alpine': 'Alpine & Wilderness Fine Art Prints: Grand mountain vistas, peak reflections, and misty coastlines.',
+    'prints:urban': 'Urban & Skyline Fine Art Prints: Iconic cityscapes, atmospheric fog, and architectural geometry.',
+    'prints:wildlife': 'Wildlife & Fine Art Nature Prints: Marine sea turtles, monochrome wildlife portraits, and atmospheric night scenes.',
+    'prints:travel': 'Travel & Wanderlust Story Prints: Atmospheric train tracks, floating night lanterns, fire art, and wanderlust travel moments.'
 };
 
 let currentAlbum = [];
@@ -111,7 +116,7 @@ function renderGallery(category = 'all') {
                 const topPos = isMobile ? (10 + (lane * 35)) : (8 + (lane * 22)); 
                 const rotation = (Math.random() - 0.5) * 15;
                 const width = isMobile ? (140 + Math.random() * 50) : (260 + Math.random() * 90);
-                const displayName = getDisplayName(p.public_id, p.folder);
+                const displayName = p.print_title || getDisplayName(p.public_id, p.folder);
 
                 item.className = 'absolute cursor-pointer z-10';
                 item.style.top = `${topPos}%`;
@@ -121,6 +126,7 @@ function renderGallery(category = 'all') {
                     <div class="w-fit mx-auto relative p-1 md:p-1.5 bg-white shadow-md group overflow-hidden border border-[#6E727A]/30 transition-all duration-700">
                         <img src="${optimizeUrl(p.url, 600)}" loading="lazy" class="h-auto max-h-[50vh] object-contain transition-all duration-1000 saturate-[0.85] group-hover:saturate-100">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#121212]/90 via-[#121212]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-end pointer-events-none text-center p-4 pb-6">
+                            ${p.is_print ? `<span class="text-[6px] md:text-[7px] uppercase tracking-[0.3em] bg-white/20 text-white px-2 py-0.5 mb-1 font-bold font-sans">Print Available</span>` : ''}
                             <span class="text-[7px] md:text-[9px] uppercase tracking-[0.4em] text-[#F9F9FB] font-bold mb-1 leading-tight font-sans">${displayName}</span>
                             <span class="text-[5px] md:text-[6px] uppercase tracking-widest text-[#F9F9FB]/80 font-sans">Click to Select</span>
                         </div>
@@ -206,9 +212,28 @@ function renderGallery(category = 'all') {
             return;
         }
 
-        if (category === 'adventure' || category === 'backpacking' || category === 'outdoors') {
+        if (category === 'prints' || category.startsWith('prints:') || category === 'adventure' || category === 'backpacking' || category === 'outdoors') {
             let assets = [];
-            if (category === 'adventure') {
+            if (category === 'prints') {
+                const allPhotos = [
+                    ...(galleryData['adventure/backpacking'] || []),
+                    ...(galleryData['adventure/outdoors'] || []),
+                    ...(galleryData.portraits || []),
+                    ...(galleryData.street || [])
+                ];
+                assets = allPhotos.filter(p => p.is_print);
+                assets.sort((a, b) => (a.print_order || a.print_tier || 99) - (b.print_order || b.print_tier || 99));
+            } else if (category.startsWith('prints:')) {
+                const subColl = category.split(':')[1];
+                const allPhotos = [
+                    ...(galleryData['adventure/backpacking'] || []),
+                    ...(galleryData['adventure/outdoors'] || []),
+                    ...(galleryData.portraits || []),
+                    ...(galleryData.street || [])
+                ];
+                assets = allPhotos.filter(p => p.is_print && p.print_collection === subColl);
+                assets.sort((a, b) => (a.print_order || a.print_tier || 99) - (b.print_order || b.print_tier || 99));
+            } else if (category === 'adventure') {
                 assets = [...(galleryData['adventure/backpacking'] || []), ...(galleryData['adventure/outdoors'] || [])];
             } else {
                 assets = galleryData[`adventure/${category}`] || [];
@@ -225,16 +250,19 @@ function renderGallery(category = 'all') {
             assets.forEach((p, i) => {
                 const item = document.createElement('div');
                 item.className = 'group cursor-pointer relative aspect-[4/5] overflow-hidden bg-white border border-[#6E727A]/20';
-                const displayName = getDisplayName(p.public_id, p.folder);
+                const displayName = p.print_title || getDisplayName(p.public_id, p.folder);
+                const printBadge = p.is_print ? `<span class="inline-block text-[7px] uppercase tracking-[0.3em] bg-[#121212]/90 text-[#F9F9FB] px-2 py-0.5 mb-2 font-bold font-sans w-fit">Fine Art Print</span>` : '';
                 
                 item.innerHTML = `
                     <img src="${optimizeUrl(p.url, 800)}" loading="lazy" class="w-full h-full object-cover transition-all duration-1000 saturate-[0.85] group-hover:saturate-100 group-hover:scale-105">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#121212]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        ${printBadge}
                         <span class="text-[10px] uppercase tracking-[0.3em] text-[#F9F9FB] font-bold mb-1 font-sans">${displayName}</span>
-                        <span class="text-[8px] uppercase tracking-widest text-[#F9F9FB]/80 font-sans">View Fullscreen</span>
+                        <span class="text-[8px] uppercase tracking-widest text-[#F9F9FB]/80 font-sans">View Fullscreen & Order Print</span>
                     </div>
                 `;
-                item.onclick = () => openAlbum(assets, category.toUpperCase(), i);
+                const albumTitle = category.startsWith('prints') ? 'FINE ART PRINTS' : category.toUpperCase();
+                item.onclick = () => openAlbum(assets, albumTitle, i);
                 gridContainer.appendChild(item);
             });
             
@@ -323,10 +351,134 @@ function filterGallery(category) {
     renderGallery(category);
 }
 
+let isRoomView = false;
+
+function toggleRoomView() {
+    isRoomView = !isRoomView;
+    const stdView = document.getElementById('modal-standard-view');
+    const roomView = document.getElementById('room-view');
+    const toggleBtn = document.getElementById('room-toggle-btn');
+    
+    if (isRoomView) {
+        if (stdView) stdView.classList.add('hidden');
+        if (roomView) roomView.classList.remove('hidden');
+        if (toggleBtn) {
+            toggleBtn.innerHTML = `🔍 Full Photo View`;
+            toggleBtn.classList.add('bg-white', 'text-[#121212]');
+        }
+        updateRoomScale();
+    } else {
+        if (stdView) stdView.classList.remove('hidden');
+        if (roomView) roomView.classList.add('hidden');
+        if (toggleBtn) {
+            toggleBtn.innerHTML = `🖼️ Preview on Wall`;
+            toggleBtn.classList.remove('bg-white', 'text-[#121212]');
+        }
+    }
+}
+
+function setWallTone(hexColor) {
+    const wallBg = document.getElementById('wall-bg');
+    if (wallBg) {
+        wallBg.style.backgroundColor = hexColor;
+    }
+}
+
+let currentPhotoIsVertical = false;
+
+function setupPrintSizeOptions(isVertical) {
+    const select = document.getElementById('print-size-select');
+    if (!select) return;
+
+    if (select.dataset.isVertical === String(isVertical)) return;
+    select.dataset.isVertical = String(isVertical);
+
+    if (isVertical) {
+        select.innerHTML = `
+            <option value="8x12" data-price="85">8x12" (20x30cm) - $85</option>
+            <option value="12x18" data-price="125">12x18" (30x45cm) - $125</option>
+            <option value="16x24" data-price="180" selected>16x24" (40x60cm) - $180</option>
+            <option value="24x36" data-price="290">24x36" (60x90cm) - $290</option>
+        `;
+    } else {
+        select.innerHTML = `
+            <option value="12x8" data-price="85">12x8" (30x20cm) - $85</option>
+            <option value="18x12" data-price="125">18x12" (45x30cm) - $125</option>
+            <option value="24x16" data-price="180" selected>24x16" (60x40cm) - $180</option>
+            <option value="36x24" data-price="290">36x24" (90x60cm) - $290</option>
+        `;
+    }
+}
+
+function updateRoomScale() {
+    if (!currentAlbum || currentAlbum.length === 0) return;
+    const photo = currentAlbum[currentIndex];
+    const select = document.getElementById('print-size-select');
+    const roomImg = document.getElementById('room-print-img');
+    const frame = document.getElementById('room-framed-print');
+    const badge = document.getElementById('room-scale-badge');
+    
+    if (roomImg) roomImg.src = optimizeUrl(photo.url, 1600);
+    if (!select || !frame) return;
+
+    const size = select.value;
+    let widthPercent = "58%";
+    let badgeText = `16x24" (40x60cm) — Study & Feature Wall`;
+
+    if (currentPhotoIsVertical) {
+        frame.style.aspectRatio = "2/3";
+        if (size === '8x12') {
+            widthPercent = "28%";
+            badgeText = `8x12" (20x30cm) — Compact Accent Frame`;
+        } else if (size === '12x18') {
+            widthPercent = "38%";
+            badgeText = `12x18" (30x45cm) — Hallway & Desk Pairing`;
+        } else if (size === '16x24') {
+            widthPercent = "48%";
+            badgeText = `16x24" (40x60cm) — Study & Feature Wall`;
+        } else if (size === '24x36') {
+            widthPercent = "62%";
+            badgeText = `24x36" (60x90cm) — Living Room Centerpiece`;
+        }
+    } else {
+        frame.style.aspectRatio = "3/2";
+        if (size === '12x8') {
+            widthPercent = "36%";
+            badgeText = `12x8" (30x20cm) — Compact Accent Frame`;
+        } else if (size === '18x12') {
+            widthPercent = "52%";
+            badgeText = `18x12" (45x30cm) — Hallway & Desk Pairing`;
+        } else if (size === '24x16') {
+            widthPercent = "68%";
+            badgeText = `24x16" (60x40cm) — Study & Feature Wall`;
+        } else if (size === '36x24') {
+            widthPercent = "84%";
+            badgeText = `36x24" (90x60cm) — Living Room Centerpiece`;
+        }
+    }
+
+    if (badge) badge.innerText = badgeText;
+    
+    if (window.gsap) {
+        gsap.to(frame, {
+            width: widthPercent,
+            duration: 0.6,
+            ease: "power2.out"
+        });
+    } else {
+        frame.style.width = widthPercent;
+    }
+}
+
 function openAlbum(photos, name, startIndex = 0) {
     currentAlbum = photos;
     currentModel = name;
     currentIndex = startIndex;
+    
+    // Default to Standard Fullscreen view when opening modal
+    isRoomView = true; 
+    toggleRoomView(); // Toggles to false (standard view) cleanly
+    
     updateModal();
     
     const modal = document.getElementById('album-modal');
@@ -343,6 +495,11 @@ function closeModal() {
         modal.classList.add('hidden');
         modal.classList.remove('flex');
         document.body.style.overflow = 'auto';
+        isRoomView = false;
+        const stdView = document.getElementById('modal-standard-view');
+        const roomView = document.getElementById('room-view');
+        if (stdView) stdView.classList.remove('hidden');
+        if (roomView) roomView.classList.add('hidden');
     }, 500);
 }
 
@@ -350,12 +507,23 @@ function updateModal() {
     const photo = currentAlbum[currentIndex];
     const img = document.getElementById('modal-img');
     
+    // Detect orientation when image loads
+    const tempImg = new Image();
+    tempImg.onload = () => {
+        currentPhotoIsVertical = tempImg.naturalHeight > tempImg.naturalWidth;
+        setupPrintSizeOptions(currentPhotoIsVertical);
+        updatePrintPrice();
+        if (isRoomView) updateRoomScale();
+    };
+    tempImg.src = photo.url;
+
     // Use high res for modal, but still optimize format/quality
     img.src = optimizeUrl(photo.url, 2000);
-    document.getElementById('modal-model-name').innerText = currentModel;
+    document.getElementById('modal-model-name').innerText = photo.print_title || currentModel;
     document.getElementById('modal-counter').innerText = `${currentIndex + 1} / ${currentAlbum.length}`;
 
     updatePrintPrice();
+    if (isRoomView) updateRoomScale();
 
     const nextIdx = (currentIndex + 1) % currentAlbum.length;
     const prevIdx = (currentIndex - 1 + currentAlbum.length) % currentAlbum.length;
@@ -373,6 +541,8 @@ function updatePrintPrice() {
 
     const size = select.value;
     const photoId = photo.public_id || 'Photo';
+
+    if (isRoomView) updateRoomScale();
 
     // If a shopify link/handle is added to the photo object in gallery-data.js, use it:
     if (photo.shopify_url) {
@@ -408,7 +578,7 @@ document.addEventListener('keydown', (e) => {
 // Initialize
 window.addEventListener('load', () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const initialCategory = urlParams.get('filter') || 'all';
+    const initialCategory = urlParams.get('filter') || 'prints';
     renderGallery(initialCategory);
     
     setTimeout(() => {

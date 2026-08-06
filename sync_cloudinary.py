@@ -27,7 +27,7 @@ def clean_name(s):
 
 def sync_and_fetch():
     local_images = []
-    folders = {'portraits', 'adventure/backpacking', 'adventure/outdoors', 'street'}
+    folders = {'portraits', 'adventure/backpacking', 'adventure/outdoors', 'street', 'prints', 'prints/alpine', 'prints/urban', 'prints/wildlife'}
 
     if os.path.exists(RAW_DIR):
         for root, _, files in os.walk(RAW_DIR):
@@ -73,13 +73,24 @@ def sync_and_fetch():
             tags = resource.get('tags', [])
             if 'backpacking' in folder and 'backpacking' not in tags:
                 tags.append('backpacking')
-            assets.append({
+            
+            asset_item = {
                 'public_id': resource['public_id'],
                 'url': resource['secure_url'],
                 'created_at': resource['created_at'],
                 'folder': folder,
                 'tags': tags
-            })
+            }
+
+            if folder.startswith('prints') or 'print' in tags:
+                asset_item['is_print'] = True
+                parts = folder.split('/')
+                if len(parts) > 1:
+                    asset_item['print_collection'] = parts[1]
+                else:
+                    asset_item['print_collection'] = 'general'
+
+            assets.append(asset_item)
         if assets:
             all_assets[folder] = assets
             print(f"Found {len(assets)} assets in {folder}")

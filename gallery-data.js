@@ -5,180 +5,158 @@ const galleryData = {
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1785868410/adventure/backpacking/2024-taipei101-_LEO4428_fhu2vx.jpg",
       "created_at": "2026-08-04T18:33:30+00:00",
       "folder": "adventure/backpacking",
-      "tags": [
-        "backpacking"
-      ]
+      "tags": ["backpacking"],
+      "is_print": true,
+      "print_tier": 1,
+      "print_order": 1,
+      "print_collection": "urban",
+      "print_title": "Taipei 101 Atmospheric Fog"
     },
     {
       "public_id": "adventure/backpacking/2024-batuCaves-fireshow-_LEO1677_f1utmg",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1785868409/adventure/backpacking/2024-batuCaves-fireshow-_LEO1677_f1utmg.jpg",
       "created_at": "2026-08-04T18:33:29+00:00",
       "folder": "adventure/backpacking",
-      "tags": [
-        "backpacking"
-      ]
+      "tags": ["backpacking"],
+      "is_print": true,
+      "print_tier": 2,
+      "print_order": 12,
+      "print_collection": "wildlife",
+      "print_title": "Batu Caves Fire Performance"
     },
     {
       "public_id": "adventure/backpacking/2024-taiwan-steepRidge-_LEO9481_pqtruu",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1785868406/adventure/backpacking/2024-taiwan-steepRidge-_LEO9481_pqtruu.jpg",
       "created_at": "2026-08-04T18:33:26+00:00",
       "folder": "adventure/backpacking",
-      "tags": [
-        "backpacking"
-      ]
+      "tags": ["backpacking"],
+      "is_print": true,
+      "print_tier": 2,
+      "print_order": 13,
+      "print_collection": "alpine",
+      "print_title": "Jiantiao Knife-Edge Ridge"
     },
     {
       "public_id": "adventure/backpacking/2024-tamsui-sunset-_LEO2236_zfbd35",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1785868404/adventure/backpacking/2024-tamsui-sunset-_LEO2236_zfbd35.jpg",
       "created_at": "2026-08-04T18:33:24+00:00",
       "folder": "adventure/backpacking",
-      "tags": [
-        "backpacking"
-      ]
+      "tags": ["backpacking"],
+      "is_print": true,
+      "print_tier": 2,
+      "print_order": 14,
+      "print_collection": "urban",
+      "print_title": "Tamsui Sunset Reflections"
     },
     {
       "public_id": "adventure/backpacking/2024-shifen-lanterns-_LEO1332_hv5bsb",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1785868402/adventure/backpacking/2024-shifen-lanterns-_LEO1332_hv5bsb.jpg",
       "created_at": "2026-08-04T18:33:22+00:00",
       "folder": "adventure/backpacking",
-      "tags": [
-        "backpacking"
-      ]
+      "tags": ["backpacking"],
+      "is_print": true,
+      "print_tier": 1,
+      "print_order": 5,
+      "print_collection": "travel",
+      "print_title": "Lantern of Dreams"
     },
     {
       "public_id": "adventure/backpacking/2024-tamsui-coastline-_LEO2336_rn3byk",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1785868399/adventure/backpacking/2024-tamsui-coastline-_LEO2336_rn3byk.jpg",
       "created_at": "2026-08-04T18:33:19+00:00",
       "folder": "adventure/backpacking",
-      "tags": [
-        "backpacking"
-      ]
+      "tags": ["backpacking"],
+      "is_print": true,
+      "print_tier": 2,
+      "print_order": 15,
+      "print_collection": "urban",
+      "print_title": "Tamsui Coastal Dusk"
     },
     {
       "public_id": "adventure/backpacking/2024-shifen-oldStreet-_LEO1219_ibsn5f",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1785868398/adventure/backpacking/2024-shifen-oldStreet-_LEO1219_ibsn5f.jpg",
       "created_at": "2026-08-04T18:33:18+00:00",
       "folder": "adventure/backpacking",
-      "tags": [
-        "backpacking"
-      ]
+      "tags": ["backpacking"],
+      "is_print": true,
+      "print_tier": 1,
+      "print_order": 3,
+      "print_collection": "travel",
+      "print_title": "Shifen Waterfall"
     },
     {
       "public_id": "adventure/backpacking/2025-turtles-DSC02317_xcg51t",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1785549250/adventure/backpacking/2025-turtles-DSC02317_xcg51t.jpg",
       "created_at": "2026-08-01T01:54:10+00:00",
       "folder": "adventure/backpacking",
-      "tags": [
-        "backpacking"
-      ]
-    },
-    {
-      "public_id": "2024-\u6de1\u6c34\u6d77\u5cb8-_LEO2336_nahlhp",
-      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776317934/2024-%E6%B7%A1%E6%B0%B4%E6%B5%B7%E5%B2%B8-_LEO2336_nahlhp.jpg",
-      "created_at": "2026-04-16T05:38:54+00:00",
-      "folder": "adventure/backpacking",
-      "tags": [
-        "backpacking"
-      ]
-    },
-    {
-      "public_id": "2024-\u6de1\u6c34-_LEO2236_yhacwp",
-      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776317933/2024-%E6%B7%A1%E6%B0%B4-_LEO2236_yhacwp.jpg",
-      "created_at": "2026-04-16T05:38:53+00:00",
-      "folder": "adventure/backpacking",
-      "tags": [
-        "backpacking"
-      ]
-    },
-    {
-      "public_id": "2024-\u53f0\u5317101-_LEO4428_j2idqn",
-      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776317931/2024-%E5%8F%B0%E5%8C%97101-_LEO4428_j2idqn.jpg",
-      "created_at": "2026-04-16T05:38:51+00:00",
-      "folder": "adventure/backpacking",
-      "tags": [
-        "backpacking"
-      ]
-    },
-    {
-      "public_id": "2024-\u5341\u5206\u71c8\u7c60-_LEO1332_igaenh",
-      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776317930/2024-%E5%8D%81%E5%88%86%E7%87%88%E7%B1%A0-_LEO1332_igaenh.jpg",
-      "created_at": "2026-04-16T05:38:50+00:00",
-      "folder": "adventure/backpacking",
-      "tags": [
-        "backpacking"
-      ]
-    },
-    {
-      "public_id": "2024-\u5341\u5206\u666e\u666e-_LEO1219_frkt6w",
-      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776317928/2024-%E5%8D%81%E5%88%86%E6%99%AE%E6%99%AE-_LEO1219_frkt6w.jpg",
-      "created_at": "2026-04-16T05:38:48+00:00",
-      "folder": "adventure/backpacking",
-      "tags": [
-        "backpacking"
-      ]
-    },
-    {
-      "public_id": "2024-\u528d\u9f8d\u96f6_-_LEO9481_x49ue7",
-      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776317927/2024-%E5%8A%8D%E9%BE%8D%E9%9B%B6_-_LEO9481_x49ue7.jpg",
-      "created_at": "2026-04-16T05:38:47+00:00",
-      "folder": "adventure/backpacking",
-      "tags": [
-        "backpacking"
-      ]
+      "tags": ["backpacking"],
+      "is_print": true,
+      "print_tier": 1,
+      "print_order": 10,
+      "print_collection": "wildlife",
+      "print_title": "Deep Blue Sea Turtles"
     },
     {
       "public_id": "2024-seattlePlane-DSCF3720_cvzehc",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776317925/2024-seattlePlane-DSCF3720_cvzehc.jpg",
       "created_at": "2026-04-16T05:38:45+00:00",
       "folder": "adventure/backpacking",
-      "tags": [
-        "backpacking"
-      ]
+      "tags": ["backpacking"],
+      "is_print": true,
+      "print_tier": 2,
+      "print_order": 16,
+      "print_collection": "travel",
+      "print_title": "Seattle Wing Above Clouds"
     },
     {
       "public_id": "2024-penangMonkeyBW-_LEO2166_lj6u3m",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776317924/2024-penangMonkeyBW-_LEO2166_lj6u3m.jpg",
       "created_at": "2026-04-16T05:38:44+00:00",
       "folder": "adventure/backpacking",
-      "tags": [
-        "backpacking"
-      ]
+      "tags": ["backpacking"],
+      "is_print": true,
+      "print_tier": 1,
+      "print_order": 11,
+      "print_collection": "wildlife",
+      "print_title": "Penang Macaque Fine Art (B&W)"
     },
     {
       "public_id": "2024-penangMonkey-_LEO2303_ltgpwr",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776317923/2024-penangMonkey-_LEO2303_ltgpwr.jpg",
       "created_at": "2026-04-16T05:38:43+00:00",
       "folder": "adventure/backpacking",
-      "tags": [
-        "backpacking"
-      ]
-    },
-    {
-      "public_id": "2024-batuFireshow_-_LEO1677-_wiw109",
-      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776317921/2024-batuFireshow_-_LEO1677-_wiw109.jpg",
-      "created_at": "2026-04-16T05:38:41+00:00",
-      "folder": "adventure/backpacking",
-      "tags": [
-        "backpacking"
-      ]
-    },
-    {
-      "public_id": "2024-batuFirePillar-_LEO1187_s9bmmk",
-      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776317920/2024-batuFirePillar-_LEO1187_s9bmmk.jpg",
-      "created_at": "2026-04-16T05:38:40+00:00",
-      "folder": "adventure/backpacking",
-      "tags": [
-        "backpacking"
-      ]
+      "tags": ["backpacking"],
+      "is_print": true,
+      "print_tier": 1,
+      "print_order": 6,
+      "print_collection": "wildlife",
+      "print_title": "Penang Macaque in Foliage"
     }
   ],
   "adventure/outdoors": [
+    {
+      "public_id": "portraits/20241203-seattleSkyline-DSCF3961_lwdswj",
+      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1785549249/portraits/20241203-seattleSkyline-DSCF3961_lwdswj.jpg",
+      "created_at": "2026-08-01T01:54:09+00:00",
+      "folder": "adventure/outdoors",
+      "tags": [],
+      "is_print": true,
+      "print_tier": 1,
+      "print_order": 9,
+      "print_collection": "urban",
+      "print_title": "Seattle Skyline Twilight"
+    },
     {
       "public_id": "20250524-LEO08273-baker-_mt_gomwwt",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776373120/20250524-LEO08273-baker-_mt_gomwwt.jpg",
       "created_at": "2026-04-16T20:58:40+00:00",
       "folder": "adventure/outdoors",
-      "tags": []
+      "tags": [],
+      "is_print": true,
+      "print_tier": 1,
+      "print_order": 8,
+      "print_collection": "alpine",
+      "print_title": "Mt. Baker Summit & Ridges"
     },
     {
       "public_id": "20250524-LEO08231-baker-_mt_kxanki",
@@ -188,32 +166,40 @@ const galleryData = {
       "tags": []
     },
     {
-      "public_id": "20250516-LEO07660-defiance-_mt_mjxsby",
-      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776373118/20250516-LEO07660-defiance-_mt_mjxsby.jpg",
-      "created_at": "2026-04-16T20:58:38+00:00",
-      "folder": "adventure/outdoors",
-      "tags": []
-    },
-    {
       "public_id": "20250426-LEO07497-ruth_final_stretch_mt_wontli",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776373117/20250426-LEO07497-ruth_final_stretch_mt_wontli.jpg",
       "created_at": "2026-04-16T20:58:37+00:00",
       "folder": "adventure/outdoors",
-      "tags": []
+      "tags": [],
+      "is_print": true,
+      "print_tier": 1,
+      "print_order": 2,
+      "print_collection": "alpine",
+      "print_title": "Mt. Ruth Alpine Ascent"
     },
     {
       "public_id": "20250405-LEO06783-cascades_range_mt_fmcslp",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776373117/20250405-LEO06783-cascades_range_mt_fmcslp.jpg",
       "created_at": "2026-04-16T20:58:37+00:00",
       "folder": "adventure/outdoors",
-      "tags": []
+      "tags": [],
+      "is_print": true,
+      "print_tier": 1,
+      "print_order": 7,
+      "print_collection": "alpine",
+      "print_title": "Cascades Mountain Range Horizon"
     },
     {
       "public_id": "2025-oregonCoast-DSC01581_lu0noq",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776373116/2025-oregonCoast-DSC01581_lu0noq.jpg",
       "created_at": "2026-04-16T20:58:36+00:00",
       "folder": "adventure/outdoors",
-      "tags": []
+      "tags": [],
+      "is_print": true,
+      "print_tier": 1,
+      "print_order": 4,
+      "print_collection": "alpine",
+      "print_title": "Oregon Coastal Mist"
     }
   ],
   "homepage": [
@@ -230,13 +216,6 @@ const galleryData = {
       "public_id": "portraits/20240928-lantern-_LEO9750_izpadg",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1785549250/portraits/20240928-lantern-_LEO9750_izpadg.jpg",
       "created_at": "2026-08-01T01:54:10+00:00",
-      "folder": "portraits",
-      "tags": []
-    },
-    {
-      "public_id": "portraits/20241203-seattleSkyline-DSCF3961_lwdswj",
-      "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1785549249/portraits/20241203-seattleSkyline-DSCF3961_lwdswj.jpg",
-      "created_at": "2026-08-01T01:54:09+00:00",
       "folder": "portraits",
       "tags": []
     },
@@ -438,3 +417,4 @@ const galleryData = {
     }
   ]
 };
+
