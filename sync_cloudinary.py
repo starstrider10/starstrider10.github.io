@@ -27,10 +27,12 @@ def clean_name(s):
 
 def sync_and_fetch():
     local_images = []
-    folders = {'portraits', 'adventure/backpacking', 'adventure/outdoors', 'street', 'prints', 'prints/alpine', 'prints/urban', 'prints/wildlife'}
+    folders = {'portraits', 'adventure/backpacking', 'adventure/outdoors', 'street', 'prints', 'prints/alpine', 'prints/urban', 'prints/wildlife', 'prints/travel'}
 
     if os.path.exists(RAW_DIR):
         for root, _, files in os.walk(RAW_DIR):
+            if 'masters' in root.split(os.sep):
+                continue
             for f in files:
                 ext = os.path.splitext(f)[1].lower()
                 if ext in IMAGE_EXTS and not f.startswith('.'):
@@ -64,9 +66,37 @@ def sync_and_fetch():
                 unique_filename=True
             )
 
-    # Re-fetch all assets and save to portraits.js
+    # Sync Full-Resolution Masters for POD Auto-Fulfillment
+    masters_dir = os.path.join(RAW_DIR, 'masters')
+    if os.path.exists(masters_dir):
+        print("\n=== Syncing Full-Resolution Print Masters for POD Fulfillment ===")
+        for root, _, files in os.walk(masters_dir):
+            for f in files:
+                ext = os.path.splitext(f)[1].lower()
+                if ext in IMAGE_EXTS and not f.startswith('.'):
+                    rel_path = os.path.relpath(os.path.join(root, f), masters_dir)
+                    master_folder = os.path.join('masters', os.path.dirname(rel_path)).rstrip('/')
+                    full_p = os.path.join(root, f)
+                    c_stem = clean_name(os.path.splitext(f)[0])
+                    
+                    m_res = cloudinary.Search().expression(f'folder:{master_folder}').max_results(500).execute()
+                    m_clean_ids = {clean_name(r.get('public_id', '')) for r in m_res.get('resources', [])}
+                    
+                    if not any(c_stem in pub for pub in m_clean_ids):
+                        print(f"Uploading Full-Res Master: {f} to Cloudinary {master_folder}...")
+                        cloudinary.uploader.upload(
+                            full_p,
+                            folder=master_folder,
+                            use_filename=True,
+                            unique_filename=True,
+                            resource_type="auto"
+                        )
+
+    # Re-fetch web assets and save to gallery-data.js
     all_assets = {}
     for folder in sorted(folders):
+        if folder.startswith('masters'):
+            continue
         res = cloudinary.Search().expression(f'folder:{folder}').max_results(500).execute()
         assets = []
         for resource in res.get('resources', []):
@@ -93,7 +123,7 @@ def sync_and_fetch():
             assets.append(asset_item)
         if assets:
             all_assets[folder] = assets
-            print(f"Found {len(assets)} assets in {folder}")
+            print(f"Found {len(assets)} web assets in {folder}")
 
     with open('gallery-data.js', 'w') as f:
         f.write(f"const galleryData = {json.dumps(all_assets, indent=2)};\n")
