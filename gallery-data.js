@@ -10,7 +10,8 @@ const galleryData = {
       "print_tier": 1,
       "print_order": 1,
       "print_collection": "urban",
-      "print_title": "Taipei 101 Atmospheric Fog"
+      "print_title": "Taipei 101 Atmospheric Fog",
+      "shopify_url": "https://shop.storyofleo.com"
     },
     {
       "public_id": "adventure/backpacking/2024-batuCaves-fireshow-_LEO1677_f1utmg",
@@ -20,9 +21,10 @@ const galleryData = {
       "tags": ["backpacking"],
       "is_print": true,
       "print_tier": 2,
-      "print_order": 12,
+      "print_order": 11,
       "print_collection": "wildlife",
-      "print_title": "Batu Caves Fire Performance"
+      "print_title": "Batu Caves Fire Performance",
+      "shopify_url": "https://shop.storyofleo.com"
     },
     {
       "public_id": "adventure/backpacking/2024-taiwan-steepRidge-_LEO9481_pqtruu",
@@ -32,9 +34,10 @@ const galleryData = {
       "tags": ["backpacking"],
       "is_print": true,
       "print_tier": 2,
-      "print_order": 13,
+      "print_order": 12,
       "print_collection": "alpine",
-      "print_title": "Jiantiao Knife-Edge Ridge"
+      "print_title": "Jiantiao Knife-Edge Ridge",
+      "shopify_url": "https://shop.storyofleo.com"
     },
     {
       "public_id": "adventure/backpacking/2024-tamsui-sunset-_LEO2236_zfbd35",
@@ -44,9 +47,10 @@ const galleryData = {
       "tags": ["backpacking"],
       "is_print": true,
       "print_tier": 2,
-      "print_order": 14,
+      "print_order": 13,
       "print_collection": "urban",
-      "print_title": "Tamsui Sunset Reflections"
+      "print_title": "Tamsui Sunset Reflections",
+      "shopify_url": "https://shop.storyofleo.com"
     },
     {
       "public_id": "adventure/backpacking/2024-shifen-lanterns-_LEO1332_hv5bsb",
@@ -58,7 +62,8 @@ const galleryData = {
       "print_tier": 1,
       "print_order": 5,
       "print_collection": "travel",
-      "print_title": "Lantern of Dreams"
+      "print_title": "Lantern of Dreams",
+      "shopify_url": "https://shop.storyofleo.com"
     },
     {
       "public_id": "adventure/backpacking/2024-tamsui-coastline-_LEO2336_rn3byk",
@@ -68,9 +73,10 @@ const galleryData = {
       "tags": ["backpacking"],
       "is_print": true,
       "print_tier": 2,
-      "print_order": 15,
+      "print_order": 14,
       "print_collection": "urban",
-      "print_title": "Tamsui Coastal Dusk"
+      "print_title": "Tamsui Coastal Dusk",
+      "shopify_url": "https://shop.storyofleo.com"
     },
     {
       "public_id": "adventure/backpacking/2024-shifen-oldStreet-_LEO1219_ibsn5f",
@@ -82,7 +88,8 @@ const galleryData = {
       "print_tier": 1,
       "print_order": 3,
       "print_collection": "travel",
-      "print_title": "Shifen Waterfall"
+      "print_title": "Shifen Waterfall",
+      "shopify_url": "https://shop.storyofleo.com"
     },
     {
       "public_id": "adventure/backpacking/2025-turtles-DSC02317_xcg51t",
@@ -92,9 +99,10 @@ const galleryData = {
       "tags": ["backpacking"],
       "is_print": true,
       "print_tier": 1,
-      "print_order": 10,
+      "print_order": 9,
       "print_collection": "wildlife",
-      "print_title": "Deep Blue Sea Turtles"
+      "print_title": "Deep Blue Sea Turtles",
+      "shopify_url": "https://shop.storyofleo.com"
     },
     {
       "public_id": "2024-seattlePlane-DSCF3720_cvzehc",
@@ -104,9 +112,10 @@ const galleryData = {
       "tags": ["backpacking"],
       "is_print": true,
       "print_tier": 2,
-      "print_order": 16,
+      "print_order": 15,
       "print_collection": "travel",
-      "print_title": "Seattle Wing Above Clouds"
+      "print_title": "Seattle Wing Above Clouds",
+      "shopify_url": "https://shop.storyofleo.com"
     },
     {
       "public_id": "2024-penangMonkeyBW-_LEO2166_lj6u3m",
@@ -116,9 +125,10 @@ const galleryData = {
       "tags": ["backpacking"],
       "is_print": true,
       "print_tier": 1,
-      "print_order": 11,
+      "print_order": 10,
       "print_collection": "wildlife",
-      "print_title": "Penang Macaque Fine Art (B&W)"
+      "print_title": "Penang Macaque Fine Art (B&W)",
+      "shopify_url": "https://shop.storyofleo.com"
     },
     {
       "public_id": "2024-penangMonkey-_LEO2303_ltgpwr",
@@ -130,7 +140,8 @@ const galleryData = {
       "print_tier": 1,
       "print_order": 6,
       "print_collection": "wildlife",
-      "print_title": "Penang Macaque in Foliage"
+      "print_title": "Penang Macaque in Foliage",
+      "shopify_url": "https://shop.storyofleo.com"
     }
   ],
   "adventure/outdoors": [
@@ -142,21 +153,17 @@ const galleryData = {
       "tags": [],
       "is_print": true,
       "print_tier": 1,
-      "print_order": 9,
+      "print_order": 8,
       "print_collection": "urban",
-      "print_title": "Seattle Skyline Twilight"
+      "print_title": "Seattle Skyline Twilight",
+      "shopify_url": "https://shop.storyofleo.com"
     },
     {
       "public_id": "20250524-LEO08273-baker-_mt_gomwwt",
       "url": "https://res.cloudinary.com/decv98oqz/image/upload/v1776373120/20250524-LEO08273-baker-_mt_gomwwt.jpg",
       "created_at": "2026-04-16T20:58:40+00:00",
       "folder": "adventure/outdoors",
-      "tags": [],
-      "is_print": true,
-      "print_tier": 1,
-      "print_order": 8,
-      "print_collection": "alpine",
-      "print_title": "Mt. Baker Summit & Ridges"
+      "tags": []
     },
     {
       "public_id": "20250524-LEO08231-baker-_mt_kxanki",
@@ -175,7 +182,8 @@ const galleryData = {
       "print_tier": 1,
       "print_order": 2,
       "print_collection": "alpine",
-      "print_title": "Mt. Ruth Alpine Ascent"
+      "print_title": "Mt. Ruth Alpine Ascent",
+      "shopify_url": "https://shop.storyofleo.com"
     },
     {
       "public_id": "20250405-LEO06783-cascades_range_mt_fmcslp",
@@ -187,7 +195,8 @@ const galleryData = {
       "print_tier": 1,
       "print_order": 7,
       "print_collection": "alpine",
-      "print_title": "Cascades Mountain Range Horizon"
+      "print_title": "Cascades Mountain Range Horizon",
+      "shopify_url": "https://shop.storyofleo.com"
     },
     {
       "public_id": "2025-oregonCoast-DSC01581_lu0noq",
@@ -199,7 +208,8 @@ const galleryData = {
       "print_tier": 1,
       "print_order": 4,
       "print_collection": "alpine",
-      "print_title": "Oregon Coastal Mist"
+      "print_title": "Oregon Coastal Mist",
+      "shopify_url": "https://shop.storyofleo.com"
     }
   ],
   "homepage": [

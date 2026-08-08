@@ -1,3 +1,17 @@
+const shopifyDomain = 'g5z00p-jh.myshopify.com';
+const shopifyToken = 'ce2dd1785a2231d17a6523d19192a78a';
+
+let shopifyClient = null;
+function getShopifyClient() {
+    if (!shopifyClient && window.ShopifyBuy && ShopifyBuy.buildClient) {
+        shopifyClient = ShopifyBuy.buildClient({
+            domain: shopifyDomain,
+            storefrontAccessToken: shopifyToken
+        });
+    }
+    return shopifyClient;
+}
+
 const strategies = {
     'all': 'Viewing the full archive. Fine art nature photography, environmental portraiture, and wilderness documentation.',
     'portraiture': 'Portraiture & Outdoor Lifestyle: Focusing on authentic human connection, atmospheric light, and natural character.',
@@ -245,7 +259,7 @@ function renderGallery(category = 'all') {
             }
 
             const gridContainer = document.createElement('div');
-            gridContainer.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12';
+            gridContainer.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 gap-6 md:gap-8 mt-12 w-full';
             
             assets.forEach((p, i) => {
                 const item = document.createElement('div');
@@ -540,18 +554,40 @@ function updatePrintPrice() {
     if (!select || !buyBtn) return;
 
     const size = select.value;
-    const photoId = photo.public_id || 'Photo';
+    const photoTitle = photo.print_title || photo.public_id || 'Photo';
 
     if (isRoomView) updateRoomScale();
 
-    // If a shopify link/handle is added to the photo object in gallery-data.js, use it:
-    if (photo.shopify_url) {
+    // Check if variant ID is configured
+    if (photo.shopify_variant_id) {
+        buyBtn.onclick = (e) => {
+            e.preventDefault();
+            const client = getShopifyClient();
+            if (client) {
+                buyBtn.innerText = "Creating Checkout...";
+                client.checkout.create({ lineItems: [{ variantId: photo.shopify_variant_id, quantity: 1 }] })
+                    .then(checkout => {
+                        window.location.href = checkout.webUrl;
+                    })
+                    .catch(err => {
+                        console.error('Shopify Checkout Error:', err);
+                        window.location.href = photo.shopify_url || `https://${shopifyDomain}`;
+                    });
+            } else if (photo.shopify_url) {
+                window.open(photo.shopify_url, '_blank');
+            }
+        };
+        buyBtn.href = "#";
+        buyBtn.innerText = "Order Archival Print \u2192";
+    } else if (photo.shopify_url) {
+        buyBtn.onclick = null;
         buyBtn.href = photo.shopify_url;
-        buyBtn.innerText = "Buy on Shopify Store \u2192";
+        buyBtn.innerText = "Order Archival Print \u2192";
     } else {
-        // Preload fallback: Direct mailto reservation link
-        const subject = encodeURIComponent(`Fine Art Print Request: ${photoId} (${size})`);
-        const body = encodeURIComponent(`Hi Leo,\n\nI would like to order a fine art print of:\nImage: ${photoId}\nSize: ${size}\n\nPlease let me know availability and payment details!\n\nBest,`);
+        // Preload reservation link fallback
+        buyBtn.onclick = null;
+        const subject = encodeURIComponent(`Fine Art Print Inquiry: ${photoTitle} (${size})`);
+        const body = encodeURIComponent(`Hi Leo,\n\nI would like to order an archival fine art print of:\nImage Title: ${photoTitle}\nSize Requested: ${size}\n\nPlease let me know pricing, availability, and shipping details!\n\nBest,`);
         buyBtn.href = `mailto:hello@storyofleo.com?subject=${subject}&body=${body}`;
         buyBtn.innerText = "Inquire Fine Art Print \u2192";
     }
