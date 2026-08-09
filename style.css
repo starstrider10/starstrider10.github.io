@@ -35,3 +35,20 @@ body {
   background: var(--color-mutedslate);
   border-radius: 3px;
 }
+
+/* Mobile Menu Overlay Transitions */
+#mobile-menu {
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+#mobile-menu.active {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

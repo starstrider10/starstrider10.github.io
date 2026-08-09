@@ -21,9 +21,11 @@
 <body class="bg-offwhite text-offblack font-sans selection:bg-offblack selection:text-offwhite">
 
     <!-- Navigation Header -->
-    <nav class="fixed top-0 w-full z-50 px-6 py-6 flex justify-between items-center bg-[#F9F9FB]/90 border-b border-[#6E727A]/20 backdrop-blur-md">
-        <a href="index.html" class="text-sm font-bold tracking-[0.2em] uppercase text-[#121212] font-sans">Story of Leo</a>
-        <div class="flex gap-8 text-[10px] md:text-xs uppercase tracking-[0.3em] font-medium items-center font-sans">
+    <nav class="fixed top-0 w-full z-50 px-6 py-5 md:py-6 flex justify-between items-center bg-[#F9F9FB]/95 border-b border-[#6E727A]/20 backdrop-blur-md">
+        <a href="index.html" class="text-xs md:text-sm font-bold tracking-[0.2em] uppercase text-[#121212] font-sans">Story of Leo</a>
+        
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex gap-8 text-xs uppercase tracking-[0.3em] font-medium items-center font-sans">
             <a href="index.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">Home</a>
             
             <!-- Gallery Dropdown -->
@@ -40,10 +42,49 @@
                 </div>
             </div>
 
+            <a href="services.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">Services</a>
             <a href="journal.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">Journal</a>
             <a href="about.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">About</a>
         </div>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden text-[#121212] p-2 focus:outline-none z-50" aria-label="Toggle Navigation Menu">
+            <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+            <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
     </nav>
+
+    <!-- Mobile Navigation Drawer Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 top-[65px] bg-[#F9F9FB]/98 backdrop-blur-xl z-40 md:hidden flex flex-col p-8 opacity-0 invisible -translate-y-4 transition-all duration-300 overflow-y-auto">
+        <div class="flex flex-col gap-6 text-sm uppercase tracking-[0.3em] font-sans font-medium text-[#121212] pt-4">
+            <a href="index.html" onclick="toggleMobileMenu()" class="border-b border-[#6E727A]/20 pb-3 hover:text-[#6E727A]">Home</a>
+            
+            <div class="flex flex-col gap-3 border-b border-[#6E727A]/20 pb-4">
+                <a href="gallery.html" onclick="toggleMobileMenu()" class="font-bold flex justify-between items-center text-[#121212]">
+                    <span>Gallery</span>
+                    <span class="text-xs text-[#6E727A]">&rarr;</span>
+                </a>
+                <div class="pl-4 flex flex-col gap-2 text-xs tracking-widest text-[#6E727A]">
+                    <a href="gallery.html?filter=prints" onclick="toggleMobileMenu()" class="hover:text-[#121212]">Fine Art Prints</a>
+                    <a href="gallery.html?filter=portraiture" onclick="toggleMobileMenu()" class="hover:text-[#121212]">Portraiture</a>
+                    <a href="gallery.html?filter=adventure" onclick="toggleMobileMenu()" class="hover:text-[#121212]">Adventure</a>
+                    <a href="gallery.html?filter=sakura" onclick="toggleMobileMenu()" class="hover:text-[#121212]">Sakura Series</a>
+                </div>
+            </div>
+
+            <a href="services.html" onclick="toggleMobileMenu()" class="border-b border-[#6E727A]/20 pb-3 hover:text-[#6E727A]">Services &amp; Pricing</a>
+            <a href="journal.html" onclick="toggleMobileMenu()" class="border-b border-[#6E727A]/20 pb-3 hover:text-[#6E727A]">Journal</a>
+            <a href="about.html" onclick="toggleMobileMenu()" class="border-b border-[#6E727A]/20 pb-3 hover:text-[#6E727A]">About &amp; Contact</a>
+        </div>
+
+        <div class="mt-auto pt-8 border-t border-[#6E727A]/20 text-center">
+            <a href="mailto:hello@storyofleo.com" class="text-xs uppercase tracking-[0.2em] font-sans text-[#121212] font-bold">hello@storyofleo.com</a>
+        </div>
+    </div>
 
     <!-- Hero Section (Static Photo Hero) -->
     <header class="relative h-screen w-full overflow-hidden flex items-center justify-center bg-offblack">
@@ -59,17 +100,17 @@
 
         <!-- Branding & CTA -->
         <div class="relative z-20 text-center px-4 max-w-4xl mx-auto">
-            <h1 class="text-5xl md:text-8xl font-normal font-serif tracking-tight mb-4 text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
+            <h1 class="text-4xl sm:text-6xl md:text-8xl font-normal font-serif tracking-tight mb-4 text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
                 Story of Leo
             </h1>
-            <p class="text-lg md:text-2xl font-light tracking-[0.3em] uppercase text-white font-sans drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+            <p class="text-sm sm:text-lg md:text-2xl font-light tracking-[0.25em] sm:tracking-[0.3em] uppercase text-white font-sans drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
                 Fine Art Prints &amp; Outdoor Photography
             </p>
-            <div class="mt-12 flex justify-center gap-6">
-                <a href="#store" class="border border-white/80 bg-white/10 text-white hover:bg-white hover:text-offblack transition-all duration-500 px-8 py-3 tracking-widest uppercase text-sm font-sans backdrop-blur-sm drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
+            <div class="mt-8 sm:mt-12 flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 px-6 sm:px-0">
+                <a href="#store" class="border border-white/80 bg-white/10 text-white hover:bg-white hover:text-offblack transition-all duration-500 px-8 py-3 tracking-widest uppercase text-xs sm:text-sm font-sans backdrop-blur-sm drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
                     Explore Prints
                 </a>
-                <a href="#services" class="border border-white/40 text-white hover:border-white transition-all duration-500 px-8 py-3 tracking-widest uppercase text-sm font-sans drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
+                <a href="services.html" class="border border-white/40 text-white hover:border-white transition-all duration-500 px-8 py-3 tracking-widest uppercase text-xs sm:text-sm font-sans drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
                     Shoot Services
                 </a>
             </div>
@@ -135,7 +176,7 @@
                             Environmental portraits, outdoor lifestyle sessions, and commercial imagery for outdoor brands and individuals.
                         </p>
                     </div>
-                    <a href="mailto:hello@storyofleo.com?subject=Inquiry:%20Photography%20Session" class="text-xs uppercase tracking-widest text-offblack border-b border-offblack/40 hover:border-offblack pb-1 self-start font-sans">Book a Session &rarr;</a>
+                    <a href="services.html" class="text-xs uppercase tracking-widest text-offblack border-b border-offblack/40 hover:border-offblack pb-1 self-start font-sans">Book a Session &rarr;</a>
                 </div>
 
                 <!-- Pillar 3: Journal & Digital Assets -->
@@ -226,10 +267,31 @@
         <div class="flex gap-8">
             <a href="index.html" class="hover:text-offblack transition-colors">Home</a>
             <a href="gallery.html" class="hover:text-offblack transition-colors">Prints & Gallery</a>
+            <a href="services.html" class="hover:text-offblack transition-colors">Services</a>
             <a href="journal.html" class="hover:text-offblack transition-colors">Journal</a>
             <a href="about.html" class="hover:text-offblack transition-colors">About</a>
         </div>
     </footer>
 
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const hamburger = document.getElementById('hamburger-icon');
+            const close = document.getElementById('close-icon');
+            if (!menu) return;
+            const isOpen = menu.classList.contains('active');
+            if (isOpen) {
+                menu.classList.remove('active');
+                if (hamburger) hamburger.classList.remove('hidden');
+                if (close) close.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            } else {
+                menu.classList.add('active');
+                if (hamburger) hamburger.classList.add('hidden');
+                if (close) close.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+    </script>
 </body>
 </html>

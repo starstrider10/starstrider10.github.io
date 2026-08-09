@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Practice | Story of Leo</title>
+    <!-- Use Tailwind from the project's style.css -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Ensure dark mode styles are enforced by Tailwind -->
+    <style>
+        /* Custom dark theme specifically for practice mode to make photos pop */
+        body {
+            background-color: #0A0A0A;
+            color: #F9F9FB;
+        }
+        .timer-danger {
+            color: #EF4444; /* Tailwind red-500 */
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans selection:bg-[#F9F9FB] selection:text-[#0A0A0A]">
+
+    <!-- Minimal Header -->
+    <header class="p-6 flex justify-between items-center opacity-50 hover:opacity-100 transition-opacity">
+        <a href="index.html" class="text-xs uppercase tracking-[0.3em] font-medium text-[#F9F9FB] hover:text-[#6E727A] transition-colors">
+            &larr; Back to Site
+        </a>
+        <div class="text-xs uppercase tracking-[0.3em] text-[#6E727A]">
+            Storytelling Practice
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex flex-col items-center justify-center p-6 w-full max-w-5xl mx-auto">
+        
+        <!-- Setup State: Select Folder -->
+        <div id="setup-view" class="flex flex-col items-center justify-center w-full h-full text-center space-y-6">
+            <h1 class="text-2xl md:text-4xl font-light tracking-widest uppercase">Select a Folder</h1>
+            <p class="text-[#6E727A] text-sm md:text-base max-w-md">
+                Choose a local folder containing your exported practice photos. No images are uploaded to the internet.
+            </p>
+            <label for="folder-input" class="cursor-pointer border border-[#F9F9FB]/30 px-8 py-4 text-xs md:text-sm uppercase tracking-[0.2em] hover:bg-[#F9F9FB] hover:text-[#0A0A0A] transition-colors">
+                Select Folder
+            </label>
+            <input type="file" id="folder-input" webkitdirectory directory multiple class="hidden" accept="image/*">
+        </div>
+
+        <!-- Practice State: Photo & Timer -->
+        <div id="practice-view" class="hidden flex-col items-center justify-center w-full h-full space-y-8">
+            
+            <!-- Timer Display -->
+            <div id="timer-display" class="text-4xl md:text-6xl font-light tracking-wider font-mono transition-colors duration-300">
+                02:00
+            </div>
+
+            <!-- Image Container -->
+            <div class="relative w-full max-w-4xl h-[50vh] md:h-[60vh] flex items-center justify-center bg-[#121212] rounded border border-[#6E727A]/20 overflow-hidden shadow-2xl">
+                <img id="photo-display" src="" alt="Practice Photo" class="w-full h-full object-contain opacity-0 transition-opacity duration-500">
+                <div id="loading-spinner" class="absolute hidden text-[#6E727A] text-xs uppercase tracking-widest">Loading...</div>
+            </div>
+
+            <!-- Controls -->
+            <div class="flex gap-4">
+                <button id="btn-spin" class="border border-[#F9F9FB]/30 px-8 py-4 text-xs md:text-sm uppercase tracking-[0.2em] hover:bg-[#F9F9FB] hover:text-[#0A0A0A] transition-colors">
+                    Draw Photo
+                </button>
+                <button id="btn-toggle-timer" class="border border-[#F9F9FB]/30 px-8 py-4 text-xs md:text-sm uppercase tracking-[0.2em] hover:bg-[#F9F9FB] hover:text-[#0A0A0A] transition-colors">
+                    Start Timer
+                </button>
+            </div>
+            
+            <div id="status-text" class="text-[#6E727A] text-xs tracking-widest uppercase">
+                Photos remaining: <span id="photo-count">0</span>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        const folderInput = document.getElementById('folder-input');
+        const setupView = document.getElementById('setup-view');
+        const practiceView = document.getElementById('practice-view');
+        const photoDisplay = document.getElementById('photo-display');
+        const btnSpin = document.getElementById('btn-spin');
+        const btnToggleTimer = document.getElementById('btn-toggle-timer');
+        const timerDisplay = document.getElementById('timer-display');
+        const photoCount = document.getElementById('photo-count');
+        
+        let imageFiles = [];
+        let remainingFiles = [];
+        let currentObjectUrl = null;
+        
+        // Timer state
+        let timerInterval = null;
+        let timeRemaining = 120; // 2 minutes in seconds
+        const TOTAL_TIME = 120;
+
+        // 1. Handle Folder Selection
+        folderInput.addEventListener('change', (event) => {
+            const files = Array.from(event.target.files);
+            // Filter only image files
+            imageFiles = files.filter(file => file.type.startsWith('image/'));
+            
+            if (imageFiles.length === 0) {
+                alert("No images found in that folder. Please select a folder with images.");
+                return;
+            }
+
+            remainingFiles = [...imageFiles];
+            shuffleArray(remainingFiles);
+            
+            // Switch views
+            setupView.classList.add('hidden');
+            practiceView.classList.remove('hidden');
+            practiceView.classList.add('flex');
+            
+            updateStatus();
+            drawPhoto();
+        });
+
+        // 2. Draw a Random Photo
+        btnSpin.addEventListener('click', () => {
+            drawPhoto();
+        });
+
+        function drawPhoto() {
+            if (remainingFiles.length === 0) {
+                // Reshuffle if we run out
+                remainingFiles = [...imageFiles];
+                shuffleArray(remainingFiles);
+                alert("You've gone through all photos! Reshuffling the deck.");
+            }
+
+            const file = remainingFiles.pop();
+            updateStatus();
+
+            // Clean up previous object URL to prevent memory leaks
+            if (currentObjectUrl) {
+                URL.revokeObjectURL(currentObjectUrl);
+            }
+
+            // Create new object URL
+            currentObjectUrl = URL.createObjectURL(file);
+            
+            // UI Transition
+            photoDisplay.style.opacity = 0;
+            setTimeout(() => {
+                photoDisplay.src = currentObjectUrl;
+                photoDisplay.onload = () => {
+                    photoDisplay.style.opacity = 1;
+                };
+            }, 300);
+
+            // Reset Timer automatically on new draw
+            resetTimer();
+        }
+
+        // 3. Timer Logic
+        btnToggleTimer.addEventListener('click', () => {
+            if (timerInterval) {
+                stopTimer();
+                btnToggleTimer.innerText = "Resume Timer";
+            } else {
+                startTimer();
+                btnToggleTimer.innerText = "Pause Timer";
+            }
+        });
+
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+                
+                if (timeRemaining <= 0) {
+                    stopTimer();
+                    timerDisplay.innerText = "TIME'S UP";
+                    timerDisplay.classList.add('timer-danger');
+                } else if (timeRemaining <= 15) {
+                    timerDisplay.classList.add('timer-danger');
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+
+        function resetTimer() {
+            stopTimer();
+            timeRemaining = TOTAL_TIME;
+            btnToggleTimer.innerText = "Start Timer";
+            timerDisplay.classList.remove('timer-danger');
+            updateTimerDisplay();
+        }
+
+        function updateTimerDisplay() {
+            if (timeRemaining < 0) return;
+            const m = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
+            const s = (timeRemaining % 60).toString().padStart(2, '0');
+            timerDisplay.innerText = `${m}:${s}`;
+        }
+
+        // Helper: Fisher-Yates Shuffle
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function updateStatus() {
+            photoCount.innerText = remainingFiles.length;
+        }
+    </script>
+</body>
+</html>

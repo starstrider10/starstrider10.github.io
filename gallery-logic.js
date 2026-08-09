@@ -30,6 +30,8 @@ const strategies = {
 let currentAlbum = [];
 let currentIndex = 0;
 let currentModel = "";
+let slideshowInterval = null;
+let isSlideshowActive = false;
 
 // Helper to optimize Cloudinary URLs on the fly
 function optimizeUrl(url, width = 1000) {
@@ -503,6 +505,12 @@ function openAlbum(photos, name, startIndex = 0) {
 }
 
 function closeModal() {
+    stopSlideshow();
+    if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
+        if (document.exitFullscreen) document.exitFullscreen();
+        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+        else if (document.msExitFullscreen) document.msExitFullscreen();
+    }
     const modal = document.getElementById('album-modal');
     modal.classList.remove('opacity-100');
     setTimeout(() => {
@@ -603,12 +611,85 @@ function prevPhoto() {
     updateModal();
 }
 
+function startSlideshow(intervalMs = 4500) {
+    if (isSlideshowActive) return;
+    isSlideshowActive = true;
+    updateSlideshowUI();
+    slideshowInterval = setInterval(() => {
+        nextPhoto();
+    }, intervalMs);
+}
+
+function stopSlideshow() {
+    if (slideshowInterval) {
+        clearInterval(slideshowInterval);
+        slideshowInterval = null;
+    }
+    isSlideshowActive = false;
+    updateSlideshowUI();
+}
+
+function toggleSlideshow() {
+    if (isSlideshowActive) {
+        stopSlideshow();
+    } else {
+        startSlideshow();
+    }
+}
+
+function updateSlideshowUI() {
+    const icon = document.getElementById('slideshow-icon');
+    const label = document.getElementById('slideshow-label');
+    const btn = document.getElementById('slideshow-toggle-btn');
+    if (!btn) return;
+    if (isSlideshowActive) {
+        if (icon) icon.innerText = '❚❚';
+        if (label) label.innerText = 'Pause Exhibition';
+        btn.classList.add('bg-white', 'text-[#121212]');
+        btn.classList.remove('bg-[#F9F9FB]/10', 'text-[#F9F9FB]');
+    } else {
+        if (icon) icon.innerText = '▶';
+        if (label) label.innerText = 'Play Exhibition';
+        btn.classList.remove('bg-white', 'text-[#121212]');
+        btn.classList.add('bg-[#F9F9FB]/10', 'text-[#F9F9FB]');
+    }
+}
+
+function toggleFullscreen() {
+    const modal = document.getElementById('album-modal');
+    if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+        if (modal.requestFullscreen) {
+            modal.requestFullscreen();
+        } else if (modal.webkitRequestFullscreen) {
+            modal.webkitRequestFullscreen();
+        } else if (modal.msRequestFullscreen) {
+            modal.msRequestFullscreen();
+        }
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+    }
+}
+
 document.addEventListener('keydown', (e) => {
     const modal = document.getElementById('album-modal');
     if (modal.classList.contains('hidden')) return;
+
     if (e.key === 'ArrowRight') nextPhoto();
-    if (e.key === 'ArrowLeft') prevPhoto();
-    if (e.key === 'Escape') closeModal();
+    else if (e.key === 'ArrowLeft') prevPhoto();
+    else if (e.key === 'Escape') closeModal();
+    else if (e.key === ' ' || e.code === 'Space' || e.key === 'p' || e.key === 'P') {
+        e.preventDefault();
+        toggleSlideshow();
+    } else if (e.key === 'f' || e.key === 'F') {
+        e.preventDefault();
+        toggleFullscreen();
+    }
 });
 
 // Initialize
