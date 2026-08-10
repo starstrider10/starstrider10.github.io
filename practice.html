@@ -4,10 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Practice | Story of Leo</title>
-    <!-- Use Tailwind from the project's style.css -->
+    <!-- Tailwind browser script -->
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="style.css">
-    <!-- Ensure dark mode styles are enforced by Tailwind -->
     <style>
+        @import "tailwindcss";
+
+        @theme {
+            --color-offblack: #121212;
+            --color-offwhite: #F9F9FB;
+            --color-mutedslate: #6E727A;
+            --font-serif: "Playfair Display", Georgia, serif;
+            --font-sans: "Inter", "DM Sans", sans-serif;
+        }
         /* Custom dark theme specifically for practice mode to make photos pop */
         body {
             background-color: #0A0A0A;
