@@ -119,6 +119,12 @@
                 <!-- Tier 1: Essential Portrait -->
                 <div class="group border border-[#6E727A]/20 p-8 rounded-sm bg-white shadow-sm hover:border-[#121212] transition-all flex flex-col justify-between relative">
                     <div>
+                        <!-- Carousel -->
+                        <div class="relative w-full aspect-[4/5] bg-[#F9F9FB] overflow-hidden mb-6 rounded-sm">
+                            <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=600&auto=format&fit=crop" class="tier-1-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100" alt="Essential Portrait example">
+                            <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=600&auto=format&fit=crop" class="tier-1-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Essential Portrait example">
+                            <img src="https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43?q=80&w=600&auto=format&fit=crop" class="tier-1-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Essential Portrait example">
+                        </div>
                         <span class="text-[10px] uppercase tracking-[0.3em] text-[#6E727A] font-bold font-sans">Base Tier</span>
                         <h3 class="text-2xl font-serif mt-2 mb-2 text-[#121212]">Essential Portrait</h3>
                         <div class="text-3xl font-serif text-[#121212] mb-6">$375</div>
@@ -151,6 +157,12 @@
                         Most Popular
                     </div>
                     <div>
+                        <!-- Carousel -->
+                        <div class="relative w-full aspect-[4/5] bg-[#F9F9FB] overflow-hidden mb-6 rounded-sm">
+                            <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=600&auto=format&fit=crop" class="tier-2-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100" alt="Lifestyle Portrait example">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop" class="tier-2-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Lifestyle Portrait example">
+                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=600&auto=format&fit=crop" class="tier-2-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Lifestyle Portrait example">
+                        </div>
                         <span class="text-[10px] uppercase tracking-[0.3em] text-[#6E727A] font-bold font-sans">Signature Tier</span>
                         <h3 class="text-2xl font-serif mt-2 mb-2 text-[#121212]">Lifestyle &amp; Story</h3>
                         <div class="text-3xl font-serif text-[#121212] mb-6">$575</div>
@@ -180,6 +192,12 @@
                 <!-- Tier 3: Wilderness Expedition -->
                 <div class="group border border-[#6E727A]/20 p-8 rounded-sm bg-white shadow-sm hover:border-[#121212] transition-all flex flex-col justify-between relative">
                     <div>
+                        <!-- Carousel -->
+                        <div class="relative w-full aspect-[4/5] bg-[#F9F9FB] overflow-hidden mb-6 rounded-sm">
+                            <img src="https://images.unsplash.com/photo-1522163182402-834f871fd851?q=80&w=600&auto=format&fit=crop" class="tier-3-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100" alt="Wilderness Expedition example">
+                            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=600&auto=format&fit=crop" class="tier-3-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Wilderness Expedition example">
+                            <img src="https://images.unsplash.com/photo-1454496522488-7a8e488e8606?q=80&w=600&auto=format&fit=crop" class="tier-3-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Wilderness Expedition example">
+                        </div>
                         <span class="text-[10px] uppercase tracking-[0.3em] text-[#6E727A] font-bold font-sans">Adventure Tier</span>
                         <h3 class="text-2xl font-serif mt-2 mb-2 text-[#121212]">Wilderness Expedition</h3>
                         <div class="text-3xl font-serif text-[#121212] mb-6">$875<span class="text-lg font-light">+</span></div>
@@ -339,6 +357,25 @@
                 document.body.style.overflow = 'hidden';
             }
         }
+
+        // Carousel Rotation Logic
+        function startCarousel(className) {
+            const images = document.querySelectorAll(className);
+            if(images.length === 0) return;
+            let currentIndex = 0;
+            setInterval(() => {
+                images[currentIndex].classList.remove('opacity-100');
+                images[currentIndex].classList.add('opacity-0');
+                currentIndex = (currentIndex + 1) % images.length;
+                images[currentIndex].classList.remove('opacity-0');
+                images[currentIndex].classList.add('opacity-100');
+            }, 4000);
+        }
+
+        // Staggered start times so they don't all crossfade simultaneously
+        setTimeout(() => startCarousel('.tier-1-img'), 0);
+        setTimeout(() => startCarousel('.tier-2-img'), 1300);
+        setTimeout(() => startCarousel('.tier-3-img'), 2600);
     </script>
 </body>
 </html>
