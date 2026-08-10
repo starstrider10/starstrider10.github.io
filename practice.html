@@ -43,15 +43,35 @@
     <main class="flex-grow flex flex-col items-center justify-center p-6 w-full max-w-5xl mx-auto">
         
         <!-- Setup State: Select Folder -->
-        <div id="setup-view" class="flex flex-col items-center justify-center w-full h-full text-center space-y-6">
-            <h1 class="text-2xl md:text-4xl font-light tracking-widest uppercase">Select a Folder</h1>
-            <p class="text-[#6E727A] text-sm md:text-base max-w-md">
-                Choose a local folder containing your exported practice photos. No images are uploaded to the internet.
-            </p>
-            <label for="folder-input" class="cursor-pointer border border-[#F9F9FB]/30 px-8 py-4 text-xs md:text-sm uppercase tracking-[0.2em] hover:bg-[#F9F9FB] hover:text-[#0A0A0A] transition-colors">
-                Select Folder
-            </label>
-            <input type="file" id="folder-input" webkitdirectory directory multiple class="hidden" accept="image/*">
+        <div id="setup-view" class="flex flex-col items-center justify-center w-full h-full text-center space-y-12">
+            
+            <!-- Branding -->
+            <div class="space-y-6 flex flex-col items-center">
+                <h1 class="text-3xl md:text-5xl font-light tracking-[0.3em] uppercase">Storyteller's Forge</h1>
+                
+                <a href="https://instagram.com/leo.inframe" target="_blank" class="inline-flex items-center gap-3 text-[#F9F9FB] hover:text-[#0A0A0A] hover:bg-[#F9F9FB] transition-all text-xs font-mono tracking-widest uppercase border border-[#F9F9FB]/30 px-5 py-2.5 rounded-full">
+                    <span>made by</span>
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                    <span>@leo.inframe</span>
+                </a>
+                
+                <p class="text-[#6E727A] text-xs md:text-sm tracking-[0.2em] uppercase max-w-lg mt-4 leading-relaxed">
+                    like a blade, your storytelling must be honed. i am serious
+                </p>
+            </div>
+            
+            <!-- Folder Selection -->
+            <div class="pt-8">
+                <label for="folder-input" class="cursor-pointer border border-[#F9F9FB]/30 px-8 py-4 text-xs md:text-sm uppercase tracking-[0.2em] hover:bg-[#F9F9FB] hover:text-[#0A0A0A] transition-colors">
+                    Load Practice Folder
+                </label>
+                <input type="file" id="folder-input" webkitdirectory directory multiple class="hidden" accept="image/*">
+            </div>
+
         </div>
 
         <!-- Practice State: Photo & Timer -->
@@ -68,18 +88,9 @@
                 <div id="loading-spinner" class="absolute hidden text-[#6E727A] text-xs uppercase tracking-widest">Loading...</div>
                 
                 <!-- Bottom Glass Overlay -->
-                <div class="absolute bottom-0 w-full bg-[#0A0A0A]/70 backdrop-blur-md border-t border-[#6E727A]/20 p-4 flex flex-col md:flex-row justify-between items-center gap-4 transition-opacity">
-                    <!-- Left: IG Logo -->
-                    <a href="https://instagram.com/leo.inframe" target="_blank" class="flex items-center gap-2 text-[#F9F9FB] hover:text-[#6E727A] transition-colors text-xs font-mono tracking-widest uppercase">
-                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                        </svg>
-                        made by leo.inframe
-                    </a>
-
-                    <!-- Right: Controls -->
+                <div class="absolute bottom-0 w-full bg-[#0A0A0A]/70 backdrop-blur-md border-t border-[#6E727A]/20 p-4 flex justify-center items-center transition-opacity">
+                    
+                    <!-- Controls -->
                     <div class="flex gap-4">
                         <button id="btn-toggle-timer" class="flex items-center gap-2 border border-[#F9F9FB]/30 bg-[#0A0A0A]/50 px-6 py-3 text-xs uppercase tracking-[0.2em] hover:bg-[#F9F9FB] hover:text-[#0A0A0A] transition-colors rounded-sm">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
