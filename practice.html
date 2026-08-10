@@ -62,20 +62,40 @@
                 02:00
             </div>
 
-            <!-- Image Container -->
-            <div class="relative w-full max-w-4xl h-[50vh] md:h-[60vh] flex items-center justify-center bg-[#121212] rounded border border-[#6E727A]/20 overflow-hidden shadow-2xl">
+            <!-- Image Container with Overlay Controls -->
+            <div class="relative w-full max-w-4xl h-[50vh] md:h-[60vh] flex flex-col items-center justify-center bg-[#121212] rounded border border-[#6E727A]/20 overflow-hidden shadow-2xl group">
                 <img id="photo-display" src="" alt="Practice Photo" class="w-full h-full object-contain opacity-0 transition-opacity duration-500">
                 <div id="loading-spinner" class="absolute hidden text-[#6E727A] text-xs uppercase tracking-widest">Loading...</div>
-            </div>
+                
+                <!-- Bottom Glass Overlay -->
+                <div class="absolute bottom-0 w-full bg-[#0A0A0A]/70 backdrop-blur-md border-t border-[#6E727A]/20 p-4 flex flex-col md:flex-row justify-between items-center gap-4 transition-opacity">
+                    <!-- Left: IG Logo -->
+                    <a href="https://instagram.com/leo.inframe" target="_blank" class="flex items-center gap-2 text-[#F9F9FB] hover:text-[#6E727A] transition-colors text-xs font-mono tracking-widest uppercase">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                        made by leo.inframe
+                    </a>
 
-            <!-- Controls -->
-            <div class="flex gap-4">
-                <button id="btn-spin" class="border border-[#F9F9FB]/30 px-8 py-4 text-xs md:text-sm uppercase tracking-[0.2em] hover:bg-[#F9F9FB] hover:text-[#0A0A0A] transition-colors">
-                    Draw Photo
-                </button>
-                <button id="btn-toggle-timer" class="border border-[#F9F9FB]/30 px-8 py-4 text-xs md:text-sm uppercase tracking-[0.2em] hover:bg-[#F9F9FB] hover:text-[#0A0A0A] transition-colors">
-                    Start Timer
-                </button>
+                    <!-- Right: Controls -->
+                    <div class="flex gap-4">
+                        <button id="btn-toggle-timer" class="flex items-center gap-2 border border-[#F9F9FB]/30 bg-[#0A0A0A]/50 px-6 py-3 text-xs uppercase tracking-[0.2em] hover:bg-[#F9F9FB] hover:text-[#0A0A0A] transition-colors rounded-sm">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2"/>
+                            </svg>
+                            <span id="btn-timer-text">Start Timer</span>
+                        </button>
+                        <button id="btn-spin" class="flex items-center gap-2 border border-[#F9F9FB]/30 bg-[#0A0A0A]/50 px-6 py-3 text-xs uppercase tracking-[0.2em] hover:bg-[#F9F9FB] hover:text-[#0A0A0A] transition-colors rounded-sm">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                            </svg>
+                            Spin Photo
+                        </button>
+                    </div>
+                </div>
             </div>
             
             <div id="status-text" class="text-[#6E727A] text-xs tracking-widest uppercase">
@@ -165,13 +185,15 @@
         }
 
         // 3. Timer Logic
+        const btnTimerText = document.getElementById('btn-timer-text');
+        
         btnToggleTimer.addEventListener('click', () => {
             if (timerInterval) {
                 stopTimer();
-                btnToggleTimer.innerText = "Resume Timer";
+                btnTimerText.innerText = "Resume Timer";
             } else {
                 startTimer();
-                btnToggleTimer.innerText = "Pause Timer";
+                btnTimerText.innerText = "Pause Timer";
             }
         });
 
@@ -199,7 +221,7 @@
         function resetTimer() {
             stopTimer();
             timeRemaining = TOTAL_TIME;
-            btnToggleTimer.innerText = "Start Timer";
+            btnTimerText.innerText = "Start Timer";
             timerDisplay.classList.remove('timer-danger');
             updateTimerDisplay();
         }
