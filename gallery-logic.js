@@ -1,16 +1,241 @@
-const shopifyDomain = 'g5z00p-jh.myshopify.com';
-const shopifyToken = 'ce2dd1785a2231d17a6523d19192a78a';
+// ==========================================
+// SHOPIFY STOREFRONT CONFIGURATION
+// Isolated for easy updates with live keys
+// ==========================================
+const SHOPIFY_CONFIG = {
+    domain: 'g5z00p-jh.myshopify.com',
+    storefrontToken: 'ce2dd1785a2231d17a6523d19192a78a',
+    apiVersion: '2024-07',
+    storageKey: 'storyofleo_cart_id'
+};
 
-let shopifyClient = null;
-function getShopifyClient() {
-    if (!shopifyClient && window.ShopifyBuy && ShopifyBuy.buildClient) {
-        shopifyClient = ShopifyBuy.buildClient({
-            domain: shopifyDomain,
-            storefrontAccessToken: shopifyToken
+const FALLBACK_PRICES = {
+    '8x12': 85,
+    '12x8': 85,
+    '12x18': 125,
+    '18x12': 125,
+    '16x24': 180,
+    '24x16': 180,
+    '24x36': 290,
+    '36x24': 290
+};
+
+let shopifyProductsCache = {};
+let currentActiveVariant = null;
+let currentCart = null;
+let isCartBusy = false;
+
+// Standardized GraphQL Fetch Helper
+async function shopifyFetch(query, variables = {}) {
+    try {
+        const response = await fetch(`https://${SHOPIFY_CONFIG.domain}/api/${SHOPIFY_CONFIG.apiVersion}/graphql.json`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Shopify-Storefront-Access-Token': SHOPIFY_CONFIG.storefrontToken
+            },
+            body: JSON.stringify({ query, variables })
         });
+        if (!response.ok) {
+            console.error('Shopify API HTTP Error:', response.status, response.statusText);
+            return null;
+        }
+        const json = await response.json();
+        if (json.errors) {
+            console.error('Shopify GraphQL Errors:', json.errors);
+        }
+        return json.data || null;
+    } catch (e) {
+        console.error('Shopify Fetch Network Error:', e);
+        return null;
     }
-    return shopifyClient;
 }
+
+// Product Query
+async function fetchShopifyProduct(title) {
+    if (shopifyProductsCache[title] !== undefined) return shopifyProductsCache[title];
+
+    const query = `
+      query getProductByTitle($query: String!) {
+        products(first: 1, query: $query) {
+          edges {
+            node {
+              id
+              title
+              description
+              options {
+                name
+                values
+              }
+              variants(first: 50) {
+                edges {
+                  node {
+                    id
+                    title
+                    price {
+                      amount
+                      currencyCode
+                    }
+                    availableForSale
+                    selectedOptions {
+                      name
+                      value
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `;
+
+    const data = await shopifyFetch(query, { query: `title:"${title}"` });
+    const product = data?.products?.edges?.[0]?.node || null;
+    shopifyProductsCache[title] = product;
+    return product;
+}
+
+// Cart GraphQL Fragment
+const CART_FRAGMENT = `
+  id
+  checkoutUrl
+  totalQuantity
+  cost {
+    subtotalAmount {
+      amount
+      currencyCode
+    }
+    totalAmount {
+      amount
+      currencyCode
+    }
+  }
+  lines(first: 50) {
+    edges {
+      node {
+        id
+        quantity
+        cost {
+          totalAmount {
+            amount
+            currencyCode
+          }
+        }
+        merchandise {
+          ... on ProductVariant {
+            id
+            title
+            image {
+              url
+            }
+            price {
+              amount
+              currencyCode
+            }
+            product {
+              title
+            }
+            selectedOptions {
+              name
+              value
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+async function getCart(cartId) {
+    if (!cartId) return null;
+    const query = `
+      query getCart($id: ID!) {
+        cart(id: $id) {
+          ${CART_FRAGMENT}
+        }
+      }
+    `;
+    const data = await shopifyFetch(query, { id: cartId });
+    return data?.cart || null;
+}
+
+async function createShopifyCart(lines = []) {
+    const query = `
+      mutation cartCreate($input: CartInput!) {
+        cartCreate(input: $input) {
+          cart {
+            ${CART_FRAGMENT}
+          }
+          userErrors {
+            field
+            message
+          }
+        }
+      }
+    `;
+    const data = await shopifyFetch(query, { input: { lines } });
+    const cart = data?.cartCreate?.cart;
+    if (cart) {
+        localStorage.setItem(SHOPIFY_CONFIG.storageKey, cart.id);
+    }
+    return cart || null;
+}
+
+async function addLinesToCart(cartId, lines = []) {
+    const query = `
+      mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
+        cartLinesAdd(cartId: $cartId, lines: $lines) {
+          cart {
+            ${CART_FRAGMENT}
+          }
+          userErrors {
+            field
+            message
+          }
+        }
+      }
+    `;
+    const data = await shopifyFetch(query, { cartId, lines });
+    return data?.cartLinesAdd?.cart || null;
+}
+
+async function removeLinesFromCart(cartId, lineIds = []) {
+    const query = `
+      mutation cartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
+        cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
+          cart {
+            ${CART_FRAGMENT}
+          }
+          userErrors {
+            field
+            message
+          }
+        }
+      }
+    `;
+    const data = await shopifyFetch(query, { cartId, lineIds });
+    return data?.cartLinesRemove?.cart || null;
+}
+
+async function updateCartLines(cartId, lines = []) {
+    const query = `
+      mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
+        cartLinesUpdate(cartId: $cartId, lines: $lines) {
+          cart {
+            ${CART_FRAGMENT}
+          }
+          userErrors {
+            field
+            message
+          }
+        }
+      }
+    `;
+    const data = await shopifyFetch(query, { cartId, lines });
+    return data?.cartLinesUpdate?.cart || null;
+}
+
 
 const strategies = {
     'all': 'Viewing the full archive. Fine art nature photography, environmental portraiture, and wilderness documentation.',
@@ -411,17 +636,17 @@ function setupPrintSizeOptions(isVertical) {
 
     if (isVertical) {
         select.innerHTML = `
-            <option value="8x12" data-price="85">8x12" (20x30cm) - $85</option>
-            <option value="12x18" data-price="125">12x18" (30x45cm) - $125</option>
-            <option value="16x24" data-price="180" selected>16x24" (40x60cm) - $180</option>
-            <option value="24x36" data-price="290">24x36" (60x90cm) - $290</option>
+            <option value="8x12">8x12" (20x30cm)</option>
+            <option value="12x18">12x18" (30x45cm)</option>
+            <option value="16x24" selected>16x24" (40x60cm)</option>
+            <option value="24x36">24x36" (60x90cm)</option>
         `;
     } else {
         select.innerHTML = `
-            <option value="12x8" data-price="85">12x8" (30x20cm) - $85</option>
-            <option value="18x12" data-price="125">18x12" (45x30cm) - $125</option>
-            <option value="24x16" data-price="180" selected>24x16" (60x40cm) - $180</option>
-            <option value="36x24" data-price="290">36x24" (90x60cm) - $290</option>
+            <option value="12x8">12x8" (30x20cm)</option>
+            <option value="18x12">18x12" (45x30cm)</option>
+            <option value="24x16" selected>24x16" (60x40cm)</option>
+            <option value="36x24">36x24" (90x60cm)</option>
         `;
     }
 }
@@ -525,9 +750,33 @@ function closeModal() {
     }, 500);
 }
 
-function updateModal() {
+async function updateModal() {
     const photo = currentAlbum[currentIndex];
     const img = document.getElementById('modal-img');
+    const photoTitle = photo.print_title || currentModel;
+    document.getElementById('modal-model-name').innerText = photoTitle;
+    document.getElementById('modal-counter').innerText = `${currentIndex + 1} / ${currentAlbum.length}`;
+
+    const buyBtn = document.getElementById('buy-print-btn');
+    if (buyBtn) {
+        buyBtn.innerHTML = `<span>Loading Availability...</span>`;
+        buyBtn.disabled = true;
+    }
+
+    // Prefetch Shopify product variants for dynamic pricing
+    let product = null;
+    if (photo.is_print || photo.shopify_url) {
+        product = await fetchShopifyProduct(photoTitle);
+        // If product has finish options defined in Shopify, reflect them dynamically
+        if (product && product.options) {
+            const finishOpt = product.options.find(o => o.name.toLowerCase() === 'finish' || o.name.toLowerCase() === 'material');
+            const finishSelect = document.getElementById('print-finish-select');
+            if (finishOpt && finishOpt.values.length > 0 && finishSelect) {
+                const currentVal = finishSelect.value;
+                finishSelect.innerHTML = finishOpt.values.map(val => `<option value="${val}" ${val === currentVal ? 'selected' : ''}>${val}</option>`).join('');
+            }
+        }
+    }
     
     // Detect orientation when image loads
     const tempImg = new Image();
@@ -541,11 +790,6 @@ function updateModal() {
 
     // Use high res for modal, but still optimize format/quality
     img.src = optimizeUrl(photo.url, 2000);
-    document.getElementById('modal-model-name').innerText = photo.print_title || currentModel;
-    document.getElementById('modal-counter').innerText = `${currentIndex + 1} / ${currentAlbum.length}`;
-
-    updatePrintPrice();
-    if (isRoomView) updateRoomScale();
 
     const nextIdx = (currentIndex + 1) % currentAlbum.length;
     const prevIdx = (currentIndex - 1 + currentAlbum.length) % currentAlbum.length;
@@ -557,48 +801,307 @@ function updateModal() {
 function updatePrintPrice() {
     if (!currentAlbum || currentAlbum.length === 0) return;
     const photo = currentAlbum[currentIndex];
-    const select = document.getElementById('print-size-select');
+    const sizeSelect = document.getElementById('print-size-select');
+    const finishSelect = document.getElementById('print-finish-select');
     const buyBtn = document.getElementById('buy-print-btn');
-    if (!select || !buyBtn) return;
+    if (!sizeSelect || !finishSelect || !buyBtn) return;
 
-    const size = select.value;
-    const photoTitle = photo.print_title || photo.public_id || 'Photo';
+    const size = sizeSelect.value;
+    const finish = finishSelect.value;
+    const photoTitle = photo.print_title || currentModel;
 
     if (isRoomView) updateRoomScale();
 
-    // Check if variant ID is configured
-    if (photo.shopify_variant_id) {
-        buyBtn.onclick = (e) => {
-            e.preventDefault();
-            const client = getShopifyClient();
-            if (client) {
-                buyBtn.innerText = "Creating Checkout...";
-                client.checkout.create({ lineItems: [{ variantId: photo.shopify_variant_id, quantity: 1 }] })
-                    .then(checkout => {
-                        window.location.href = checkout.webUrl;
-                    })
-                    .catch(err => {
-                        console.error('Shopify Checkout Error:', err);
-                        window.location.href = photo.shopify_url || `https://${shopifyDomain}`;
-                    });
-            } else if (photo.shopify_url) {
-                window.open(photo.shopify_url, '_blank');
-            }
-        };
-        buyBtn.href = "#";
-        buyBtn.innerText = "Order Archival Print \u2192";
-    } else if (photo.shopify_url) {
-        buyBtn.onclick = null;
-        buyBtn.href = photo.shopify_url;
-        buyBtn.innerText = "Order Archival Print \u2192";
-    } else {
-        // Preload reservation link fallback
-        buyBtn.onclick = null;
-        const subject = encodeURIComponent(`Fine Art Print Inquiry: ${photoTitle} (${size})`);
-        const body = encodeURIComponent(`Hi Leo,\n\nI would like to order an archival fine art print of:\nImage Title: ${photoTitle}\nSize Requested: ${size}\n\nPlease let me know pricing, availability, and shipping details!\n\nBest,`);
-        buyBtn.href = `mailto:hello@storyofleo.com?subject=${subject}&body=${body}`;
-        buyBtn.innerText = "Inquire Fine Art Print \u2192";
+    let normalizedSize = size;
+    if (size === '12x8') normalizedSize = '8x12';
+    if (size === '18x12') normalizedSize = '12x18';
+    if (size === '24x16') normalizedSize = '16x24';
+    if (size === '36x24') normalizedSize = '24x36';
+    const shopifySizeWithQuotes = normalizedSize + '"';
+
+    const product = shopifyProductsCache[photoTitle];
+    currentActiveVariant = null;
+
+    if (product && product.variants && product.variants.edges && product.variants.edges.length > 0) {
+        const variantEdge = product.variants.edges.find(e => {
+            const opts = e.node.selectedOptions || [];
+            const hasSize = opts.some(o => {
+                const v = o.value.trim().toLowerCase();
+                return v === shopifySizeWithQuotes.toLowerCase() ||
+                       v === normalizedSize.toLowerCase() ||
+                       v === size.toLowerCase();
+            });
+            const hasFinish = opts.some(o => {
+                const v = o.value.trim().toLowerCase();
+                const f = finish.trim().toLowerCase();
+                return v === f || v.includes(f) || f.includes(v);
+            });
+            return hasSize && hasFinish;
+        });
+
+        if (variantEdge) {
+            currentActiveVariant = variantEdge.node;
+        }
     }
+
+    if (currentActiveVariant) {
+        if (currentActiveVariant.availableForSale) {
+            const price = Math.round(parseFloat(currentActiveVariant.price.amount));
+            buyBtn.innerHTML = `<span>Add to Cart — $${price}</span> <span class="text-xs">&rarr;</span>`;
+            buyBtn.disabled = false;
+            buyBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+        } else {
+            buyBtn.innerHTML = `<span>Out of Stock</span>`;
+            buyBtn.disabled = true;
+            buyBtn.classList.add('opacity-60', 'cursor-not-allowed');
+        }
+    } else {
+        // Fallback pricing when variant is not found in Shopify yet
+        const fallbackPrice = FALLBACK_PRICES[size] || 180;
+        buyBtn.disabled = false;
+        buyBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+        if (photo.shopify_url) {
+            buyBtn.innerHTML = `<span>Order Fine Art Print — $${fallbackPrice}</span> <span class="text-xs">&rarr;</span>`;
+        } else {
+            buyBtn.innerHTML = `<span>Inquire Print — $${fallbackPrice}</span> <span class="text-xs">&rarr;</span>`;
+        }
+    }
+}
+
+async function handleBuyPrintClick(event) {
+    if (event) event.preventDefault();
+    if (!currentAlbum || currentAlbum.length === 0) return;
+    const photo = currentAlbum[currentIndex];
+    const photoTitle = photo.print_title || currentModel;
+    const sizeSelect = document.getElementById('print-size-select');
+    const finishSelect = document.getElementById('print-finish-select');
+    const size = sizeSelect ? sizeSelect.value : '';
+    const finish = finishSelect ? finishSelect.value : '';
+    const buyBtn = document.getElementById('buy-print-btn');
+
+    if (currentActiveVariant && currentActiveVariant.availableForSale) {
+        if (isCartBusy) return;
+        isCartBusy = true;
+        const originalHtml = buyBtn.innerHTML;
+        buyBtn.innerHTML = `<span>Adding to Cart...</span>`;
+        buyBtn.disabled = true;
+
+        try {
+            await addItemToCart(currentActiveVariant.id, 1);
+            buyBtn.innerHTML = `<span>Added to Cart! ✓</span>`;
+            setTimeout(() => {
+                buyBtn.innerHTML = originalHtml;
+                buyBtn.disabled = false;
+                isCartBusy = false;
+            }, 1200);
+            toggleCartDrawer(true);
+        } catch (err) {
+            console.error('Error adding to cart:', err);
+            buyBtn.innerHTML = `<span>Error Adding Item</span>`;
+            setTimeout(() => {
+                buyBtn.innerHTML = originalHtml;
+                buyBtn.disabled = false;
+                isCartBusy = false;
+            }, 2000);
+        }
+    } else if (photo.shopify_url) {
+        window.open(photo.shopify_url, '_blank');
+    } else {
+        const subject = encodeURIComponent(`Fine Art Print Inquiry: ${photoTitle} (${size})`);
+        const body = encodeURIComponent(`Hi Leo,\n\nI would like to order an archival fine art print of:\nImage Title: ${photoTitle}\nFinish: ${finish}\nSize Requested: ${size}\n\nPlease let me know pricing, availability, and shipping details!\n\nBest,`);
+        window.location.href = `mailto:hello@storyofleo.com?subject=${subject}&body=${body}`;
+    }
+}
+
+async function addItemToCart(variantId, quantity = 1) {
+    let cartId = localStorage.getItem(SHOPIFY_CONFIG.storageKey);
+    let cart = null;
+
+    if (cartId) {
+        cart = await addLinesToCart(cartId, [{ merchandiseId: variantId, quantity }]);
+        // If line add failed (e.g. cart expired on Shopify), create a fresh cart
+        if (!cart) {
+            cart = await createShopifyCart([{ merchandiseId: variantId, quantity }]);
+        }
+    } else {
+        cart = await createShopifyCart([{ merchandiseId: variantId, quantity }]);
+    }
+
+    if (cart) {
+        renderCartUI(cart);
+    }
+    return cart;
+}
+
+function toggleCartDrawer(forceOpen) {
+    const drawer = document.getElementById('cart-drawer');
+    const backdrop = document.getElementById('cart-drawer-backdrop');
+    if (!drawer || !backdrop) return;
+
+    const isOpen = drawer.classList.contains('translate-x-0');
+    const shouldOpen = forceOpen !== undefined ? forceOpen : !isOpen;
+
+    if (shouldOpen) {
+        drawer.classList.remove('translate-x-full');
+        drawer.classList.add('translate-x-0');
+        backdrop.classList.remove('opacity-0', 'pointer-events-none');
+        backdrop.classList.add('opacity-100');
+        document.body.style.overflow = 'hidden';
+    } else {
+        drawer.classList.remove('translate-x-0');
+        drawer.classList.add('translate-x-full');
+        backdrop.classList.remove('opacity-100');
+        backdrop.classList.add('opacity-0', 'pointer-events-none');
+        const modal = document.getElementById('album-modal');
+        if (!modal || modal.classList.contains('hidden')) {
+            document.body.style.overflow = 'auto';
+        }
+    }
+}
+
+async function removeCartItem(lineId) {
+    const cartId = localStorage.getItem(SHOPIFY_CONFIG.storageKey);
+    if (!cartId || isCartBusy) return;
+    isCartBusy = true;
+    try {
+        const updatedCart = await removeLinesFromCart(cartId, [lineId]);
+        if (updatedCart) {
+            renderCartUI(updatedCart);
+        }
+    } catch (e) {
+        console.error('Error removing cart item:', e);
+    } finally {
+        isCartBusy = false;
+    }
+}
+
+async function updateCartItemQuantity(lineId, quantity) {
+    const cartId = localStorage.getItem(SHOPIFY_CONFIG.storageKey);
+    if (!cartId || isCartBusy) return;
+    if (quantity <= 0) {
+        return removeCartItem(lineId);
+    }
+    isCartBusy = true;
+    try {
+        const updatedCart = await updateCartLines(cartId, [{ id: lineId, quantity }]);
+        if (updatedCart) {
+            renderCartUI(updatedCart);
+        }
+    } catch (e) {
+        console.error('Error updating cart line quantity:', e);
+    } finally {
+        isCartBusy = false;
+    }
+}
+
+function renderCartUI(cart) {
+    currentCart = cart;
+    const totalQty = cart ? (cart.totalQuantity || 0) : 0;
+    
+    // Update badge in desktop and mobile nav
+    const badges = [
+        document.getElementById('cart-counter-badge'),
+        document.getElementById('cart-counter-badge-mobile')
+    ];
+    badges.forEach(b => {
+        if (b) {
+            b.innerText = totalQty;
+            if (totalQty > 0) {
+                b.classList.remove('hidden');
+                b.classList.add('inline-flex');
+            } else {
+                b.classList.add('hidden');
+                b.classList.remove('inline-flex');
+            }
+        }
+    });
+
+    const drawerCount = document.getElementById('cart-drawer-count');
+    if (drawerCount) drawerCount.innerText = `(${totalQty} ${totalQty === 1 ? 'item' : 'items'})`;
+
+    const emptyState = document.getElementById('cart-empty-state');
+    const itemsContainer = document.getElementById('cart-items-container');
+    const footer = document.getElementById('cart-footer');
+    const subtotalEl = document.getElementById('cart-subtotal');
+    const checkoutBtn = document.getElementById('cart-checkout-btn');
+
+    const lines = cart?.lines?.edges || [];
+
+    if (!cart || lines.length === 0) {
+        if (emptyState) emptyState.classList.remove('hidden');
+        if (itemsContainer) {
+            itemsContainer.classList.add('hidden');
+            itemsContainer.innerHTML = '';
+        }
+        if (footer) footer.classList.add('hidden');
+        return;
+    }
+
+    if (emptyState) emptyState.classList.add('hidden');
+    if (itemsContainer) itemsContainer.classList.remove('hidden');
+    if (footer) footer.classList.remove('hidden');
+
+    const subtotalAmount = cart.cost?.subtotalAmount?.amount || '0.00';
+    const currency = cart.cost?.subtotalAmount?.currencyCode || 'USD';
+    if (subtotalEl) {
+        subtotalEl.innerText = `$${parseFloat(subtotalAmount).toFixed(2)} ${currency}`;
+    }
+    if (checkoutBtn && cart.checkoutUrl) {
+        checkoutBtn.href = cart.checkoutUrl;
+    }
+
+    if (itemsContainer) {
+        itemsContainer.innerHTML = lines.map(({ node }) => {
+            const merchandise = node.merchandise;
+            const lineId = node.id;
+            const qty = node.quantity;
+            const title = merchandise?.product?.title || 'Fine Art Print';
+            const variantTitle = merchandise?.title || '';
+            const lineTotal = parseFloat(node.cost?.totalAmount?.amount || 0).toFixed(2);
+            const imgUrl = merchandise?.image?.url || '';
+
+            return `
+                <div class="flex gap-4 p-3 bg-[#1A1A1A] border border-[#6E727A]/20 rounded-sm">
+                    ${imgUrl ? `<img src="${imgUrl}" alt="${title}" class="w-16 h-20 object-cover bg-black/40 flex-shrink-0 border border-white/10">` : `<div class="w-16 h-20 bg-[#252525] flex-shrink-0 flex items-center justify-center text-xs text-[#6E727A]">Print</div>`}
+                    <div class="flex-1 flex flex-col justify-between min-w-0">
+                        <div>
+                            <div class="flex justify-between items-start gap-2">
+                                <h4 class="font-serif text-sm text-[#F9F9FB] truncate">${title}</h4>
+                                <button onclick="removeCartItem('${lineId}')" class="text-xs text-[#6E727A] hover:text-[#F9F9FB] transition-colors leading-none cursor-pointer" title="Remove">&times;</button>
+                            </div>
+                            <p class="text-[9px] uppercase tracking-wider text-[#6E727A] font-sans mt-0.5">${variantTitle}</p>
+                        </div>
+                        <div class="flex justify-between items-center mt-2">
+                            <div class="flex items-center border border-[#6E727A]/30 text-xs">
+                                <button onclick="updateCartItemQuantity('${lineId}', ${qty - 1})" class="px-2 py-0.5 hover:bg-white/10 text-[#6E727A] hover:text-white cursor-pointer">-</button>
+                                <span class="px-2 py-0.5 text-[10px] text-white font-sans">${qty}</span>
+                                <button onclick="updateCartItemQuantity('${lineId}', ${qty + 1})" class="px-2 py-0.5 hover:bg-white/10 text-[#6E727A] hover:text-white cursor-pointer">+</button>
+                            </div>
+                            <span class="font-sans text-xs font-bold text-[#F9F9FB]">$${lineTotal}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+}
+
+async function initCart() {
+    const cartId = localStorage.getItem(SHOPIFY_CONFIG.storageKey);
+    if (cartId) {
+        try {
+            const cart = await getCart(cartId);
+            if (cart) {
+                renderCartUI(cart);
+                return;
+            } else {
+                localStorage.removeItem(SHOPIFY_CONFIG.storageKey);
+            }
+        } catch (e) {
+            console.error('Error initializing cart:', e);
+        }
+    }
+    renderCartUI(null);
 }
 
 function nextPhoto() {
@@ -677,8 +1180,16 @@ function toggleFullscreen() {
 }
 
 document.addEventListener('keydown', (e) => {
+    const cartDrawer = document.getElementById('cart-drawer');
+    if (cartDrawer && cartDrawer.classList.contains('translate-x-0')) {
+        if (e.key === 'Escape') {
+            toggleCartDrawer(false);
+            return;
+        }
+    }
+
     const modal = document.getElementById('album-modal');
-    if (modal.classList.contains('hidden')) return;
+    if (modal && modal.classList.contains('hidden')) return;
 
     if (e.key === 'ArrowRight') nextPhoto();
     else if (e.key === 'ArrowLeft') prevPhoto();
@@ -694,6 +1205,8 @@ document.addEventListener('keydown', (e) => {
 
 // Initialize
 window.addEventListener('load', () => {
+    initCart();
+
     const urlParams = new URLSearchParams(window.location.search);
     const initialCategory = urlParams.get('filter') || 'prints';
     renderGallery(initialCategory);

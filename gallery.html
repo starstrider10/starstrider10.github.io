@@ -57,17 +57,29 @@
             <a href="services.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">Services</a>
             <a href="journal.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">Journal</a>
             <a href="about.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">About</a>
+
+            <!-- Cart Trigger -->
+            <button onclick="toggleCartDrawer()" class="flex items-center gap-1.5 text-[#121212] hover:text-[#6E727A] transition-colors focus:outline-none ml-2 cursor-pointer" aria-label="Open Cart">
+                <span>Cart</span>
+                <span id="cart-counter-badge" class="bg-[#121212] text-[#F9F9FB] text-[9px] px-1.5 py-0.5 rounded-full font-bold hidden">0</span>
+            </button>
         </div>
 
-        <!-- Mobile Menu Toggle Button -->
-        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden text-[#121212] p-2 focus:outline-none z-50" aria-label="Toggle Navigation Menu">
-            <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-            <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-        </button>
+        <!-- Mobile Actions -->
+        <div class="md:hidden flex items-center gap-4">
+            <button onclick="toggleCartDrawer()" class="flex items-center gap-1.5 text-xs uppercase tracking-widest font-sans font-medium text-[#121212] focus:outline-none cursor-pointer" aria-label="Open Cart">
+                <span>Cart</span>
+                <span id="cart-counter-badge-mobile" class="bg-[#121212] text-[#F9F9FB] text-[9px] px-1.5 py-0.5 rounded-full font-bold hidden">0</span>
+            </button>
+            <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="text-[#121212] p-2 focus:outline-none z-50" aria-label="Toggle Navigation Menu">
+                <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+                <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
     </nav>
 
     <!-- Mobile Navigation Drawer Overlay -->
@@ -236,18 +248,24 @@
                     </button>
 
                     <div class="flex items-center gap-2 text-[10px] font-sans uppercase tracking-widest text-[#F9F9FB]">
-                        <span class="opacity-60">Print Size:</span>
+                        <span class="opacity-60">Finish:</span>
+                        <select id="print-finish-select" onchange="updatePrintPrice()" class="bg-[#121212] border border-[#F9F9FB]/30 text-[#F9F9FB] px-2 py-1 text-[10px] font-sans focus:outline-none">
+                            <option value="Studio Archival Matte" selected>Studio Archival Matte</option>
+                            <option value="Fine Art Giclée Cotton Rag">Fine Art Giclée Cotton Rag</option>
+                            <option value="Metallic">Metallic</option>
+                            <option value="Stretched Canvas">Stretched Canvas</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center gap-2 text-[10px] font-sans uppercase tracking-widest text-[#F9F9FB]">
+                        <span class="opacity-60">Size:</span>
                         <select id="print-size-select" onchange="updatePrintPrice()" class="bg-[#121212] border border-[#F9F9FB]/30 text-[#F9F9FB] px-2 py-1 text-[10px] font-sans focus:outline-none">
-                            <option value="8x12" data-price="85">8x12" - $85</option>
-                            <option value="12x18" data-price="125">12x18" - $125</option>
-                            <option value="16x24" data-price="180" selected>16x24" - $180</option>
-                            <option value="24x36" data-price="290">24x36" - $290</option>
+                            <!-- Populated dynamically -->
                         </select>
                     </div>
 
-                    <a id="buy-print-btn" href="#" target="_blank" class="bg-[#F9F9FB] text-[#121212] hover:bg-white px-5 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] font-sans transition-all duration-300 shadow-md">
-                        Order Fine Art Print &rarr;
-                    </a>
+                    <button id="buy-print-btn" onclick="handleBuyPrintClick(event)" class="bg-[#F9F9FB] text-[#121212] hover:bg-white px-5 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] font-sans transition-all duration-300 shadow-md cursor-pointer flex items-center justify-center gap-1">
+                        <span>Add to Cart</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -262,7 +280,53 @@
 
     </main>
 
-    <script src="https://sdks.shopifycdn.com/js-buy-sdk/v2/latest/shopify-buy.umd.polyfilled.min.js"></script>
+    <!-- Slide-Over Cart Drawer Backdrop -->
+    <div id="cart-drawer-backdrop" onclick="toggleCartDrawer(false)" class="fixed inset-0 z-[140] bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+    <!-- Slide-Over Cart Drawer -->
+    <div id="cart-drawer" class="fixed top-0 right-0 bottom-0 z-[150] w-full max-w-md bg-[#121212] text-[#F9F9FB] shadow-2xl flex flex-col translate-x-full transition-transform duration-300 ease-in-out border-l border-[#6E727A]/30">
+        <!-- Drawer Header -->
+        <div class="p-6 border-b border-[#6E727A]/20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="text-xs uppercase tracking-[0.3em] font-bold font-sans">Your Cart</span>
+                <span id="cart-drawer-count" class="text-[10px] uppercase tracking-widest text-[#6E727A] font-sans">(0 items)</span>
+            </div>
+            <button onclick="toggleCartDrawer(false)" class="text-[#F9F9FB]/50 hover:text-[#F9F9FB] text-2xl font-light transition-colors leading-none focus:outline-none cursor-pointer" aria-label="Close Cart">&times;</button>
+        </div>
+
+        <!-- Empty State -->
+        <div id="cart-empty-state" class="flex-1 flex flex-col items-center justify-center p-8 text-center">
+            <div class="w-12 h-12 rounded-full border border-[#6E727A]/30 flex items-center justify-center mb-4 text-[#6E727A] text-lg">
+                🛒
+            </div>
+            <p class="font-serif text-lg text-[#F9F9FB] mb-2">Your collection is empty</p>
+            <p class="text-xs text-[#6E727A] max-w-xs mb-6 font-sans">Explore fine art archival prints in the gallery to collect for your space.</p>
+            <button onclick="toggleCartDrawer(false)" class="text-[9px] uppercase tracking-[0.25em] font-sans font-bold border border-[#F9F9FB]/30 hover:border-[#F9F9FB] px-5 py-2 transition-colors cursor-pointer">
+                Browse Prints &rarr;
+            </button>
+        </div>
+
+        <!-- Items List -->
+        <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4 hidden">
+            <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Drawer Footer -->
+        <div id="cart-footer" class="p-6 border-t border-[#6E727A]/20 bg-[#171717] hidden flex flex-col gap-4">
+            <div class="flex justify-between items-baseline">
+                <span class="text-xs uppercase tracking-[0.2em] text-[#6E727A] font-sans">Subtotal</span>
+                <span id="cart-subtotal" class="font-serif text-xl text-[#F9F9FB]">$0.00 USD</span>
+            </div>
+            <p class="text-[9px] text-[#6E727A] font-sans tracking-wide">
+                Archival packaging &amp; shipping calculated at checkout.
+            </p>
+            <a id="cart-checkout-btn" href="#" target="_blank" class="w-full bg-[#F9F9FB] text-[#121212] hover:bg-white text-center py-3 text-xs font-bold uppercase tracking-[0.25em] font-sans transition-all duration-300 shadow-md">
+                Proceed to Checkout &rarr;
+            </a>
+        </div>
+    </div>
+
+
     <script src="gallery-data.js"></script>
     <script src="gallery-logic.js"></script>
 
