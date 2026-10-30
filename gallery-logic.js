@@ -1,255 +1,3 @@
-// ==========================================
-// SHOPIFY STOREFRONT CONFIGURATION
-// Isolated for easy updates with live keys
-// ==========================================
-const SHOPIFY_CONFIG = {
-    domain: 'g5z00p-jh.myshopify.com',
-    storefrontToken: 'ce2dd1785a2231d17a6523d19192a78a',
-    apiVersion: '2026-01',
-    storageKey: 'storyofleo_cart_id'
-};
-
-const FALLBACK_PRICES = {
-    '8x12': 85,
-    '12x8': 85,
-    '12x18': 125,
-    '18x12': 125,
-    '16x24': 180,
-    '24x16': 180,
-    '24x36': 290,
-    '36x24': 290
-};
-
-let shopifyProductsCache = {};
-let currentActiveVariant = null;
-let currentCart = null;
-let isCartBusy = false;
-
-// Standardized GraphQL Fetch Helper
-async function shopifyFetch(query, variables = {}) {
-    const response = await fetch(`https://${SHOPIFY_CONFIG.domain}/api/${SHOPIFY_CONFIG.apiVersion}/graphql.json`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-Shopify-Storefront-Access-Token': SHOPIFY_CONFIG.storefrontToken
-        },
-        body: JSON.stringify({ query, variables }),
-        signal: AbortSignal.timeout(10000)
-    });
-    if (!response.ok) throw new Error('The print shop could not be reached. Please try again.');
-    const json = await response.json();
-    if (json.errors?.length) throw new Error('The print shop could not process this request. Please try again.');
-    if (!json.data) throw new Error('The print shop returned no data. Please try again.');
-    return json.data;
-}
-
-function checkedCartResult(data, operation) {
-    const result = data?.[operation];
-    if (result?.userErrors?.length) {
-        throw new Error(result.userErrors.map(error => error.message).join(' '));
-    }
-    if (!result?.cart) throw new Error('The shopping bag could not be updated. Please try again.');
-    return result.cart;
-}
-
-function setPrintStatus(message) {
-    const status = document.getElementById('print-availability');
-    if (status) status.textContent = message;
-}
-
-function setCartStatus(message) {
-    const status = document.getElementById('cart-status');
-    if (status) status.textContent = message;
-}
-
-// Product Query
-async function fetchShopifyProduct(title) {
-    if (shopifyProductsCache[title] !== undefined) return shopifyProductsCache[title];
-
-    const query = `
-      query getProductByTitle($query: String!) {
-        products(first: 1, query: $query) {
-          edges {
-            node {
-              id
-              title
-              description
-              options {
-                name
-                values
-              }
-              variants(first: 50) {
-                edges {
-                  node {
-                    id
-                    title
-                    price {
-                      amount
-                      currencyCode
-                    }
-                    availableForSale
-                    selectedOptions {
-                      name
-                      value
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    `;
-
-    const data = await shopifyFetch(query, { query: `title:"${title}"` });
-    const candidate = data?.products?.edges?.[0]?.node;
-    // Never substitute a template or a similarly named photograph.
-    const product = candidate?.title?.trim().toLowerCase() === title.trim().toLowerCase() ? candidate : null;
-    shopifyProductsCache[title] = product;
-    return product;
-}
-
-// Cart GraphQL Fragment
-const CART_FRAGMENT = `
-  id
-  checkoutUrl
-  totalQuantity
-  cost {
-    subtotalAmount {
-      amount
-      currencyCode
-    }
-    totalAmount {
-      amount
-      currencyCode
-    }
-  }
-  lines(first: 50) {
-    edges {
-      node {
-        id
-        quantity
-        cost {
-          totalAmount {
-            amount
-            currencyCode
-          }
-        }
-        merchandise {
-          ... on ProductVariant {
-            id
-            title
-            image {
-              url
-            }
-            price {
-              amount
-              currencyCode
-            }
-            product {
-              title
-            }
-            selectedOptions {
-              name
-              value
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
-async function getCart(cartId) {
-    if (!cartId) return null;
-    const query = `
-      query getCart($id: ID!) {
-        cart(id: $id) {
-          ${CART_FRAGMENT}
-        }
-      }
-    `;
-    const data = await shopifyFetch(query, { id: cartId });
-    return data?.cart || null;
-}
-
-async function createShopifyCart(lines = []) {
-    const query = `
-      mutation cartCreate($input: CartInput!) {
-        cartCreate(input: $input) {
-          cart {
-            ${CART_FRAGMENT}
-          }
-          userErrors {
-            field
-            message
-          }
-        }
-      }
-    `;
-    const data = await shopifyFetch(query, { input: { lines } });
-    const cart = checkedCartResult(data, 'cartCreate');
-    if (cart) {
-        localStorage.setItem(SHOPIFY_CONFIG.storageKey, cart.id);
-    }
-    return cart || null;
-}
-
-async function addLinesToCart(cartId, lines = []) {
-    const query = `
-      mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
-        cartLinesAdd(cartId: $cartId, lines: $lines) {
-          cart {
-            ${CART_FRAGMENT}
-          }
-          userErrors {
-            field
-            message
-          }
-        }
-      }
-    `;
-    const data = await shopifyFetch(query, { cartId, lines });
-    return checkedCartResult(data, 'cartLinesAdd');
-}
-
-async function removeLinesFromCart(cartId, lineIds = []) {
-    const query = `
-      mutation cartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
-        cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
-          cart {
-            ${CART_FRAGMENT}
-          }
-          userErrors {
-            field
-            message
-          }
-        }
-      }
-    `;
-    const data = await shopifyFetch(query, { cartId, lineIds });
-    return checkedCartResult(data, 'cartLinesRemove');
-}
-
-async function updateCartLines(cartId, lines = []) {
-    const query = `
-      mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
-        cartLinesUpdate(cartId: $cartId, lines: $lines) {
-          cart {
-            ${CART_FRAGMENT}
-          }
-          userErrors {
-            field
-            message
-          }
-        }
-      }
-    `;
-    const data = await shopifyFetch(query, { cartId, lines });
-    return checkedCartResult(data, 'cartLinesUpdate');
-}
-
-
 const strategies = {
     'all': 'Viewing the full archive. Fine art nature photography, environmental portraiture, and wilderness documentation.',
     'portraiture': 'Portraiture & Outdoor Lifestyle: Focusing on authentic human connection, atmospheric light, and natural character.',
@@ -258,10 +6,10 @@ const strategies = {
     'backpacking': 'Backpacking: Visual stories from deep trails, self-reliance, and mountain solitude.',
     'outdoors': 'Outdoors: Curated fine art imagery emphasizing mountain mist, natural textures, and open horizons.',
     'street': 'Street & Urban: Geometric compositions and shadow studies capturing urban geometry and daily life.',
-    'prints': 'Fine Art Prints Collection: Curated archival prints across alpine landscapes, ocean mist, iconic cityscapes, and wildlife.',
-    'prints:alpine': 'Alpine & Wilderness Fine Art Prints: Grand mountain vistas, peak reflections, and misty coastlines.',
-    'prints:urban': 'Urban & Skyline Fine Art Prints: Iconic cityscapes, atmospheric fog, and architectural geometry.',
-    'prints:wildlife': 'Wildlife & Fine Art Nature Prints: Marine sea turtles, monochrome wildlife portraits, and atmospheric night scenes.',
+    'prints': 'Selected photographs across alpine landscapes, ocean mist, iconic cityscapes, and wildlife.',
+    'prints:alpine': 'Alpine & Wilderness Photographs: Grand mountain vistas, peak reflections, and misty coastlines.',
+    'prints:urban': 'Urban & Skyline Photographs: Iconic cityscapes, atmospheric fog, and architectural geometry.',
+    'prints:wildlife': 'Wildlife & Nature Photographs: Marine sea turtles, monochrome wildlife portraits, and atmospheric night scenes.',
     'prints:travel': 'Travel & Wanderlust Story Prints: Atmospheric train tracks, floating night lanterns, fire art, and wanderlust travel moments.'
 };
 
@@ -402,7 +150,7 @@ function renderGallery(category = 'all') {
                     <div class="w-fit mx-auto relative p-1 md:p-1.5 bg-white shadow-md group overflow-hidden border border-[#6E727A]/30 transition-all duration-700">
                         <img src="${optimizeUrl(p.url, 600)}" loading="lazy" class="h-auto max-h-[50vh] object-contain transition-all duration-1000 saturate-[0.85] group-hover:saturate-100">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#121212]/90 via-[#121212]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-end pointer-events-none text-center p-4 pb-6">
-                            ${p.is_print ? `<span class="text-[6px] md:text-[7px] uppercase tracking-[0.3em] bg-white/20 text-white px-2 py-0.5 mb-1 font-bold font-sans">Print Available</span>` : ''}
+                            ${p.is_print ? `<span class="text-[6px] md:text-[7px] uppercase tracking-[0.3em] bg-white/20 text-white px-2 py-0.5 mb-1 font-bold font-sans">Selected photograph</span>` : ''}
                             <span class="text-[7px] md:text-[9px] uppercase tracking-[0.4em] text-[#F9F9FB] font-bold mb-1 leading-tight font-sans">${displayName}</span>
                             <span class="text-[5px] md:text-[6px] uppercase tracking-widest text-[#F9F9FB]/80 font-sans">Click to Select</span>
                         </div>
@@ -528,17 +276,17 @@ function renderGallery(category = 'all') {
                 const item = document.createElement('div');
                 item.className = 'group cursor-pointer relative aspect-[4/5] overflow-hidden bg-white border border-[#6E727A]/20';
                 const displayName = p.print_title || getDisplayName(p.public_id, p.folder);
-                const printBadge = p.is_print ? `<span class="inline-block text-[7px] uppercase tracking-[0.3em] bg-[#121212]/90 text-[#F9F9FB] px-2 py-0.5 mb-2 font-bold font-sans w-fit">Fine Art Print</span>` : '';
+                const printBadge = p.is_print ? `<span class="inline-block text-[7px] uppercase tracking-[0.3em] bg-[#121212]/90 text-[#F9F9FB] px-2 py-0.5 mb-2 font-bold font-sans w-fit">Photograph</span>` : '';
                 
                 item.innerHTML = `
                     <img src="${optimizeUrl(p.url, 800)}" loading="lazy" class="w-full h-full object-cover transition-all duration-1000 saturate-[0.85] group-hover:saturate-100 group-hover:scale-105">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#121212]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
                         ${printBadge}
                         <span class="text-[10px] uppercase tracking-[0.3em] text-[#F9F9FB] font-bold mb-1 font-sans">${displayName}</span>
-                        <span class="text-[8px] uppercase tracking-widest text-[#F9F9FB]/80 font-sans">View Fullscreen & Order Print</span>
+                        <span class="text-[8px] uppercase tracking-widest text-[#F9F9FB]/80 font-sans">View photograph</span>
                     </div>
                 `;
-                const albumTitle = category.startsWith('prints') ? 'FINE ART PRINTS' : category.toUpperCase();
+                const albumTitle = category.startsWith('prints') ? 'SELECTED PHOTOGRAPHS' : category.toUpperCase();
                 item.onclick = () => openAlbum(assets, albumTitle, i);
                 gridContainer.appendChild(item);
             });
@@ -791,366 +539,24 @@ function closeModal() {
     }, 500);
 }
 
-async function updateModal() {
+function updateModal() {
     const photo = currentAlbum[currentIndex];
     const img = document.getElementById('modal-img');
-    // Show the image immediately; remote product availability must not block viewing.
     img.src = optimizeUrl(photo.url, 2000);
     img.alt = photo.print_title || currentModel;
-    currentActiveVariant = null;
-    const photoTitle = photo.print_title || currentModel;
-    document.getElementById('modal-model-name').innerText = photoTitle;
+    document.getElementById('modal-model-name').innerText = photo.print_title || currentModel;
     document.getElementById('modal-counter').innerText = `${currentIndex + 1} / ${currentAlbum.length}`;
-
-    const buyBtn = document.getElementById('buy-print-btn');
-    if (buyBtn) {
-        buyBtn.innerHTML = `<span>Loading Availability...</span>`;
-        buyBtn.disabled = true;
-        setPrintStatus('Checking print availability…');
-    }
-
-    // Prefetch Shopify product variants for dynamic pricing
-    let product = null;
-    if (photo.is_print || photo.shopify_url) {
-        try {
-            product = await fetchShopifyProduct(photoTitle);
-        } catch (error) {
-            // Continue with a clear inquiry path when live availability cannot be checked.
-            product = null;
-        }
-        if (currentAlbum[currentIndex] !== photo) return;
-        // If product has finish options defined in Shopify, reflect them dynamically
-        if (product && product.options) {
-            const finishOpt = product.options.find(o => /finish|material/i.test(o.name));
-            const finishSelect = document.getElementById('print-finish-select');
-            if (finishOpt && finishOpt.values.length > 0 && finishSelect) {
-                const currentVal = finishSelect.value;
-                finishSelect.innerHTML = finishOpt.values.map(val => `<option value="${val}" ${val === currentVal ? 'selected' : ''}>${val}</option>`).join('');
-            }
-        }
-    }
-    
-    if (currentAlbum[currentIndex] !== photo) return;
-    // Detect orientation when image loads
     const tempImg = new Image();
     tempImg.onload = () => {
         if (currentAlbum[currentIndex] !== photo) return;
         currentPhotoIsVertical = tempImg.naturalHeight > tempImg.naturalWidth;
         setupPrintSizeOptions(currentPhotoIsVertical);
-        updatePrintPrice();
         if (isRoomView) updateRoomScale();
     };
-    tempImg.onerror = () => { if (currentAlbum[currentIndex] === photo) updatePrintPrice(); };
     tempImg.src = optimizeUrl(photo.url, 64);
-
-    // Use high res for modal, but still optimize format/quality
-    img.src = optimizeUrl(photo.url, 2000);
-
-    const nextIdx = (currentIndex + 1) % currentAlbum.length;
-    const prevIdx = (currentIndex - 1 + currentAlbum.length) % currentAlbum.length;
-    
-    new Image().src = optimizeUrl(currentAlbum[nextIdx].url, 2000);
-    new Image().src = optimizeUrl(currentAlbum[prevIdx].url, 2000);
-}
-
-function updatePrintPrice() {
-    if (!currentAlbum || currentAlbum.length === 0) return;
-    const photo = currentAlbum[currentIndex];
-    const sizeSelect = document.getElementById('print-size-select');
-    const finishSelect = document.getElementById('print-finish-select');
-    const buyBtn = document.getElementById('buy-print-btn');
-    if (!sizeSelect || !finishSelect || !buyBtn) return;
-
-    const size = sizeSelect.value;
-    const finish = finishSelect.value;
-    const photoTitle = photo.print_title || currentModel;
-
-    if (isRoomView) updateRoomScale();
-
-    let normalizedSize = size;
-    if (size === '12x8') normalizedSize = '8x12';
-    if (size === '18x12') normalizedSize = '12x18';
-    if (size === '24x16') normalizedSize = '16x24';
-    if (size === '36x24') normalizedSize = '24x36';
-    const shopifySizeWithQuotes = normalizedSize + '"';
-
-    const product = shopifyProductsCache[photoTitle];
-    currentActiveVariant = null;
-
-    if (product && product.variants && product.variants.edges && product.variants.edges.length > 0) {
-        const variantEdge = product.variants.edges.find(e => {
-            const opts = e.node.selectedOptions || [];
-            const hasSize = opts.some(o => {
-                const v = o.value.trim().toLowerCase();
-                return v === shopifySizeWithQuotes.toLowerCase() ||
-                       v === normalizedSize.toLowerCase() ||
-                       v === size.toLowerCase();
-            });
-            const hasFinish = opts.some(o => {
-                const v = o.value.trim().toLowerCase();
-                const f = finish.trim().toLowerCase();
-                return v === f || v.includes(f) || f.includes(v);
-            });
-            return hasSize && hasFinish;
-        });
-
-        if (variantEdge) {
-            currentActiveVariant = variantEdge.node;
-        }
+    for (const index of [(currentIndex + 1) % currentAlbum.length, (currentIndex - 1 + currentAlbum.length) % currentAlbum.length]) {
+        new Image().src = optimizeUrl(currentAlbum[index].url, 2000);
     }
-
-    if (currentActiveVariant) {
-        setPrintStatus('Price and availability checked with the print shop.');
-        if (currentActiveVariant.availableForSale) {
-            const price = new Intl.NumberFormat('en-US', { style: 'currency', currency: currentActiveVariant.price.currencyCode }).format(Number(currentActiveVariant.price.amount));
-            buyBtn.innerHTML = `<span>Add to Cart — ${price}</span> <span class="text-xs">&rarr;</span>`;
-            buyBtn.disabled = false;
-            buyBtn.classList.remove('opacity-60', 'cursor-not-allowed');
-        } else {
-            buyBtn.innerHTML = `<span>Out of Stock</span>`;
-            buyBtn.disabled = true;
-            buyBtn.classList.add('opacity-60', 'cursor-not-allowed');
-        }
-    } else {
-        // Fallback pricing when variant is not found in Shopify yet
-        const fallbackPrice = FALLBACK_PRICES[size] || 180;
-        buyBtn.disabled = false;
-        buyBtn.classList.remove('opacity-60', 'cursor-not-allowed');
-        buyBtn.innerHTML = `<span>Ask about this print</span> <span class="text-xs">&rarr;</span>`;
-        setPrintStatus(`Existing print-guide estimate: $${fallbackPrice}. Confirm the final price, finish and availability by email.`);
-    }
-}
-
-async function handleBuyPrintClick(event) {
-    if (event) event.preventDefault();
-    if (!currentAlbum || currentAlbum.length === 0) return;
-    const photo = currentAlbum[currentIndex];
-    const photoTitle = photo.print_title || currentModel;
-    const sizeSelect = document.getElementById('print-size-select');
-    const finishSelect = document.getElementById('print-finish-select');
-    const size = sizeSelect ? sizeSelect.value : '';
-    const finish = finishSelect ? finishSelect.value : '';
-    const buyBtn = document.getElementById('buy-print-btn');
-
-    if (currentActiveVariant && currentActiveVariant.availableForSale) {
-        if (isCartBusy) return;
-        isCartBusy = true;
-        setCartStatus('');
-        const variantId = currentActiveVariant.id;
-        buyBtn.textContent = 'Adding to bag…';
-        buyBtn.disabled = true;
-        try {
-            await addItemToCart(variantId, 1);
-            setCartStatus('Added to your bag.');
-            toggleCartDrawer(true);
-        } catch (error) {
-            setPrintStatus(error.message || 'This print could not be added. Please try again.');
-        } finally {
-            isCartBusy = false;
-            // A completed request must never restore another photograph's old price/button.
-            const message = document.getElementById('print-availability')?.textContent;
-            updatePrintPrice();
-            if (currentAlbum[currentIndex] === photo && message) setPrintStatus(message);
-        }
-    } else {
-        const subject = encodeURIComponent(`Fine Art Print Inquiry: ${photoTitle} (${size})`);
-        const body = encodeURIComponent(`Hi Leo,\n\nI’m interested in a fine-art print of:\nImage: ${photoTitle}\nFinish: ${finish}\nSize: ${size}\n\nCould you confirm the final price, availability and shipping details?\n\nThank you!`);
-        window.location.href = `mailto:hello@storyofleo.com?subject=${subject}&body=${body}`;
-    }
-}
-
-async function addItemToCart(variantId, quantity = 1) {
-    let cartId = localStorage.getItem(SHOPIFY_CONFIG.storageKey);
-    let cart = null;
-
-    if (cartId) {
-        cart = await addLinesToCart(cartId, [{ merchandiseId: variantId, quantity }]);
-        // If line add failed (e.g. cart expired on Shopify), create a fresh cart
-        if (!cart) {
-            cart = await createShopifyCart([{ merchandiseId: variantId, quantity }]);
-        }
-    } else {
-        cart = await createShopifyCart([{ merchandiseId: variantId, quantity }]);
-    }
-
-    if (!cart) throw new Error('The print was not added. Please try again.');
-    renderCartUI(cart);
-    return cart;
-}
-
-function toggleCartDrawer(forceOpen) {
-    const drawer = document.getElementById('cart-drawer');
-    const backdrop = document.getElementById('cart-drawer-backdrop');
-    if (!drawer || !backdrop) return;
-
-    const isOpen = drawer.classList.contains('translate-x-0');
-    const shouldOpen = forceOpen !== undefined ? forceOpen : !isOpen;
-
-    if (shouldOpen) {
-        drawer.classList.remove('translate-x-full');
-        drawer.classList.add('translate-x-0');
-        backdrop.classList.remove('opacity-0', 'pointer-events-none');
-        backdrop.classList.add('opacity-100');
-        document.body.style.overflow = 'hidden';
-    } else {
-        drawer.classList.remove('translate-x-0');
-        drawer.classList.add('translate-x-full');
-        backdrop.classList.remove('opacity-100');
-        backdrop.classList.add('opacity-0', 'pointer-events-none');
-        const modal = document.getElementById('album-modal');
-        if (!modal || modal.classList.contains('hidden')) {
-            document.body.style.overflow = 'auto';
-        }
-    }
-}
-
-async function removeCartItem(lineId) {
-    const cartId = localStorage.getItem(SHOPIFY_CONFIG.storageKey);
-    if (!cartId || isCartBusy) return;
-    isCartBusy = true;
-    setCartStatus('');
-    try {
-        const updatedCart = await removeLinesFromCart(cartId, [lineId]);
-        if (updatedCart) {
-            renderCartUI(updatedCart);
-        }
-    } catch (e) {
-        setCartStatus(e.message || 'This item could not be removed. Please try again.');
-    } finally {
-        isCartBusy = false;
-    }
-}
-
-async function updateCartItemQuantity(lineId, quantity) {
-    const cartId = localStorage.getItem(SHOPIFY_CONFIG.storageKey);
-    if (!cartId || isCartBusy) return;
-    if (quantity <= 0) {
-        return removeCartItem(lineId);
-    }
-    isCartBusy = true;
-    setCartStatus('');
-    try {
-        const updatedCart = await updateCartLines(cartId, [{ id: lineId, quantity }]);
-        if (updatedCart) {
-            renderCartUI(updatedCart);
-        }
-    } catch (e) {
-        setCartStatus(e.message || 'The quantity could not be updated. Please try again.');
-    } finally {
-        isCartBusy = false;
-    }
-}
-
-function renderCartUI(cart) {
-    currentCart = cart;
-    const totalQty = cart ? (cart.totalQuantity || 0) : 0;
-    
-    // Update badge in desktop and mobile nav
-    const badges = [
-        document.getElementById('cart-counter-badge'),
-        document.getElementById('cart-counter-badge-mobile')
-    ];
-    badges.forEach(b => {
-        if (b) {
-            b.innerText = totalQty;
-            if (totalQty > 0) {
-                b.classList.remove('hidden');
-                b.classList.add('inline-flex');
-            } else {
-                b.classList.add('hidden');
-                b.classList.remove('inline-flex');
-            }
-        }
-    });
-
-    const navCount = document.getElementById('cart-count-desktop');
-    if (navCount) navCount.textContent = totalQty;
-    const drawerCount = document.getElementById('cart-drawer-count');
-    if (drawerCount) drawerCount.innerText = `(${totalQty} ${totalQty === 1 ? 'item' : 'items'})`;
-
-    const emptyState = document.getElementById('cart-empty-state');
-    const itemsContainer = document.getElementById('cart-items-container');
-    const footer = document.getElementById('cart-footer');
-    const subtotalEl = document.getElementById('cart-subtotal');
-    const checkoutBtn = document.getElementById('cart-checkout-btn');
-
-    const lines = cart?.lines?.edges || [];
-
-    if (!cart || lines.length === 0) {
-        if (emptyState) emptyState.classList.remove('hidden');
-        if (itemsContainer) {
-            itemsContainer.classList.add('hidden');
-            itemsContainer.innerHTML = '';
-        }
-        if (footer) footer.classList.add('hidden');
-        return;
-    }
-
-    if (emptyState) emptyState.classList.add('hidden');
-    if (itemsContainer) itemsContainer.classList.remove('hidden');
-    if (footer) footer.classList.remove('hidden');
-
-    const subtotalAmount = cart.cost?.subtotalAmount?.amount || '0.00';
-    const currency = cart.cost?.subtotalAmount?.currencyCode || 'USD';
-    if (subtotalEl) {
-        subtotalEl.innerText = `$${parseFloat(subtotalAmount).toFixed(2)} ${currency}`;
-    }
-    if (checkoutBtn && cart.checkoutUrl) {
-        checkoutBtn.href = cart.checkoutUrl;
-    }
-
-    if (itemsContainer) {
-        itemsContainer.innerHTML = lines.map(({ node }) => {
-            const merchandise = node.merchandise;
-            const lineId = node.id;
-            const qty = node.quantity;
-            const title = merchandise?.product?.title || 'Fine Art Print';
-            const variantTitle = merchandise?.title || '';
-            const lineTotal = parseFloat(node.cost?.totalAmount?.amount || 0).toFixed(2);
-            const imgUrl = merchandise?.image?.url || '';
-
-            return `
-                <div class="flex gap-4 p-3 bg-[#1A1A1A] border border-[#6E727A]/20 rounded-sm">
-                    ${imgUrl ? `<img src="${imgUrl}" alt="${title}" class="w-16 h-20 object-cover bg-black/40 flex-shrink-0 border border-white/10">` : `<div class="w-16 h-20 bg-[#252525] flex-shrink-0 flex items-center justify-center text-xs text-[#6E727A]">Print</div>`}
-                    <div class="flex-1 flex flex-col justify-between min-w-0">
-                        <div>
-                            <div class="flex justify-between items-start gap-2">
-                                <h4 class="font-serif text-sm text-[#F9F9FB] truncate">${title}</h4>
-                                <button onclick="removeCartItem('${lineId}')" class="text-xs text-[#6E727A] hover:text-[#F9F9FB] transition-colors leading-none cursor-pointer" title="Remove">&times;</button>
-                            </div>
-                            <p class="text-[9px] uppercase tracking-wider text-[#6E727A] font-sans mt-0.5">${variantTitle}</p>
-                        </div>
-                        <div class="flex justify-between items-center mt-2">
-                            <div class="flex items-center border border-[#6E727A]/30 text-xs">
-                                <button onclick="updateCartItemQuantity('${lineId}', ${qty - 1})" class="px-2 py-0.5 hover:bg-white/10 text-[#6E727A] hover:text-white cursor-pointer">-</button>
-                                <span class="px-2 py-0.5 text-[10px] text-white font-sans">${qty}</span>
-                                <button onclick="updateCartItemQuantity('${lineId}', ${qty + 1})" class="px-2 py-0.5 hover:bg-white/10 text-[#6E727A] hover:text-white cursor-pointer">+</button>
-                            </div>
-                            <span class="font-sans text-xs font-bold text-[#F9F9FB]">$${lineTotal}</span>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }).join('');
-    }
-}
-
-async function initCart() {
-    const cartId = localStorage.getItem(SHOPIFY_CONFIG.storageKey);
-    if (cartId) {
-        try {
-            const cart = await getCart(cartId);
-            if (cart) {
-                renderCartUI(cart);
-                return;
-            } else {
-                localStorage.removeItem(SHOPIFY_CONFIG.storageKey);
-            }
-        } catch (e) {
-            console.error('Error initializing cart:', e);
-        }
-    }
-    renderCartUI(null);
 }
 
 function nextPhoto() {
@@ -1229,14 +635,6 @@ function toggleFullscreen() {
 }
 
 document.addEventListener('keydown', (e) => {
-    const cartDrawer = document.getElementById('cart-drawer');
-    if (cartDrawer && cartDrawer.classList.contains('translate-x-0')) {
-        if (e.key === 'Escape') {
-            toggleCartDrawer(false);
-            return;
-        }
-    }
-
     const modal = document.getElementById('album-modal');
     if (modal && modal.classList.contains('hidden')) return;
 
@@ -1255,12 +653,11 @@ document.addEventListener('keydown', (e) => {
 
 // Initialize
 window.addEventListener('load', () => {
-    initCart();
 
     const urlParams = new URLSearchParams(window.location.search);
-    const requestedCategory = urlParams.get('filter') || 'prints';
+    const requestedCategory = urlParams.get('filter') || 'all';
     const validCategories = ['prints','prints:alpine','prints:urban','prints:wildlife','prints:travel','portraiture','sakura','adventure','backpacking','outdoors','street','all'];
-    const initialCategory = validCategories.includes(requestedCategory) ? requestedCategory : 'prints';
+    const initialCategory = validCategories.includes(requestedCategory) ? requestedCategory : 'all';
     document.getElementById('gallery-category').value = initialCategory;
     renderGallery(initialCategory);
     

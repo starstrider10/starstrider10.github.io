@@ -7,16 +7,16 @@
     <script src="vendor/gsap.min.js"></script>
     <script src="vendor/ScrollTrigger.min.js"></script>
     <link rel="stylesheet" href="utilities.css">
-    <link rel="stylesheet" href="style.css?v=20261030-booking">
+    <link rel="stylesheet" href="style.css?v=20261030-personal">
     <style>
         .gallery-image { transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease; }
         .gallery-item:hover .gallery-image { transform: scale(1.05); opacity: 0.9; }
     </style>
 
-<meta name="description" content="Explore Story of Leo’s personal photography archive and fine-art print collections, from alpine landscapes to travel stories and portraits.">
+<meta name="description" content="Explore Story of Leo’s personal photography archive, from alpine landscapes to travel stories and portraits.">
 <link rel="canonical" href="https://www.storyofleo.com/gallery.html">
 <meta property="og:title" content="Gallery | Story of Leo">
-<meta property="og:description" content="Explore Story of Leo’s personal photography archive and fine-art print collections, from alpine landscapes to travel stories and portraits.">
+<meta property="og:description" content="Explore Story of Leo’s personal photography archive, from alpine landscapes to travel stories and portraits.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.storyofleo.com/gallery.html">
 <meta property="og:site_name" content="Story of Leo">
@@ -38,22 +38,22 @@
     <nav class="site-nav" aria-label="Main navigation">
       <a href="index.html" class="site-brand">Story of Leo</a>
       <div class="site-links"><a href="index.html">Home</a><a href="portfolio.html">Portfolio</a><a href="gallery.html" aria-current="page">Gallery</a><a href="about.html">About</a></div>
-      <div class="nav-actions"><button type="button" onclick="toggleCartDrawer()" aria-label="Open Cart">Bag <span id="cart-count-desktop">0</span></button><button id="mobile-menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation">Menu</button></div>
-      <div id="mobile-menu" class="mobile-navigation" hidden><a href="index.html">Home</a><a href="portfolio.html">Portfolio</a><a href="gallery.html" aria-current="page">Gallery</a><a href="about.html">About</a><a href="mailto:hello@storyofleo.com">Start a conversation ↗</a></div>
+      <div class="nav-actions"><button id="mobile-menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation">Menu</button></div>
+      <div id="mobile-menu" class="mobile-navigation" hidden><a href="index.html">Home</a><a href="portfolio.html">Portfolio</a><a href="gallery.html" aria-current="page">Gallery</a><a href="about.html">About</a><a href="mailto:hello@storyofleo.com">Say hello ↗</a></div>
     </nav>
 
     <main id="main-content" class="pt-28 md:pt-32 px-4 sm:px-10 lg:px-16 w-full max-w-[2400px] mx-auto">
-        
+
         <!-- Header & Series Filter -->
         <header class="mb-8">
             <h1 class="text-xs uppercase tracking-[0.5em] text-[#6E727A] mb-4 md:mb-6 font-bold font-sans">Visual Archives</h1>
             <div class="flex overflow-x-auto no-scrollbar border-b border-[#6E727A]/20 pb-4 md:pb-6 items-center gap-6 md:gap-16 whitespace-nowrap">
                 <div class="relative group h-full py-2">
                     <button onclick="filterGallery('prints')" class="text-xl md:text-2xl font-serif hover:text-[#6E727A] transition-all tracking-tight filter-btn active text-[#121212] border-b border-[#121212] flex items-center gap-3">
-                        Fine Art Prints <span class="text-[8px] opacity-60 translate-y-[1px] group-hover:rotate-180 transition-transform">▼</span>
+                        Selected Photographs <span class="text-[8px] opacity-60 translate-y-[1px] group-hover:rotate-180 transition-transform">▼</span>
                     </button>
                     <div class="absolute top-full left-0 mt-0 bg-[#F9F9FB] border border-[#6E727A]/30 py-4 px-6 hidden group-hover:block z-50 min-w-[210px] shadow-xl backdrop-blur-md">
-                        <button onclick="filterGallery('prints')" class="block text-[10px] uppercase tracking-[0.3em] font-sans hover:text-[#121212] text-[#121212] font-bold transition-colors py-2 text-left w-full filter-btn">All Print Collections</button>
+                        <button onclick="filterGallery('prints')" class="block text-[10px] uppercase tracking-[0.3em] font-sans hover:text-[#121212] text-[#121212] font-bold transition-colors py-2 text-left w-full filter-btn">All Selected Photographs</button>
                         <button onclick="filterGallery('prints:alpine')" class="block text-[10px] uppercase tracking-[0.3em] font-sans hover:text-[#121212] text-[#6E727A] transition-colors py-2 text-left w-full filter-btn">Alpine &amp; Wilderness</button>
                         <button onclick="filterGallery('prints:urban')" class="block text-[10px] uppercase tracking-[0.3em] font-sans hover:text-[#121212] text-[#6E727A] transition-colors py-2 text-left w-full filter-btn">Urban &amp; Skylines</button>
                         <button onclick="filterGallery('prints:wildlife')" class="block text-[10px] uppercase tracking-[0.3em] font-sans hover:text-[#121212] text-[#6E727A] transition-colors py-2 text-left w-full filter-btn">Wildlife &amp; Fine Art</button>
@@ -88,7 +88,7 @@
             </div>
         </header>
 
-        <div class="gallery-category-control"><label for="gallery-category">Collection</label><select id="gallery-category" onchange="filterGallery(this.value)"><option value="prints">All Fine Art Prints</option><option value="prints:alpine">Alpine &amp; Wilderness Prints</option><option value="prints:urban">Urban &amp; Skyline Prints</option><option value="prints:wildlife">Wildlife Prints</option><option value="prints:travel">Travel Prints</option><option value="portraiture">All Portraits</option><option value="sakura">Sakura Series</option><option value="adventure">All Adventure</option><option value="backpacking">Backpacking</option><option value="outdoors">Outdoors</option><option value="street">Street</option><option value="all">All Work (Archive)</option></select></div>
+        <div class="gallery-category-control"><label for="gallery-category">Collection</label><select id="gallery-category" onchange="filterGallery(this.value)"><option value="prints">All Selected Photographs</option><option value="prints:alpine">Alpine &amp; Wilderness Prints</option><option value="prints:urban">Urban &amp; Skyline Prints</option><option value="prints:wildlife">Wildlife Prints</option><option value="prints:travel">Travel Prints</option><option value="portraiture">All Portraits</option><option value="sakura">Sakura Series</option><option value="adventure">All Adventure</option><option value="backpacking">Backpacking</option><option value="outdoors">Outdoors</option><option value="street">Street</option><option value="all">All Work (Archive)</option></select></div>
         <!-- Hero / Album Preview Section -->
         <div id="gallery-container" class="space-y-12 mb-32">
             <!-- Dynamic Album Sections will be injected here -->
@@ -107,11 +107,11 @@
             </div>
 
             <button onclick="closeModal()" class="absolute top-6 right-6 text-[#F9F9FB]/40 hover:text-[#F9F9FB] text-4xl font-light transition-colors z-[110]" title="Close (ESC)">&times;</button>
-            
+
             <div class="relative w-full max-w-5xl h-[72vh] md:h-[76vh] flex items-center justify-center group">
                 <!-- Navigation Arrows -->
                 <button onclick="prevPhoto()" class="absolute left-4 z-[120] text-[#F9F9FB]/30 hover:text-[#F9F9FB] text-6xl font-thin transition-all px-4 h-full flex items-center">&lsaquo;</button>
-                
+
                 <!-- Standard Fullscreen Image Area -->
                 <div id="modal-standard-view" class="w-full h-full flex items-center justify-center relative">
                     <img decoding="async" id="modal-img" alt="Selected photograph" src="" class="max-w-full max-h-full object-contain shadow-2xl transition-opacity duration-300">
@@ -138,7 +138,7 @@
                             <div id="room-framed-print" class="relative transition-all duration-500 shadow-[0_25px_60px_rgba(0,0,0,0.55)] bg-[#121212] p-2 md:p-3 border border-black/90 flex items-center justify-center max-w-[90%] max-h-[85vh]">
                                 <!-- White Fine Art Mat -->
                                 <div class="bg-[#FDFBF7] p-2 md:p-3 shadow-inner border border-black/10 flex items-center justify-center w-full h-full">
-                                    <img decoding="async" id="room-print-img" alt="Selected print displayed in a room preview" src="" class="w-full h-full object-contain shadow-sm transition-all duration-300">
+                                    <img decoding="async" id="room-print-img" alt="Selected photograph displayed in a room preview" src="" class="w-full h-full object-contain shadow-sm transition-all duration-300">
                                 </div>
                             </div>
                         </div>
@@ -158,10 +158,10 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <button onclick="nextPhoto()" class="absolute right-4 z-[120] text-[#F9F9FB]/30 hover:text-[#F9F9FB] text-6xl font-thin transition-all px-4 h-full flex items-center">&rsaquo;</button>
             </div>
-            
+
             <div class="mt-4 flex flex-col items-center z-[110] max-w-2xl w-full px-4 text-center">
                 <div class="flex flex-col items-center mb-2">
                     <div class="flex items-center gap-4">
@@ -173,98 +173,39 @@
                         [← / →] Navigate &bull; [Space] Exhibition &bull; [F] Fullscreen &bull; [ESC] Close
                     </div>
                 </div>
-                
-                <!-- Shopify POD Preload & Room Scale Controls -->
+
+                <!-- Artwork display preview controls -->
                 <div class="flex flex-col sm:flex-row items-center justify-between gap-3 bg-[#F9F9FB]/10 border border-[#F9F9FB]/20 p-3 rounded-sm backdrop-blur-md w-full">
                     <button id="room-toggle-btn" onclick="toggleRoomView()" class="bg-[#F9F9FB]/20 hover:bg-[#F9F9FB]/30 text-[#F9F9FB] border border-[#F9F9FB]/30 px-3.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.2em] font-sans transition-all duration-300 flex items-center gap-2">
                         🖼️ Preview on Wall
                     </button>
 
                     <div class="flex items-center gap-2 text-[10px] font-sans uppercase tracking-widest text-[#F9F9FB]">
-                        <span class="opacity-60">Finish:</span>
-                        <select aria-label="Print finish" id="print-finish-select" onchange="updatePrintPrice()" class="bg-[#121212] border border-[#F9F9FB]/30 text-[#F9F9FB] px-2 py-1 text-[10px] font-sans focus:outline-none">
-                            <option value="Studio Archival Matte" selected>Studio Archival Matte</option>
-                            <option value="Fine Art Giclée Cotton Rag">Fine Art Giclée Cotton Rag</option>
-                            <option value="Metallic">Metallic</option>
-                            <option value="Stretched Canvas">Stretched Canvas</option>
-                        </select>
-                    </div>
-                    <div class="flex items-center gap-2 text-[10px] font-sans uppercase tracking-widest text-[#F9F9FB]">
-                        <span class="opacity-60">Size:</span>
-                        <select aria-label="Print size" id="print-size-select" onchange="updatePrintPrice()" class="bg-[#121212] border border-[#F9F9FB]/30 text-[#F9F9FB] px-2 py-1 text-[10px] font-sans focus:outline-none">
+                        <span class="opacity-60">Display:</span>
+                        <select aria-label="Display size" id="print-size-select" onchange="updateRoomScale()" class="bg-[#121212] border border-[#F9F9FB]/30 text-[#F9F9FB] px-2 py-1 text-[10px] font-sans focus:outline-none">
                             <!-- Populated dynamically -->
                         </select>
                     </div>
 
-                    <button id="buy-print-btn" onclick="handleBuyPrintClick(event)" class="bg-[#F9F9FB] text-[#121212] hover:bg-white px-5 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] font-sans transition-all duration-300 shadow-md cursor-pointer flex items-center justify-center gap-1">
-                        <span>Add to Cart</span>
-                    </button>
+
                 </div>
-                <p id="print-availability" class="print-availability" role="status"></p>
+
             </div>
         </div>
 
         <!-- Call to Action -->
         <footer class="py-24 text-center border-t border-[#6E727A]/20">
-            <h2 class="text-3xl md:text-5xl font-serif font-normal tracking-tight mb-8 italic text-[#121212]">Ready to tell a <span class="italic text-[#6E727A]">new story?</span></h2>
+            <h2 class="text-3xl md:text-5xl font-serif font-normal tracking-tight mb-8 italic text-[#121212]">Thanks for <span class="italic text-[#6E727A]">looking.</span></h2>
             <a href="mailto:hello@storyofleo.com" class="text-[10px] uppercase tracking-[0.4em] font-bold font-sans text-[#121212] border-b border-[#121212]/30 hover:border-[#121212] transition-all pb-2">
                 hello@storyofleo.com
             </a>
-        </footer>
+        <a href="https://shop.storyofleo.com/" target="_blank" rel="noopener noreferrer">Print shop ↗</a></footer>
 
     </main>
 
-    <!-- Slide-Over Cart Drawer Backdrop -->
-    <div id="cart-drawer-backdrop" onclick="toggleCartDrawer(false)" class="fixed inset-0 z-[140] bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"></div>
-
-    <!-- Slide-Over Cart Drawer -->
-    <div id="cart-drawer" class="fixed top-0 right-0 bottom-0 z-[150] w-full max-w-md bg-[#121212] text-[#F9F9FB] shadow-2xl flex flex-col translate-x-full transition-transform duration-300 ease-in-out border-l border-[#6E727A]/30">
-        <!-- Drawer Header -->
-        <div class="p-6 border-b border-[#6E727A]/20 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <span class="text-xs uppercase tracking-[0.3em] font-bold font-sans">Your Cart</span>
-                <span id="cart-drawer-count" class="text-[10px] uppercase tracking-widest text-[#6E727A] font-sans">(0 items)</span>
-            </div>
-            <button onclick="toggleCartDrawer(false)" class="text-[#F9F9FB]/50 hover:text-[#F9F9FB] text-2xl font-light transition-colors leading-none focus:outline-none cursor-pointer" aria-label="Close Cart">&times;</button>
-        </div>
-
-        <p id="cart-status" class="cart-status" role="status"></p>
-        <!-- Empty State -->
-        <div id="cart-empty-state" class="flex-1 flex flex-col items-center justify-center p-8 text-center">
-            <div class="w-12 h-12 rounded-full border border-[#6E727A]/30 flex items-center justify-center mb-4 text-[#6E727A] text-lg">
-                🛒
-            </div>
-            <p class="font-serif text-lg text-[#F9F9FB] mb-2">Your collection is empty</p>
-            <p class="text-xs text-[#6E727A] max-w-xs mb-6 font-sans">Explore fine art archival prints in the gallery to collect for your space.</p>
-            <button onclick="toggleCartDrawer(false)" class="text-[9px] uppercase tracking-[0.25em] font-sans font-bold border border-[#F9F9FB]/30 hover:border-[#F9F9FB] px-5 py-2 transition-colors cursor-pointer">
-                Browse Prints &rarr;
-            </button>
-        </div>
-
-        <!-- Items List -->
-        <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4 hidden">
-            <!-- Rendered dynamically -->
-        </div>
-
-        <!-- Drawer Footer -->
-        <div id="cart-footer" class="p-6 border-t border-[#6E727A]/20 bg-[#171717] hidden flex flex-col gap-4">
-            <div class="flex justify-between items-baseline">
-                <span class="text-xs uppercase tracking-[0.2em] text-[#6E727A] font-sans">Subtotal</span>
-                <span id="cart-subtotal" class="font-serif text-xl text-[#F9F9FB]">$0.00 USD</span>
-            </div>
-            <p class="text-[9px] text-[#6E727A] font-sans tracking-wide">
-                Archival packaging &amp; shipping calculated at checkout.
-            </p>
-            <a id="cart-checkout-btn" href="#" target="_blank" rel="noopener noreferrer" class="w-full bg-[#F9F9FB] text-[#121212] hover:bg-white text-center py-3 text-xs font-bold uppercase tracking-[0.25em] font-sans transition-all duration-300 shadow-md">
-                Proceed to Checkout &rarr;
-            </a>
-        </div>
-    </div>
-
-
     <script src="gallery-data.js"></script>
     <script src="gallery-local-data.js"></script>
-    <script src="gallery-logic.js"></script>
+    <script src="gallery-logic.js?v=20261030-personal"></script>
 
     <script>
 

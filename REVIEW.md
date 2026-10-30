@@ -2,6 +2,16 @@
 
 Prepared October 29, 2026. Local implementation is ready for design/content review. Publication has not been performed and is not authorized yet.
 
+## Personal website direction — supersedes the business-site plan
+
+Owner requested keeping GitHub Pages with portfolio/gallery as the primary purpose and business secondary. Recommended leaving detailed services/prices on the separately hosted business site. Home now presents personal work and archive selections; Portfolio presents seven photograph/film selections without investment, booking terms or inquiry form. About identifies Seattle and provides a short collaboration contact. Footer shop links point to the separate Shopify site. No shop readiness is claimed.
+
+Removed the on-site cart/drawer, Storefront API client, live/fallback prices, finish selection, booking form and inquiry submission runtime. Preserved gallery media, filters, keyboard viewer, slideshow, fullscreen and non-transactional wall display preview. Retained legacy filter keys and routed Services to About. All approved prices/terms and previous integrations are recoverable at Git tag `review-before-personal-site`; readable rates summary is `../business-rates-archive.md`.
+
+GitHub's [Pages limits](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits) prohibit running an online business/e-commerce site or one primarily facilitating transactions. No numeric ratio or explicit safe harbor for secondary commercial links is stated. This revision aims at a genuine personal portfolio with separately hosted commerce; it is not a guarantee or GitHub determination. No DNS, hosting or published site was changed.
+
+Nine current automated checks pass after retiring commerce-specific tests with the archived implementation. Browser verified the four-film filter, 15-image selection, keyboard modal opening, wall preview and personal homepage; no warnings/errors observed. Desktop and mobile verification is recorded with this revision. Earlier reports below are historical and superseded where they conflict.
+
 ## Final local release audit — current
 
 Reproduced and fixed a stale-draft bug: selecting a service through its package button changed the form's selection while leaving a previously prepared email draft visible. Package selection now triggers the same inquiry reset as a manual edit. The browser reproduction showed a Student & Grad draft under an Events selection; the corrected flow hides that draft, preserves contact fields, focuses the package selector and prepares a fresh Events draft. The versioned script URL ensures existing preview sessions receive the fix.

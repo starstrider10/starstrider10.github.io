@@ -27,19 +27,11 @@ let lastDialogFocus = null;
 const focusableSelector = 'a[href],button:not([disabled]),input,select,textarea,[tabindex="0"],summary';
 const visibleControls = root => [...root.querySelectorAll(focusableSelector)].filter(el => el.getClientRects().length);
 function currentDialog() {
-    const cart = document.getElementById('cart-drawer');
-    if (cart?.classList.contains('translate-x-0')) return cart;
     const album = document.getElementById('album-modal');
     if (album && !album.classList.contains('hidden')) return album;
     return null;
 }
 function updateDialogFocus() {
-    const cart = document.getElementById('cart-drawer');
-    if (cart) {
-        const open = cart.classList.contains('translate-x-0');
-        cart.inert = !open;
-        cart.setAttribute('aria-hidden', String(!open));
-    }
     const next = currentDialog();
     if (next === activeDialog) return;
     if (next) {
@@ -47,7 +39,7 @@ function updateDialogFocus() {
         activeDialog = next;
         next.setAttribute('role', 'dialog');
         next.setAttribute('aria-modal', 'true');
-        next.setAttribute('aria-label', next.id === 'cart-drawer' ? 'Print shopping bag' : 'Photography viewer');
+        next.setAttribute('aria-label', 'Photography viewer');
         visibleControls(next)[0]?.focus();
     } else {
         activeDialog = null;
@@ -55,7 +47,7 @@ function updateDialogFocus() {
         lastDialogFocus = null;
     }
 }
-for (const id of ['album-modal', 'cart-drawer']) {
+for (const id of ['album-modal']) {
     const dialog = document.getElementById(id);
     if (dialog) new MutationObserver(updateDialogFocus).observe(dialog, { attributes: true, attributeFilter: ['class'] });
 }

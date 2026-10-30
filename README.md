@@ -1,53 +1,31 @@
-# Story of Leo — local portfolio review
+# Story of Leo — personal website review
 
-This is a separate review checkout of the existing static website. Nothing has been pushed or deployed. The original checkout, Porkbun, DNS, CNAME and hosting settings are unchanged.
+Current direction: personal photography portfolio, films and visual archive first. Business is secondary through email and a footer link to the separately hosted Shopify shop. This is a local review checkout; nothing is pushed or deployed.
 
-- Branch: `codex/portfolio-polish`
-- Baseline tag: `review-base-a38a3f2`
-- Original repository: `https://github.com/starstrider10/starstrider10.github.io`
-- Entry point: `portfolio.html`
+- Review branch: `codex/portfolio-polish`
+- Original baseline: `review-base-a38a3f2`
+- Prior business-site version: `review-before-personal-site`
+- Journal archive: `review-before-journal-archive`
 
-## Run locally
-
-From this folder:
+## Preview and checks
 
 ```sh
 python3 -m http.server 8765 --bind 127.0.0.1
-```
-
-Open http://127.0.0.1:8765/portfolio.html. Stop the server with Ctrl+C. Another port can be used if 8765 is occupied. No Node runtime or build is needed to serve the site.
-
-## Maintain content
-
-- `portfolio-data.js` holds the selected projects, image sources, visual notes, missing briefs and video links. It never labels personal photographs as client assignments.
-- `portfolio.html` holds approved service copy, package inclusions, rates, booking terms and inquiry fields. Public location wording is Seattle only.
-- Owner approved the existing portrait rates/inclusions and the event rates: from $600 for up to two hours, additional coverage from $250/hour, final quote depends on scope. Short-form video remains custom-quoted.
-- The supplied YouTube film has a verified title/thumbnail, but both standard and privacy-enhanced embeds reported unavailable in the test browser. It therefore uses a thumbnail link to YouTube. Set `youtubeEmbed: true` only after actual embedded playback is verified. The renderer also supports a `video` object with `src`, `poster`, and optional `captions` for cleared MP4/WebVTT files.
-- Preserve the original Cloudinary asset data. The local Street addition is in `gallery-local-data.js`, loaded after the generated Cloudinary data so a sync cannot erase it.
-- `sync_cloudinary.py` is the original uploader, including full-resolution master handling. It was not executed. Do not run it just to preview; it can upload files.
-- Preserve original/master media separately. `assets/` contains web derivatives, not archival masters.
-
-Journal is archived in Git at `review-before-journal-archive`; its former URL redirects home. Current navigation is Home / Portfolio / Gallery / About.
-
-Print setup walkthrough: `../shopify-print-setup.md`. The public catalog currently exposes only a template product. Unmatched photographs use an email inquiry with clearly labeled guide estimates. No provider is connected by this work.
-
-The sharing card is `assets/social-preview.jpg` (1200×630); public pages reference the production URL. Verify that URL and sharing previews after approved deployment. Inquiry city/location and setting are separate fields. `inquiry.js` supports a verified Formspree endpoint; it prepares an email draft while the endpoint is empty. See `../contact-form-setup.md` for connection and delivery verification.
-
-## Build shared utility CSS after class changes
-
-The pinned Tailwind compiler is only a development tool. From this folder:
-
-```sh
-npm exec --cache /private/tmp/story-of-leo-npm-cache --package=tailwindcss@3.4.17 -- tailwindcss -c tailwind.config.cjs -i tailwind.input.css -o utilities.css --minify
-```
-
-Commit the resulting `utilities.css`; production does not compile Tailwind. Ordinary CSS changes in `style.css` do not require rebuilding utility CSS.
-
-## Checks
-
-```sh
 python3 tests/check_site.py
-git diff --check
 ```
 
-See REVIEW.md for browser results, outstanding publication needs and hosting instructions.
+Open http://127.0.0.1:8765/index.html. Nine checks cover routes/assets, film media, navigation, the new personal-site boundary and archived rates. Commerce-specific tests were retired with the archived commerce implementation.
+
+## Maintain
+
+`portfolio-data.js` holds the selected photographs and films. Preserve confirmed credits, native aspect ratios and personal-work labels. `gallery-data.js` is the original Cloudinary manifest and remains unchanged. Local additions use `gallery-local-data.js`. Never run `sync_cloudinary.py` for a preview: it uploads media. Store masters separately from web derivatives.
+
+There is no on-site cart, Storefront API client, price configurator, booking form or package section. The gallery retains filtering, keyboard viewer, slideshow, full-screen and wall display preview. Legacy filter URLs are retained. Services now redirects to About; Journal redirects home.
+
+Approved business rates, terms and prepared inquiry code remain recoverable at `review-before-personal-site`. A readable summary is outside the deployable site at `../business-rates-archive.md`. The separate shop still needs provider setup and testing; a link does not claim it is ready for orders.
+
+The sharing image is `assets/social-preview.jpg` (1200×630). Keep business transactions and detailed service selling on the separately hosted shop. This structure aims to align with a personal portfolio use of GitHub Pages, but is not GitHub approval or a guaranteed policy exemption. See REVIEW.md for the source and validation record.
+
+## Publish only after review
+
+The original checkout and DNS remain unchanged. Reconcile with upstream before merging the reviewed source into the publishing branch. Keep the existing CNAME when deploying to GitHub Pages; use its actual Pages configuration. Verify the public routes, media and domain after an owner-approved release. Do not deploy local build caches, original media, private configuration or project review documents.

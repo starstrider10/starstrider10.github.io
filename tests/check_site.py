@@ -52,17 +52,25 @@ class SiteChecks(unittest.TestCase):
             if tag in ['input', 'select', 'textarea']:
                 self.assertIn(attrs.get('id'), labels)
 
-    def test_approved_rates_and_existing_inclusions_preserved(self):
-        page = (ROOT / 'portfolio.html').read_text()
-        for text in ['$325', '$450', '$650', '$950+', '45-Minute Session', '60-Minute Session', '35 Hand-Edited High-Res Files', '$50 Archival Print Credit', '8x12 Archival Fine Art Print', 'Valid Student ID Required', 'From $600 for up to 2 hours', 'from $250/hour']:
-            self.assertIn(text, page)
-        self.assertNotIn('provisional', page)
+    def test_personal_site_with_external_business_links(self):
+        for name in ['index.html','portfolio.html','gallery.html','about.html']:
+            page = (ROOT / name).read_text()
+            self.assertIn('https://shop.storyofleo.com/', page)
+            self.assertNotIn('cart-drawer', page)
+            self.assertNotIn('inquiry-form', page)
+            self.assertNotIn('$325', page)
+        gallery = (ROOT / 'gallery-logic.js').read_text()
+        for removed in ['shopifyFetch', 'graphql.json', 'initCart', 'handleBuyPrintClick']:
+            self.assertNotIn(removed, gallery)
+        archived = subprocess.check_output(['git','show','review-before-personal-site:portfolio.html'],cwd=ROOT).decode()
+        for rate in ['$325','$450','$650','$950+','From $600']:
+            self.assertIn(rate, archived)
+        self.assertIn('photo', gallery)
 
     def test_legacy_services_redirect_and_gallery_unchanged_content(self):
         redirect = (ROOT / 'services.html').read_text()
-        self.assertIn('location.search', redirect)
-        self.assertIn('location.hash', redirect)
-        self.assertIn('portfolio.html#investment', redirect)
+        self.assertIn("location.replace('about.html')", redirect)
+        self.assertIn('href="about.html"', redirect)
         baseline = subprocess.check_output(['git', 'show', 'review-base-a38a3f2:gallery-data.js'], cwd=ROOT)
         self.assertEqual(baseline, (ROOT / 'gallery-data.js').read_bytes())
         self.assertEqual(subprocess.check_output(['git','show','review-base-a38a3f2:CNAME'],cwd=ROOT), (ROOT/'CNAME').read_bytes())
@@ -76,12 +84,6 @@ class SiteChecks(unittest.TestCase):
         self.assertIn('noindex', archived)
         self.assertFalse((ROOT / 'journal.js').exists())
         self.assertIn(b'The Journal', subprocess.check_output(['git','show','review-before-journal-archive:journal.html'], cwd=ROOT))
-
-    def test_print_flow_failure_and_success_states(self):
-        subprocess.run(['node', 'tests/gallery-flow.test.cjs'], cwd=ROOT, check=True, capture_output=True)
-
-    def test_inquiry_delivery_states(self):
-        subprocess.run(['node', 'tests/inquiry-flow.test.cjs'], cwd=ROOT, check=True, capture_output=True)
 
     def test_javascript_syntax(self):
         for script in ROOT.glob('*.js'):
