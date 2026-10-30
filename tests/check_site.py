@@ -58,7 +58,7 @@ class SiteChecks(unittest.TestCase):
             self.assertIn('https://shop.storyofleo.com/', page)
             self.assertNotIn('cart-drawer', page)
             self.assertNotIn('inquiry-form', page)
-            self.assertNotIn('$325', page)
+            if name != 'portfolio.html': self.assertNotIn('$325', page)
         gallery = (ROOT / 'gallery-logic.js').read_text()
         for removed in ['shopifyFetch', 'graphql.json', 'initCart', 'handleBuyPrintClick']:
             self.assertNotIn(removed, gallery)
@@ -66,11 +66,15 @@ class SiteChecks(unittest.TestCase):
         for rate in ['$325','$450','$650','$950+','From $600']:
             self.assertIn(rate, archived)
         self.assertIn('photo', gallery)
+        packages = (ROOT / 'portfolio.html').read_text()
+        for text in ['$325','$450','$650','$950+','from $600','from $250/hour','35 Hand-Edited High-Res Files','Personal Print Rights Included']:
+            self.assertIn(text, packages)
+        self.assertIn('id="investment"', packages)
 
     def test_legacy_services_redirect_and_gallery_unchanged_content(self):
         redirect = (ROOT / 'services.html').read_text()
-        self.assertIn("location.replace('about.html')", redirect)
-        self.assertIn('href="about.html"', redirect)
+        self.assertIn("location.replace('portfolio.html#investment')", redirect)
+        self.assertIn('href="portfolio.html#investment"', redirect)
         baseline = subprocess.check_output(['git', 'show', 'review-base-a38a3f2:gallery-data.js'], cwd=ROOT)
         self.assertEqual(baseline, (ROOT / 'gallery-data.js').read_bytes())
         self.assertEqual(subprocess.check_output(['git','show','review-base-a38a3f2:CNAME'],cwd=ROOT), (ROOT/'CNAME').read_bytes())

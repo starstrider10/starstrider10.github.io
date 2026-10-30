@@ -2,6 +2,12 @@
 
 Prepared October 29, 2026. Local implementation is ready for design/content review. Publication has not been performed and is not authorized yet.
 
+## Compact pricing guide and publication approval — current
+
+Owner requested restoring a small package section and explicitly approved pushing/publishing. Added a restrained guide below the selected Portfolio work: four approved portrait rates, session duration/file counts, expandable complete inclusions, approved event starting rates and custom film quotes. A single email contact replaces the former booking funnel. About links to the guide; Services redirects there. Main navigation and homepage remain personal-work focused, with no cart or booking form.
+
+Fetched origin/main before release: no newer remote commits; the review branch is a fast-forward descendant of the current publishing branch. Nine checks pass, including approved price/inclusion preservation and absence of checkout/booking runtimes. Desktop keyboard details and mobile layout checked before publication. No new representation of GitHub policy approval is made; the owner is aware of the previously discussed limits.
+
 ## Personal website direction — supersedes the business-site plan
 
 Owner requested keeping GitHub Pages with portfolio/gallery as the primary purpose and business secondary. Recommended leaving detailed services/prices on the separately hosted business site. Home now presents personal work and archive selections; Portfolio presents seven photograph/film selections without investment, booking terms or inquiry form. About identifies Seattle and provides a short collaboration contact. Footer shop links point to the separate Shopify site. No shop readiness is claimed.

@@ -20,11 +20,11 @@ Open http://127.0.0.1:8765/index.html. Nine checks cover routes/assets, film med
 
 `portfolio-data.js` holds the selected photographs and films. Preserve confirmed credits, native aspect ratios and personal-work labels. `gallery-data.js` is the original Cloudinary manifest and remains unchanged. Local additions use `gallery-local-data.js`. Never run `sync_cloudinary.py` for a preview: it uploads media. Store masters separately from web derivatives.
 
-There is no on-site cart, Storefront API client, price configurator, booking form or package section. The gallery retains filtering, keyboard viewer, slideshow, full-screen and wall display preview. Legacy filter URLs are retained. Services now redirects to About; Journal redirects home.
+A compact, secondary commission guide appears beneath the Portfolio work, using approved packages and email contact. There is no on-site cart, Storefront API client, price configurator or booking form. The gallery retains filtering, keyboard viewer, slideshow, full-screen and wall display preview. Legacy filter URLs are retained. Services now redirects to the Portfolio commission guide; Journal redirects home.
 
-Approved business rates, terms and prepared inquiry code remain recoverable at `review-before-personal-site`. A readable summary is outside the deployable site at `../business-rates-archive.md`. The separate shop still needs provider setup and testing; a link does not claim it is ready for orders.
+The full former business-site layout, booking terms and prepared inquiry code remain recoverable at `review-before-personal-site`. A readable summary is outside the deployable site at `../business-rates-archive.md`. The separate shop still needs provider setup and testing; a link does not claim it is ready for orders.
 
-The sharing image is `assets/social-preview.jpg` (1200×630). Keep business transactions and detailed service selling on the separately hosted shop. This structure aims to align with a personal portfolio use of GitHub Pages, but is not GitHub approval or a guaranteed policy exemption. See REVIEW.md for the source and validation record.
+The sharing image is `assets/social-preview.jpg` (1200×630). Keep checkout and business transactions on the separately hosted shop. The owner requested a small on-site package guide; GitHub does not explicitly guarantee an exemption for secondary commercial content. This structure aims to align with a personal portfolio use of GitHub Pages, but is not GitHub approval or a guaranteed policy exemption. See REVIEW.md for the source and validation record.
 
 ## Publish only after review
 
