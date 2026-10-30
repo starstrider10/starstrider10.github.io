@@ -67,6 +67,7 @@ portfolioVideos.forEach(video => video.addEventListener('play', () => {
 document.querySelectorAll('[data-package]').forEach(button => button.addEventListener('click', () => {
     const select = document.getElementById('package-select');
     select.value = button.dataset.package;
+    select.dispatchEvent(new Event('input', {bubbles: true}));
     document.getElementById('inquiry-form-section').scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
     select.focus({preventScroll: true});
 }));

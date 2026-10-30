@@ -2,6 +2,12 @@
 
 Prepared October 29, 2026. Local implementation is ready for design/content review. Publication has not been performed and is not authorized yet.
 
+## Final local release audit — current
+
+Reproduced and fixed a stale-draft bug: selecting a service through its package button changed the form's selection while leaving a previously prepared email draft visible. Package selection now triggers the same inquiry reset as a manual edit. The browser reproduction showed a Student & Grad draft under an Events selection; the corrected flow hides that draft, preserves contact fields, focuses the package selector and prepares a fresh Events draft. The versioned script URL ensures existing preview sessions receive the fix.
+
+The complete objective remains unfinished. Local booking copy, Seattle wording, curation changes, sharing artwork and prepared submission integration are present. Cancellation details remain privately agreed; no actual event series has been supplied. A verified form endpoint/inbox, physical print samples, provider costs, actual print products, host approval and publication are external dependencies. Automated simulations cannot prove production delivery or checkout. No further business facts, approvals or fulfillment results have been invented.
+
 ## Approved booking terms and prepared form integration — current
 
 Owner approved “Based in Seattle” only and the proposed portrait delivery (2–3 weeks), 25% booking retainer, one reschedule with 48 hours' notice, no-charge weather rescheduling, and per-project event/video timelines. These are now in the local draft. Cancellation terms remain personally agreed; no refund/nonrefundability promise was added. Owner requested continued autonomous work without more questions.
