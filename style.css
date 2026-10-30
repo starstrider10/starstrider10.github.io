@@ -235,3 +235,7 @@ label:has(+input[type="file"]:focus-visible) { outline: 2px solid currentColor; 
   .portrait-pair .project-images { grid-template-columns: 1fr; gap: 24px; }
   .portrait-pair .project-images figure:last-child { width: 85%; margin-left: auto; }
 }
+
+.print-availability { color: #f9f9fbbf; font-size: 11px; line-height: 1.7; margin-top: 12px; max-width: 620px; }
+.cart-status { color: #f9f9fb; font-size: 12px; line-height: 1.7; padding-inline: 24px; }
+.cart-status:not(:empty) { padding-block: 16px; }

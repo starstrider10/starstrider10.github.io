@@ -2,6 +2,16 @@
 
 Prepared October 29, 2026. Local implementation is ready for design/content review. Publication has not been performed and is not authorized yet.
 
+## October 30 update — current state
+
+Owner approved portrait packages and rates. Removed provisional pricing copy and internal review notes from visitor-facing project descriptions. Archived Journal at Git tag `review-before-journal-archive`, removed its navigation links and unused Markdown libraries, and redirected the former URL home.
+
+Read-only Shopify audit: the public catalog exposes only “master print temp,” with no exact photograph matches; the shop is password protected. No products, provider apps, payment settings or orders were changed. Updated the retired Storefront API pin to the actual supported response version, 2026-01. Six existing GraphQL operations validate; ProductOption.values has a deprecation warning for a later migration.
+
+Unmatched photographs now show “Ask about this print” and explicitly label existing guide prices as estimates. Cart/network/user errors no longer report false success; live currency formatting preserves cents, and the navigation bag count updates. Ten automated checks pass, including a Node suite exercising actual gallery code with simulated error responses. Browser checked the unmatched print path, approved rates, four-link navigation and Journal redirect; no warnings/errors observed in those flows. Live checkout and fulfillment remain unverified until real provider-backed products exist.
+
+The owner selected provider fulfillment. See `../shopify-print-setup.md` for the proposed setup sequence. Nothing was installed, ordered, uploaded or deployed. Earlier sections below describe previous milestones and are superseded by this section where they differ.
+
 ## Portrait curation update — latest
 
 Replaced the Sandy image with Christie's close graduation portrait (`20260331-LEO02645-christie_ynp7ql`), while retaining Anabel's existing portrait. Kept only the original leftmost expedition portrait (`2026-kyle-DSCF0772-.jpg`) in the Portfolio. The other two expedition images remain in the source folder and web assets; Gallery content is unchanged.
@@ -98,13 +108,10 @@ The Tailwind build completed successfully. Its bundled browser-support database 
 
 ## Remaining before publication
 
-1. Supply an approved event case study and real project objectives, roles and delivered work. Outdoor personal work is currently a labeled visual reference, not an event commission.
-2. The selected Reels and full music video are now linked, with confirmed roles and context. Supply clean Cloudinary MP4 delivery URLs and approved poster images when ready for on-page playback. Keep archival masters separately and confirm applicable music/footage permissions and captions.
-3. Confirm final portrait rates and package policies. Event draft rates were approved in this chat; no new delivery turnaround, deposit, cancellation or usage policy has been invented.
-4. Restore or locate the Journal source if articles should be public. A private repository, moved folder or another source may require a different publishing workflow; no source content was removed.
-5. Verify live Shopify product-title/variant matching, stock and cart/checkout on the intended production origin. Existing API version is 2024-07; this task did not migrate the integration or alter any price/payment setting. Fallback display prices are existing site values, not verified live quotes.
-6. Resolve or retain the video-link fallback; a working MP4/managed-stream source would enable reliable on-page playback.
-7. Remove local-review notes only when their missing facts have been supplied, and approve publication.
+1. Supply an approved event case study and actual objectives/deliverables. Current outdoor work is labeled personal photography.
+2. Choose and sample a print provider, approve costs and retail prices, then create actual photograph products and shipping/policy settings. Test variant mapping, cart and checkout on the production origin before enabling sales.
+3. Confirm package booking policies, media permissions and any required captions. Approved prices are already applied; no deposit/cancellation policy was invented.
+4. Approve the hosting target and publication. Journal remains archived until the owner requests restoration.
 
 ## Hosting and deployment
 
@@ -118,7 +125,7 @@ After content and hosting approval:
 2. Inspect the existing host's real publish branch/directory or workflow. Keep Porkbun/DNS unchanged unless a separately approved host migration requires changes.
 3. Deploy the static site root, including HTML, first-party JS, `style.css`, `utilities.css`, `assets/` and `vendor/`. There is no production build requirement or server runtime. Do not publish `.git`, credentials, original media masters or build-tool caches.
 4. Keep the Services fallback document. GitHub Pages cannot infer redirects from Netlify/Vercel configuration; this implementation works as a plain HTML file.
-5. Validate canonical domain/HTTPS, every route, mobile navigation, media, real Journal source and live print checkout on the actual production origin. Confirm a successful host deployment before reporting publication.
+5. Validate canonical domain/HTTPS, every route, mobile navigation, media, archived Journal redirect and live print checkout on the actual production origin. Confirm a successful host deployment before reporting publication.
 
 ## Media storage decision
 

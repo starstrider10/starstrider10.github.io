@@ -27,9 +27,9 @@
 <a class="skip-link" href="#main-content">Skip to content</a>
     <nav class="site-nav" aria-label="Main navigation">
       <a href="index.html" class="site-brand">Story of Leo</a>
-      <div class="site-links"><a href="index.html">Home</a><a href="portfolio.html">Portfolio</a><a href="gallery.html" aria-current="page">Gallery</a><a href="journal.html">Journal</a><a href="about.html">About</a></div>
+      <div class="site-links"><a href="index.html">Home</a><a href="portfolio.html">Portfolio</a><a href="gallery.html" aria-current="page">Gallery</a><a href="about.html">About</a></div>
       <div class="nav-actions"><button type="button" onclick="toggleCartDrawer()" aria-label="Open Cart">Bag <span id="cart-count-desktop">0</span></button><button id="mobile-menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation">Menu</button></div>
-      <div id="mobile-menu" class="mobile-navigation" hidden><a href="index.html">Home</a><a href="portfolio.html">Portfolio</a><a href="gallery.html" aria-current="page">Gallery</a><a href="journal.html">Journal</a><a href="about.html">About</a><a href="mailto:hello@storyofleo.com">Start a conversation ↗</a></div>
+      <div id="mobile-menu" class="mobile-navigation" hidden><a href="index.html">Home</a><a href="portfolio.html">Portfolio</a><a href="gallery.html" aria-current="page">Gallery</a><a href="about.html">About</a><a href="mailto:hello@storyofleo.com">Start a conversation ↗</a></div>
     </nav>
 
     <main id="main-content" class="pt-28 md:pt-32 px-4 sm:px-10 lg:px-16 w-full max-w-[2400px] mx-auto">
@@ -190,6 +190,7 @@
                         <span>Add to Cart</span>
                     </button>
                 </div>
+                <p id="print-availability" class="print-availability" role="status"></p>
             </div>
         </div>
 
@@ -217,6 +218,7 @@
             <button onclick="toggleCartDrawer(false)" class="text-[#F9F9FB]/50 hover:text-[#F9F9FB] text-2xl font-light transition-colors leading-none focus:outline-none cursor-pointer" aria-label="Close Cart">&times;</button>
         </div>
 
+        <p id="cart-status" class="cart-status" role="status"></p>
         <!-- Empty State -->
         <div id="cart-empty-state" class="flex-1 flex flex-col items-center justify-center p-8 text-center">
             <div class="w-12 h-12 rounded-full border border-[#6E727A]/30 flex items-center justify-center mb-4 text-[#6E727A] text-lg">
