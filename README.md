@@ -20,7 +20,7 @@ Open http://127.0.0.1:8765/portfolio.html. Stop the server with Ctrl+C. Another 
 ## Maintain content
 
 - `portfolio-data.js` holds the selected projects, image sources, visual notes, missing briefs and video links. It never labels personal photographs as client assignments.
-- `portfolio.html` holds approved service copy, package inclusions, rates and inquiry fields.
+- `portfolio.html` holds approved service copy, package inclusions, rates, booking terms and inquiry fields. Public location wording is Seattle only.
 - Owner approved the existing portrait rates/inclusions and the event rates: from $600 for up to two hours, additional coverage from $250/hour, final quote depends on scope. Short-form video remains custom-quoted.
 - The supplied YouTube film has a verified title/thumbnail, but both standard and privacy-enhanced embeds reported unavailable in the test browser. It therefore uses a thumbnail link to YouTube. Set `youtubeEmbed: true` only after actual embedded playback is verified. The renderer also supports a `video` object with `src`, `poster`, and optional `captions` for cleared MP4/WebVTT files.
 - Preserve the original Cloudinary asset data. The local Street addition is in `gallery-local-data.js`, loaded after the generated Cloudinary data so a sync cannot erase it.
@@ -31,7 +31,7 @@ Journal is archived in Git at `review-before-journal-archive`; its former URL re
 
 Print setup walkthrough: `../shopify-print-setup.md`. The public catalog currently exposes only a template product. Unmatched photographs use an email inquiry with clearly labeled guide estimates. No provider is connected by this work.
 
-The sharing card is `assets/social-preview.jpg` (1200×630); public pages reference the production URL. Verify that URL and sharing previews after approved deployment. Inquiry city/location and setting are separate fields; it still prepares an email draft until a real submission service is connected.
+The sharing card is `assets/social-preview.jpg` (1200×630); public pages reference the production URL. Verify that URL and sharing previews after approved deployment. Inquiry city/location and setting are separate fields. `inquiry.js` supports a verified Formspree endpoint; it prepares an email draft while the endpoint is empty. See `../contact-form-setup.md` for connection and delivery verification.
 
 ## Build shared utility CSS after class changes
 

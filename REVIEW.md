@@ -2,6 +2,14 @@
 
 Prepared October 29, 2026. Local implementation is ready for design/content review. Publication has not been performed and is not authorized yet.
 
+## Approved booking terms and prepared form integration — current
+
+Owner approved “Based in Seattle” only and the proposed portrait delivery (2–3 weeks), 25% booking retainer, one reschedule with 48 hours' notice, no-charge weather rescheduling, and per-project event/video timelines. These are now in the local draft. Cancellation terms remain personally agreed; no refund/nonrefundability promise was added. Owner requested continued autonomous work without more questions.
+
+Prepared the approved Formspree integration in `inquiry.js`. An empty endpoint keeps email-draft mode. Connecting the owner's verified endpoint enables direct submission, processing disclosure, duplicate protection, 20-second timeout, accessible status and recovery via email while retaining entries. No real endpoint/account is configured; service acceptance and inbox delivery are not verified. Eleven automated checks pass, including actual inquiry-code tests with simulated success, HTTP/network/timeout failures, invalid endpoints, validation, request data and duplicate protection.
+
+The provider review in `../print-provider-review.md` recommends sampling Prodigi first, with Printful/Gelato comparisons and a three-photo draft. Exact size costs, shipping, margins and physical quality remain unverified. No purchases, external account/product changes or publication occurred. See `../contact-form-setup.md` for the remaining form connection steps. Browser verified the email draft after extracting its handler, with no warnings/errors. Booking terms use three desktop columns and one mobile column at 390px without horizontal overflow; a versioned stylesheet URL ensures the new styling loads in an existing preview session. Screenshots: `../booking-terms-desktop.jpg`, `../booking-terms-mobile.jpg`.
+
 ## Booking and launch preparation — latest
 
 Added a branded 1200×630 JPEG sharing card using the existing homepage photograph. Home, Portfolio, Gallery, About and Practice now declare the same absolute image URL, dimensions, descriptive alternative text, canonical Open Graph URL and large-image social card metadata. The asset is local; it becomes publicly reachable only after approved deployment. Source layout is retained outside the deployable site in `../../work/social-preview-source.html`.
@@ -120,7 +128,7 @@ The Tailwind build completed successfully. Its bundled browser-support database 
 
 1. Supply an approved event case study and actual objectives/deliverables. Current outdoor work is labeled personal photography.
 2. Choose and sample a print provider, approve costs and retail prices, then create actual photograph products and shipping/policy settings. Test variant mapping, cart and checkout on the production origin before enabling sales.
-3. Confirm package booking policies, media permissions and any required captions. Approved prices are already applied; no deposit/cancellation policy was invented.
+3. Confirm remaining cancellation terms privately, media permissions and any required captions. Owner-approved prices, retainer, portrait delivery and rescheduling terms are applied.
 4. Approve the hosting target and publication. Journal remains archived until the owner requests restoration.
 
 ## Hosting and deployment

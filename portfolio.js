@@ -71,23 +71,6 @@ document.querySelectorAll('[data-package]').forEach(button => button.addEventLis
     select.focus({preventScroll: true});
 }));
 
-document.getElementById('inquiry-form').addEventListener('submit', event => {
-    event.preventDefault();
-    const value = id => document.getElementById(id).value.trim();
-    ['client-name', 'client-email', 'target-date'].forEach(id => {
-        document.getElementById(id).value = value(id);
-    });
-    if (!document.getElementById('inquiry-form').reportValidity()) return;
-    const subject = `Story of Leo inquiry: ${value('package-select')} — ${value('client-name')}`;
-    const body = `Hi Leo,\n\nI’d like to discuss a project.\n\nService: ${value('package-select')}\nDate / month: ${value('target-date')}\nCity / location: ${value('project-location') || 'To discuss'}\nPreferred setting: ${value('location-vibe')}\nName: ${value('client-name')}\nEmail: ${value('client-email')}\n\nStory, scope and usage:\n${value('client-notes') || 'To discuss'}\n\nThank you!`;
-    document.getElementById('inquiry-draft').textContent = `Subject: ${subject}\n\n${body}`;
-    document.getElementById('inquiry-email-link').href = `mailto:hello@storyofleo.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    document.getElementById('inquiry-preview').hidden = false;
-    document.getElementById('inquiry-preview').scrollIntoView({block: 'nearest'});
-});
-// Avoid showing a stale draft after editing its input.
-document.getElementById('inquiry-form').addEventListener('input', () => { document.getElementById('inquiry-preview').hidden = true; });
-
 // Load third-party video only after the visitor chooses playback.
 document.querySelectorAll('[data-youtube]').forEach(player => player.querySelector('button').addEventListener('click', () => {
     const iframe = document.createElement('iframe');

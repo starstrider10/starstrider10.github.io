@@ -80,6 +80,9 @@ class SiteChecks(unittest.TestCase):
     def test_print_flow_failure_and_success_states(self):
         subprocess.run(['node', 'tests/gallery-flow.test.cjs'], cwd=ROOT, check=True, capture_output=True)
 
+    def test_inquiry_delivery_states(self):
+        subprocess.run(['node', 'tests/inquiry-flow.test.cjs'], cwd=ROOT, check=True, capture_output=True)
+
     def test_javascript_syntax(self):
         for script in ROOT.glob('*.js'):
             subprocess.run(['node','--check',str(script)], check=True, capture_output=True)
