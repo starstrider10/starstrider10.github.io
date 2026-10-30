@@ -2,6 +2,16 @@
 
 Prepared October 29, 2026. Local implementation is ready for design/content review. Publication has not been performed and is not authorized yet.
 
+## Portrait curation update — latest
+
+Replaced the Sandy image with Christie's close graduation portrait (`20260331-LEO02645-christie_ynp7ql`), while retaining Anabel's existing portrait. Kept only the original leftmost expedition portrait (`2026-kyle-DSCF0772-.jpg`) in the Portfolio. The other two expedition images remain in the source folder and web assets; Gallery content is unchanged.
+
+Both the mixed landscape/portrait pair and the single mountain portrait now use their complete native framing. The pair stacks on mobile; the mountain portrait stays centered at a restrained width rather than being cropped into a wide image.
+
+Reviewed the existing 29-entry Cloudinary portrait manifest: 28 preview URLs loaded, one returned 404. Produced a six-image numbered shortlist and the complete numbered options sheet, including alternative graduation, golden-hour and architectural portraits. This source pool is the repository's existing manifest, not a fresh inventory of the entire Cloudinary account. See `../portfolio-photo-selection.md`, `../portfolio-photo-shortlist.jpg` and `../portfolio-photo-options.jpg` for filenames, source URLs and selection rationale. The selected replacement is #10; the retained Anabel image is #07.
+
+Verified the new source URLs, three total portrait images, one mountain portrait, full-image framing, and layouts at desktop width 1440 and mobile width 390. No horizontal overflow or console errors observed. Eight existing regression checks pass. Screenshots: `../portraits-revised-desktop.jpg`, `../portraits-revised-mobile.jpg`. Nothing was uploaded or deployed.
+
 ## Cloudinary playback update — latest
 
 Connected the two owner-supplied Cloudinary MP4s to native on-page players. Inspection and sample frames identify `Video-6606_fhpgfa.mp4` as the reflective short (720×1280, 80.94 seconds) and `Video-73917_ubxwcy.mp4` as the music-video promo (1276×718, 15.86 seconds). Both have H.264 video and AAC audio.

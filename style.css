@@ -225,3 +225,13 @@ label:has(+input[type="file"]:focus-visible) { outline: 2px solid currentColor; 
   .reel-link-card, .vertical-video { max-width: 330px; margin-inline: auto; }
   .reel-card-title { font-size: 38px; }
 }
+
+/* Selected portrait photographs retain their native framing. */
+.portrait-pair .project-images { grid-template-columns: 1.5fr 1fr; align-items: center; }
+.portrait-pair .project-images figure, .single-portrait .project-images figure { aspect-ratio: auto; }
+.portrait-pair .project-images img, .single-portrait .project-images img { height: auto; object-fit: contain; }
+.single-portrait .project-images { max-width: 560px; margin-inline: auto; }
+@media(max-width: 767px) {
+  .portrait-pair .project-images { grid-template-columns: 1fr; gap: 24px; }
+  .portrait-pair .project-images figure:last-child { width: 85%; margin-left: auto; }
+}

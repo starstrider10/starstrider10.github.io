@@ -2,27 +2,27 @@
 // A film can use `video: { src, poster, captions }` with local, cleared media files.
 const portfolioProjects = [
   {
-    id: 'spring-portraits', category: 'portraits', label: 'Portraits / Existing gallery selection',
+    id: 'spring-portraits', category: 'portraits', label: 'Portraits / Spring & graduation selection',
+    imageLayout: 'portrait-pair',
     title: 'A portrait of spring.',
-    summary: 'A selection of portraits from the existing Sakura gallery. People and place, held in the same frame.',
+    summary: 'Personal and graduation portraits from the existing spring gallery. People and place, held in the same frame.',
     approach: 'Seasonal colour, natural surroundings and space for the person within the landscape.',
     delivery: 'Photographic selection. Session objective and original delivery details to be supplied.',
     images: [
       { src: 'https://res.cloudinary.com/decv98oqz/image/upload/f_auto,q_auto,w_1200/v1776367252/20250331-LEO05614-anabel_tzhkoc.jpg', alt: 'Portrait from the existing spring Sakura series' },
-      { src: 'https://res.cloudinary.com/decv98oqz/image/upload/f_auto,q_auto,w_1000/v1776367253/20250404-LEO06204-sandy_h7d3uu.jpg', alt: 'Second portrait from the existing Sakura series' }
+      { src: 'https://res.cloudinary.com/decv98oqz/image/upload/f_auto,q_auto,w_1000/v1776312213/20260331-LEO02645-christie_ynp7ql.jpg', alt: 'Close graduation portrait in natural light from the existing spring gallery' }
     ],
     link: 'gallery.html?filter=sakura', linkLabel: 'View the Sakura series'
   },
   {
     id: 'outdoor-portraits', category: 'portraits', label: 'Portraits / Outdoor study',
+    imageLayout: 'single-portrait',
     title: 'Out here, as you are.',
-    summary: 'Portrait photographs from the existing expedition photo folder. A human presence against open, rugged surroundings.',
+    summary: 'An environmental portrait from the existing expedition photo folder. A human presence against open, rugged surroundings.',
     approach: 'Environmental framing and natural light, with the landscape as part of the portrait.',
-    delivery: 'Three existing photographs. Original brief and delivery details to be supplied.',
+    delivery: 'One selected photograph. Original brief and delivery details to be supplied.',
     images: [
-      { src: 'assets/expedition-portrait-1440.webp', alt: 'Outdoor portrait of a person seated on rock in an alpine landscape' },
-      { src: 'assets/expedition-landscape-1440.webp', alt: 'Environmental portrait from the expedition photo selection' },
-      { src: 'assets/expedition-detail-1440.webp', alt: 'Another portrait from the expedition photo selection' }
+      { src: 'assets/expedition-portrait-1440.webp', alt: 'Outdoor portrait of a person seated on rock in an alpine landscape' }
     ]
   },
   {
