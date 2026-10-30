@@ -206,3 +206,21 @@ footer>div:last-child { flex-wrap: wrap; justify-content: center; }
 }
 .investment .event-rate { color: #121212; font-size: 16px; }
 label:has(+input[type="file"]:focus-visible) { outline: 2px solid currentColor; outline-offset: 6px; }
+
+/* Linked vertical work uses typography until approved video files/posters arrive. */
+.reel-project { display: grid; grid-template-columns: minmax(220px, 330px) minmax(0, 1fr); gap: clamp(28px, 5vw, 80px); align-items: center; }
+.reel-project .project-caption { grid-template-columns: 1fr; gap: 0; margin-top: 0; }
+.reel-link-card { aspect-ratio: 9/16; display: flex; flex-direction: column; justify-content: space-between; width: 100%; padding: clamp(24px, 3vw, 42px); border: 1px solid #6e727a50; background: #f9f9fb; color: #121212; transition: border-color .2s; }
+.reel-link-card:hover { border-color: #121212; }
+.reel-card-format { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; line-height: 1.8; }
+.reel-card-title { font: 400 clamp(32px, 3.3vw, 46px)/1.15 'Playfair Display', Georgia, serif; letter-spacing: -.035em; }
+.reel-card-action { font-size: 11px; line-height: 1.8; text-decoration: underline; text-underline-offset: 6px; }
+.project-title-note { color: #62666e; font-size: 11px; line-height: 1.7; margin: -12px 0 22px; }
+.project-copy .project-credits { color: #121212; font-size: 11px; line-height: 1.9; margin: 24px 0; }
+.project-credits>span { display: block; font-weight: 600; margin-bottom: 4px; }
+.portfolio-project .vertical-video { aspect-ratio: 9/16; max-height: 660px; object-fit: contain; background: #121212; }
+@media(max-width: 767px) {
+  .reel-project { grid-template-columns: 1fr; gap: 28px; }
+  .reel-link-card, .vertical-video { max-width: 330px; margin-inline: auto; }
+  .reel-card-title { font-size: 38px; }
+}

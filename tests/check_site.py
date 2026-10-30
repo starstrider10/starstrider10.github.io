@@ -2,6 +2,7 @@
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlsplit, unquote
+import json
 import re
 import subprocess
 import unittest
@@ -76,6 +77,50 @@ class SiteChecks(unittest.TestCase):
             self.assertTrue((ROOT / asset).is_file(), asset)
             for width in [480, 960, 1440]:
                 self.assertTrue((ROOT / asset.replace('-1440.webp', f'-{width}.webp')).is_file())
+
+    def test_film_projects_links_credits_and_media_fallbacks(self):
+        # Run the actual content and pure media renderer without a browser or network.
+        script = r"""
+const fs = require('node:fs');
+const vm = require('node:vm');
+const context = vm.createContext({document: {getElementById: () => ({})}});
+vm.runInContext(fs.readFileSync('portfolio-data.js', 'utf8'), context);
+const renderer = fs.readFileSync('portfolio.js', 'utf8').split('projectContainer.innerHTML =')[0];
+vm.runInContext(renderer, context);
+console.log(vm.runInContext(`JSON.stringify({
+  projects: portfolioProjects.map(project => ({...project, media: projectMedia(project)})),
+  native: projectMedia({...portfolioProjects.find(p => p.id === 'made-of-stars'),
+    video: {src: 'https://res.cloudinary.com/example/video/upload/stars.mp4', captions: 'stars.vtt'}})
+})`, context));
+"""
+        result = json.loads(subprocess.check_output(['node', '-e', script], cwd=ROOT))
+        projects = result['projects']
+        self.assertEqual(len(projects), 7)
+        self.assertEqual(sum(p['category'] == 'content' for p in projects), 4)
+        by_id = {p['id']: p for p in projects}
+        for project_id in ['made-of-stars', 'music-video-promo', 'young-and-beautiful']:
+            self.assertEqual(by_id[project_id]['credits'], ['Direction', 'Filming', 'Editing', 'Color'])
+        for project_id, reel_id in [('made-of-stars', 'Des13xtSB4X'), ('music-video-promo', 'DbkTd0fsNxf')]:
+            project = by_id[project_id]
+            links = [a for tag, a in Document(project['media']).nodes if tag == 'a']
+            self.assertEqual(links[0]['href'], f'https://www.instagram.com/reel/{reel_id}/')
+            self.assertIn(project['title'], links[0]['aria-label'])
+            self.assertEqual(project['format'], 'vertical')
+            self.assertNotIn('<img', project['media'])
+        film = by_id['young-and-beautiful']
+        self.assertIn('https://www.youtube.com/watch?v=YpRT2H2vnTw', film['media'])
+        self.assertIn('https://i.ytimg.com/vi/YpRT2H2vnTw/hqdefault.jpg', film['media'])
+        self.assertIn('Young and Beautiful (Cover) M/V on YouTube', film['media'])
+        self.assertNotIn('one-minute', film['media'])
+        self.assertNotIn('<iframe', film['media'])
+        self.assertEqual(by_id['short-form']['youtube'], '1FaijuGNto0')
+        self.assertIn('working title', by_id['made-of-stars']['titleNote'])
+        native_nodes = Document(result['native']).nodes
+        video = next(a for tag, a in native_nodes if tag == 'video')
+        self.assertIn('playsinline', video)
+        self.assertEqual(video['preload'], 'none')
+        self.assertTrue(any(tag == 'track' for tag, _ in native_nodes))
+        self.assertNotIn('instagram.com', result['native'])
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

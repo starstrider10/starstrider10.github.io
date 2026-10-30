@@ -2,6 +2,16 @@
 
 Prepared October 29, 2026. Local implementation is ready for design/content review. Publication has not been performed and is not authorized yet.
 
+## Filmmaking update
+
+Added the three supplied pieces: Made of Stars (explicitly a descriptive working title), a music-video promo, and Young and Beautiful (Cover) M/V. Each shows Leo Fan's confirmed direction, filming, editing and color credits. The promo and full film remain separate entries; no relationship between their productions is asserted. The original personal film remains.
+
+There are now seven Portfolio selections, four under Short-Form Content. Reels use clean Instagram URLs and intentional 9:16 typographic link cards; no unapproved thumbnail or unrelated imagery is used. The full music video uses its verified YouTube thumbnail and a project-specific accessible link. Native/Cloudinary video sources take precedence when supplied, support vertical layout and captions, and do not autoplay.
+
+Validated 1440×1000 desktop and 390×844 mobile presentation, the four-film filter, seven-item total, exact destination URLs, visible credits, Reel keyboard focus order, and the full film's own title/thumbnail. No console errors were observed. Eight automated tests pass, including a new regression check for credits, clean links, project-specific labels and native-video fallback precedence. External Instagram/YouTube playback is not claimed as verified: these entries intentionally open their original publications. No uploads, paid services or deployment occurred.
+
+Changed for this update: `portfolio-data.js`, `portfolio.js`, `style.css`, `tests/check_site.py`, and this report. Screenshots: `../filmmaking-desktop.jpg`, `../filmmaking-mobile.jpg`.
+
 ## Implemented
 
 - New editorial Portfolio with a responsive introduction, large real photographs, three category filters, permalink/history support, expandable creative notes, services/investment and inquiry paths.
@@ -28,7 +38,7 @@ Screenshots are saved beside this project: `../portfolio-desktop.jpg` and `../po
 
 ## Automated checks
 
-`python3 tests/check_site.py`: **7 tests pass**.
+`python3 tests/check_site.py`: **8 tests pass**.
 
 - Local HTML routes, asset references and fragments exist.
 - No runtime Tailwind scripts or stock Portfolio photographs.
@@ -37,6 +47,7 @@ Screenshots are saved beside this project: `../portfolio-desktop.jpg` and `../po
 - Legacy redirect preserves parameters/fragments; Cloudinary manifest and CNAME remain unchanged.
 - First-party JavaScript syntax checks pass.
 - Responsive local Portfolio media exists.
+- Filmmaking credits, canonical social URLs, accurate video labels and native-video precedence are preserved.
 
 `git diff --check`: passes after correcting whitespace on changed image tags.
 
@@ -68,7 +79,7 @@ The Tailwind build completed successfully. Its bundled browser-support database 
 ## Remaining before publication
 
 1. Supply an approved event case study and real project objectives, roles and delivered work. Outdoor personal work is currently a labeled visual reference, not an event commission.
-2. Supply two or three finished vertical videos, preferably clean MP4 exports plus original social URLs, thumbnail, role/credits and short context. Keep archival masters separately. Confirm applicable music/footage permissions and captions.
+2. The selected Reels and full music video are now linked, with confirmed roles and context. Supply clean Cloudinary MP4 delivery URLs and approved poster images when ready for on-page playback. Keep archival masters separately and confirm applicable music/footage permissions and captions.
 3. Confirm final portrait rates and package policies. Event draft rates were approved in this chat; no new delivery turnaround, deposit, cancellation or usage policy has been invented.
 4. Restore or locate the Journal source if articles should be public. A private repository, moved folder or another source may require a different publishing workflow; no source content was removed.
 5. Verify live Shopify product-title/variant matching, stock and cart/checkout on the intended production origin. Existing API version is 2024-07; this task did not migrate the integration or alter any price/payment setting. Fallback display prices are existing site values, not verified live quotes.

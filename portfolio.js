@@ -9,12 +9,30 @@ function projectImage(image, index, projectIndex) {
     return `<figure><img src="${src}"${srcset} alt="${escapeHTML(image.alt)}" decoding="async" ${projectIndex === 0 && index === 0 ? 'fetchpriority="high"' : 'loading="lazy"'}></figure>`;
 }
 
+// Prefer a supplied Cloudinary/native file; retain publication links as fallbacks.
+function projectMedia(project) {
+    const title = escapeHTML(project.title);
+    if (project.video) {
+        return `<video class="${project.format === 'vertical' ? 'vertical-video' : ''}" controls playsinline preload="none" poster="${escapeHTML(project.video.poster || '')}" aria-label="${title}"><source src="${escapeHTML(project.video.src)}">${project.video.captions ? `<track kind="captions" src="${escapeHTML(project.video.captions)}" srclang="en" label="English" default>` : ''}<a href="${escapeHTML(project.video.src)}">Watch ${title}</a></video>`;
+    }
+    if (project.youtube) {
+        const url = `https://www.youtube.com/watch?v=${escapeHTML(project.youtube)}`;
+        const opening = project.youtubeEmbed
+            ? `<button type="button" class="film-load" aria-label="Play ${title}">`
+            : `<a class="film-load" href="${url}" target="_blank" rel="noopener noreferrer" aria-label="Watch ${title} on YouTube">`;
+        return `<div class="film-player" ${project.youtubeEmbed ? `data-youtube="${escapeHTML(project.youtube)}" data-film-title="${title}"` : ''}>${opening}<img src="https://i.ytimg.com/vi/${escapeHTML(project.youtube)}/hqdefault.jpg" alt="Preview of ${title}" loading="lazy"><span>▶ &nbsp; ${project.youtubeEmbed ? 'Watch the film' : 'Watch the film on YouTube ↗'}</span>${project.youtubeEmbed ? '</button>' : '</a>'}</div><p class="film-privacy">${project.youtubeEmbed ? 'YouTube loads when you press play.' : 'Watch the original film on YouTube.'}</p>`;
+    }
+    if (project.instagramUrl) {
+        return `<a class="reel-link-card" href="${escapeHTML(project.instagramUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Watch ${title} on Instagram"><span class="reel-card-format">Vertical film / Instagram Reel</span><span class="reel-card-title">${title}</span><span class="reel-card-action">Watch on Instagram ↗</span></a>`;
+    }
+    return '';
+}
+
 projectContainer.innerHTML = portfolioProjects.map((project, index) => `
-  <article class="portfolio-project ${project.images.length ? '' : 'film-project'}" data-category="${escapeHTML(project.category)}" id="${escapeHTML(project.id)}">
+  <article class="portfolio-project ${project.images.length ? '' : 'film-project'} ${project.format === 'vertical' ? 'reel-project' : ''}" data-category="${escapeHTML(project.category)}" id="${escapeHTML(project.id)}">
     ${project.images.length ? `<div class="project-images images-${project.images.length}">${project.images.map((image, i) => projectImage(image, i, index)).join('')}</div>` : ''}
-    ${project.youtube ? `<div class="film-player" ${project.youtubeEmbed ? `data-youtube="${escapeHTML(project.youtube)}"` : ''}>${project.youtubeEmbed ? `<button type="button" class="film-load" aria-label="Play Leo’s one-minute personal film">` : `<a class="film-load" href="https://www.youtube.com/watch?v=${escapeHTML(project.youtube)}" target="_blank" rel="noopener noreferrer" aria-label="Watch Leo’s one-minute personal film on YouTube">`}<img src="https://i.ytimg.com/vi/${escapeHTML(project.youtube)}/hqdefault.jpg" alt="Preview of Leo’s personal short film" loading="lazy"><span>▶ &nbsp; ${project.youtubeEmbed ? 'Watch the one-minute film' : 'Watch the film on YouTube ↗'}</span>${project.youtubeEmbed ? '</button>' : '</a>'}</div><p class="film-privacy">${project.youtubeEmbed ? 'YouTube loads when you press play.' : 'Watch the original film on YouTube.'}</p>` : ''}
-    ${project.video ? `<video controls preload="none" poster="${escapeHTML(project.video.poster || '')}" aria-label="${escapeHTML(project.title)}"><source src="${escapeHTML(project.video.src)}">${project.video.captions ? `<track kind="captions" src="${escapeHTML(project.video.captions)}" srclang="en" label="English" default>` : ''}<a href="${escapeHTML(project.video.src)}">Watch this film</a></video>` : ''}
-    <div class="project-caption"><div><p class="eyebrow">${escapeHTML(project.label)}</p><h3>${escapeHTML(project.title)}</h3></div><div class="project-copy"><p>${escapeHTML(project.summary)}</p><details><summary>Creative notes &amp; project context</summary><dl><dt>Approach</dt><dd>${escapeHTML(project.approach)}</dd><dt>Deliverables</dt><dd>${escapeHTML(project.delivery)}</dd></dl></details>${project.link ? `<a class="text-link" href="${escapeHTML(project.link)}" ${project.link.startsWith('https:') ? 'target="_blank" rel="noopener noreferrer"' : ''}>${escapeHTML(project.linkLabel)} ↗</a>` : ''}${project.note ? `<p class="draft-note">${escapeHTML(project.note)}</p>` : ''}</div></div>
+    ${projectMedia(project)}
+    <div class="project-caption"><div><p class="eyebrow">${escapeHTML(project.label)}</p><h3>${escapeHTML(project.title)}</h3>${project.titleNote ? `<p class="project-title-note">${escapeHTML(project.titleNote)}</p>` : ''}</div><div class="project-copy"><p>${escapeHTML(project.summary)}</p>${project.credits ? `<p class="project-credits"><span>Leo Fan</span>${project.credits.map(escapeHTML).join(' · ')}</p>` : ''}<details><summary>Creative notes &amp; project context</summary><dl><dt>Approach</dt><dd>${escapeHTML(project.approach)}</dd><dt>Deliverables</dt><dd>${escapeHTML(project.delivery)}</dd></dl></details>${project.link ? `<a class="text-link" href="${escapeHTML(project.link)}" ${project.link.startsWith('https:') ? 'target="_blank" rel="noopener noreferrer"' : ''}>${escapeHTML(project.linkLabel)} ↗</a>` : ''}${project.note ? `<p class="draft-note">${escapeHTML(project.note)}</p>` : ''}</div></div>
   </article>`).join('');
 
 const filters = document.querySelectorAll('[data-filter]');
@@ -62,7 +80,7 @@ document.getElementById('inquiry-form').addEventListener('input', () => { docume
 document.querySelectorAll('[data-youtube]').forEach(player => player.querySelector('button').addEventListener('click', () => {
     const iframe = document.createElement('iframe');
     iframe.src = `https://www.youtube.com/embed/${player.dataset.youtube}?autoplay=1`;
-    iframe.title = 'Leo Fan — personal short film';
+    iframe.title = player.dataset.filmTitle;
     iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
     iframe.allowFullscreen = true;
     iframe.referrerPolicy = 'strict-origin-when-cross-origin';

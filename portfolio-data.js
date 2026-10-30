@@ -1,5 +1,4 @@
-// Curated visual studies from existing assets. These are not client case studies.
-// Add approved objectives, deliverables and credits here before presenting commissioned work.
+// Selected photographs and films. Only confirmed project context and credits belong here.
 // A film can use `video: { src, poster, captions }` with local, cleared media files.
 const portfolioProjects = [
   {
@@ -43,9 +42,39 @@ const portfolioProjects = [
     title: 'A minute of storytelling.',
     summary: '“I’m a UW Student trapped in a productivity cult. So I learned a useless skill.” A personal film by Leo Fan, selected by Leo as a short introduction to his filmmaking.',
     approach: 'Personal storytelling in a concise film format. Additional production notes and role credits can be added here.',
-    delivery: 'One existing YouTube film, approximately one minute as described by Leo. Additional vertical reels can be added as they are ready.',
+    delivery: 'One personal YouTube film, approximately one minute as described by Leo.',
     images: [], youtube: '1FaijuGNto0', youtubeEmbed: false,
     link: 'https://www.instagram.com/leo.inframe/', linkLabel: 'Visit leo.inframe',
-    note: 'Local review note: YouTube embedding reported unavailable in local browser checks, so this film opens on YouTube. Confirm production credits, music/footage permissions and captions before publication. Add two or three finished vertical short-form pieces when ready.'
+    note: 'Local review note: YouTube embedding reported unavailable in local browser checks, so this film opens on YouTube. Confirm production credits, music/footage permissions and captions before publication.'
+  },
+  {
+    id: 'made-of-stars', category: 'content', label: 'Short-Form / Reflective story',
+    title: 'Made of Stars',
+    summary: 'A reflective short about how we are made of stars.',
+    approach: 'A personal reflection told in a short-form video.',
+    delivery: 'One vertical Reel, published on Instagram.',
+    credits: ['Direction', 'Filming', 'Editing', 'Color'],
+    images: [], format: 'vertical',
+    instagramUrl: 'https://www.instagram.com/reel/Des13xtSB4X/',
+    titleNote: 'Descriptive working title.'
+  },
+  {
+    id: 'music-video-promo', category: 'content', label: 'Short-Form / Music-video promo',
+    title: 'Music-video promo',
+    summary: 'A short promotional piece for a music video.',
+    approach: 'Music-video work presented in a short promotional format.',
+    delivery: 'One vertical promo Reel, published on Instagram.',
+    credits: ['Direction', 'Filming', 'Editing', 'Color'],
+    images: [], format: 'vertical',
+    instagramUrl: 'https://www.instagram.com/reel/DbkTd0fsNxf/'
+  },
+  {
+    id: 'young-and-beautiful', category: 'content', label: 'Film / Music video',
+    title: 'Young and Beautiful (Cover) M/V',
+    summary: 'A full music video for a cover of “Young and Beautiful.”',
+    approach: 'Direction, filming and post-production by Leo Fan.',
+    delivery: 'One full music video, published on YouTube as “leos - Young and Beautiful (Cover) M/V.”',
+    credits: ['Direction', 'Filming', 'Editing', 'Color'],
+    images: [], youtube: 'YpRT2H2vnTw', youtubeEmbed: false
   }
 ];
