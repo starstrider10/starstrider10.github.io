@@ -31,6 +31,8 @@ Journal is archived in Git at `review-before-journal-archive`; its former URL re
 
 Print setup walkthrough: `../shopify-print-setup.md`. The public catalog currently exposes only a template product. Unmatched photographs use an email inquiry with clearly labeled guide estimates. No provider is connected by this work.
 
+The sharing card is `assets/social-preview.jpg` (1200×630); public pages reference the production URL. Verify that URL and sharing previews after approved deployment. Inquiry city/location and setting are separate fields; it still prepares an email draft until a real submission service is connected.
+
 ## Build shared utility CSS after class changes
 
 The pinned Tailwind compiler is only a development tool. From this folder:

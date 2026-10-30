@@ -2,6 +2,16 @@
 
 Prepared October 29, 2026. Local implementation is ready for design/content review. Publication has not been performed and is not authorized yet.
 
+## Booking and launch preparation — latest
+
+Added a branded 1200×630 JPEG sharing card using the existing homepage photograph. Home, Portfolio, Gallery, About and Practice now declare the same absolute image URL, dimensions, descriptive alternative text, canonical Open Graph URL and large-image social card metadata. The asset is local; it becomes publicly reachable only after approved deployment. Source layout is retained outside the deployable site in `../../work/social-preview-source.html`.
+
+The inquiry form now collects the actual project city/location separately from preferred setting, defaults to an open recommendation, provides contact autocomplete and bounds free-text input. Required values are trimmed before validation. Browser verified that location and setting enter the encoded email draft and that editing hides a stale draft; no email was sent. At 390px the form has no horizontal overflow. Ten existing checks pass, with no browser warnings/errors in the changed flow.
+
+Read-only live hosting verification: both public domains resolve to GitHub Pages addresses; www returns HTTP 200 with Server GitHub.com. The public repository reports default branch main and has_pages true. This confirms the current provider, but not its authenticated publishing configuration. Python's local certificate store failed; the system curl client succeeded with certificate verification enabled. No DNS, hosting, remote Git or account changes occurred.
+
+Pending owner answers: public service-area/travel wording, booking terms and whether to connect a hosted inquiry service. Direct submission is not implemented or claimed live; the existing email draft remains functional. Event media, print sampling/product setup, hosting choice and publication approval remain outstanding. Proposed business terms from chat are not published.
+
 ## October 30 update — current state
 
 Owner approved portrait packages and rates. Removed provisional pricing copy and internal review notes from visitor-facing project descriptions. Archived Journal at Git tag `review-before-journal-archive`, removed its navigation links and unused Markdown libraries, and redirected the former URL home.
@@ -115,7 +125,7 @@ The Tailwind build completed successfully. Its bundled browser-support database 
 
 ## Hosting and deployment
 
-The Git remote, repository name and `CNAME` indicate a GitHub Pages-style static setup pointing at `www.storyofleo.com`. The account's live Pages source/settings were not inspected, so automatic deployment from main must not be assumed.
+DNS, public HTTPS headers and public repository metadata now confirm GitHub Pages at `www.storyofleo.com`. Authenticated Pages source/settings were not inspected, so automatic deployment from main must not be assumed.
 
 Before publishing this client-facing business/print storefront, review the actual hosting arrangement. [GitHub Pages documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits) restricts use as a free host for online businesses/e-commerce or sites primarily facilitating commercial transactions. An appropriate business hosting target may therefore be needed. No DNS, CNAME or hosting changes have been made; changing that target requires owner approval.
 

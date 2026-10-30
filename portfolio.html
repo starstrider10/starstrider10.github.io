@@ -7,6 +7,16 @@
 <meta property="og:title" content="Portfolio | Story of Leo">
 <meta property="og:description" content="Selected portrait and lifestyle photography by Leo, plus short-form content services, session packages and project inquiries.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://www.storyofleo.com/portfolio.html">
+<meta property="og:site_name" content="Story of Leo">
+<meta property="og:image" content="https://www.storyofleo.com/assets/social-preview.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Story of Leo — photography and filmmaking, beside a photograph of a person on a beach at sunset.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.storyofleo.com/assets/social-preview.jpg">
+<meta name="twitter:image:alt" content="Story of Leo — photography and filmmaking, beside a photograph of a person on a beach at sunset.">
 <meta name="theme-color" content="#F9F9FB">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head><body class="portfolio-page">
@@ -56,36 +66,40 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label for="target-date" class="block text-xs uppercase tracking-[0.2em] font-bold font-sans text-[#121212] mb-3">2. Target Date / Month</label>
-                            <input type="text" id="target-date" placeholder="e.g. Early Autumn, Sep 15-20" required class="w-full bg-[#F9F9FB] border border-[#6E727A]/30 p-3 text-base md:text-xs font-sans text-[#121212] focus:outline-none focus:border-[#121212]">
+                            <input type="text" id="target-date" maxlength="160" placeholder="e.g. Early Autumn, Sep 15-20" required class="w-full bg-[#F9F9FB] border border-[#6E727A]/30 p-3 text-base md:text-xs font-sans text-[#121212] focus:outline-none focus:border-[#121212]">
                         </div>
                         <div>
-                            <label for="location-vibe" class="block text-xs uppercase tracking-[0.2em] font-bold font-sans text-[#121212] mb-3">3. Location Aesthetic / Vibe</label>
+                            <label for="location-vibe" class="block text-xs uppercase tracking-[0.2em] font-bold font-sans text-[#121212] mb-3">3. Preferred Setting</label>
                             <select id="location-vibe" class="w-full bg-[#F9F9FB] border border-[#6E727A]/30 p-3 text-base md:text-xs font-sans text-[#121212] focus:outline-none focus:border-[#121212]">
+                                <option value="Open to Recommendation">Open to Leo's Recommendation</option>
                                 <option value="Alpine & Mountain Peaks">Alpine &amp; Mountain Peaks</option>
                                 <option value="Forest & Misty Trails">Forest &amp; Misty Trails</option>
                                 <option value="Coastal & Ocean Cliffside">Coastal &amp; Ocean Cliffside</option>
                                 <option value="Urban & Geometric Skylines">Urban &amp; Geometric Skylines</option>
                                 <option value="Sakura & Seasonal Flora">Sakura &amp; Seasonal Flora</option>
-                                <option value="Open to Recommendation">Open to Leo's Recommendation</option>
                             </select>
                         </div>
                     </div>
 
+                    <div>
+                        <label for="project-location" class="block text-xs uppercase tracking-[0.2em] font-bold font-sans text-[#121212] mb-3">Project city or location (Optional)</label>
+                        <input type="text" id="project-location" maxlength="200" placeholder="City, venue or a location you have in mind" class="w-full bg-[#F9F9FB] border border-[#6E727A]/30 p-3 text-base md:text-xs font-sans text-[#121212] focus:outline-none focus:border-[#121212]">
+                    </div>
                     <!-- Step 3: Contact & Vision Notes -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label for="client-name" class="block text-xs uppercase tracking-[0.2em] font-bold font-sans text-[#121212] mb-3">4. Your Full Name</label>
-                            <input type="text" id="client-name" placeholder="Name" required class="w-full bg-[#F9F9FB] border border-[#6E727A]/30 p-3 text-base md:text-xs font-sans text-[#121212] focus:outline-none focus:border-[#121212]">
+                            <input type="text" id="client-name" autocomplete="name" maxlength="120" placeholder="Name" required class="w-full bg-[#F9F9FB] border border-[#6E727A]/30 p-3 text-base md:text-xs font-sans text-[#121212] focus:outline-none focus:border-[#121212]">
                         </div>
                         <div>
                             <label for="client-email" class="block text-xs uppercase tracking-[0.2em] font-bold font-sans text-[#121212] mb-3">5. Your Email Address</label>
-                            <input type="email" id="client-email" placeholder="email@domain.com" required class="w-full bg-[#F9F9FB] border border-[#6E727A]/30 p-3 text-base md:text-xs font-sans text-[#121212] focus:outline-none focus:border-[#121212]">
+                            <input type="email" id="client-email" autocomplete="email" maxlength="254" placeholder="email@domain.com" required class="w-full bg-[#F9F9FB] border border-[#6E727A]/30 p-3 text-base md:text-xs font-sans text-[#121212] focus:outline-none focus:border-[#121212]">
                         </div>
                     </div>
 
                     <div>
                         <label for="client-notes" class="block text-xs uppercase tracking-[0.2em] font-bold font-sans text-[#121212] mb-3">6. Story Vision &amp; Notes (Optional)</label>
-                        <textarea id="client-notes" rows="4" placeholder="Tell me a bit about yourself, the story you want to capture, or specific locations you have in mind..." class="w-full bg-[#F9F9FB] border border-[#6E727A]/30 p-3 text-base md:text-xs font-sans text-[#121212] focus:outline-none focus:border-[#121212]"></textarea>
+                        <textarea id="client-notes" rows="4" maxlength="4000" placeholder="Tell me a bit about yourself, the story you want to capture, or specific locations you have in mind..." class="w-full bg-[#F9F9FB] border border-[#6E727A]/30 p-3 text-base md:text-xs font-sans text-[#121212] focus:outline-none focus:border-[#121212]"></textarea>
                     </div>
 
                     <button type="submit" class="w-full bg-[#121212] text-[#F9F9FB] hover:bg-black py-4 text-xs font-bold uppercase tracking-[0.2em] font-sans transition-all text-center shadow-md">
