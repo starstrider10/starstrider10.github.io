@@ -4,101 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Journal | Story of Leo</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        offblack: '#121212',
-                        offwhite: '#F9F9FB',
-                        mutedslate: '#6E727A'
-                    },
-                    fontFamily: {
-                        serif: ['Playfair Display', 'Georgia', 'serif'],
-                        sans: ['Inter', 'DM Sans', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="vendor/marked.umd.js"></script>
+    <link rel="stylesheet" href="utilities.css">
     <link rel="stylesheet" href="style.css">
     <style>
         .prose h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 2.25rem; font-weight: 400; text-transform: uppercase; letter-spacing: -0.02em; margin-bottom: 2rem; color: #121212; }
         .prose p { margin-bottom: 1.5rem; color: #6E727A; line-height: 1.8; font-family: 'Inter', sans-serif; }
         .prose { max-width: 65ch; }
     </style>
+
+<meta name="description" content="Field notes, technical essays and visual stories from Story of Leo.">
+<link rel="canonical" href="https://www.storyofleo.com/journal.html">
+<meta property="og:title" content="Journal | Story of Leo">
+<meta property="og:description" content="Field notes, technical essays and visual stories from Story of Leo.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#F9F9FB">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body class="bg-[#F9F9FB] text-[#121212] selection:bg-[#121212] selection:text-[#F9F9FB]">
 
     <!-- Navigation Header -->
-    <nav class="fixed top-0 w-full z-50 px-6 py-5 md:py-6 flex justify-between items-center bg-[#F9F9FB]/95 border-b border-[#6E727A]/20 backdrop-blur-md">
-        <a href="index.html" class="text-xs md:text-sm font-bold tracking-[0.2em] uppercase text-[#121212] font-sans">Story of Leo</a>
-        
-        <!-- Desktop Menu -->
-        <div class="hidden md:flex gap-8 text-xs uppercase tracking-[0.3em] font-medium items-center font-sans">
-            <a href="index.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">Home</a>
-            
-            <!-- Gallery Dropdown -->
-            <div class="relative group">
-                <a href="gallery.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">Gallery</a>
-                <div class="absolute left-0 mt-2 w-52 bg-[#F9F9FB] border border-[#6E727A]/30 shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 flex flex-col py-2 z-50">
-                    <a href="gallery.html?filter=prints" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#121212] font-bold transition-colors">Fine Art Prints</a>
-                    <a href="gallery.html?filter=portraiture" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#121212] transition-colors">Portraiture</a>
-                    <a href="gallery.html?filter=adventure" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#121212] transition-colors">Adventure (All)</a>
-                    <a href="gallery.html?filter=backpacking" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#121212] transition-colors">Backpacking</a>
-                    <a href="gallery.html?filter=outdoors" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#121212] transition-colors">Outdoors</a>
-                    <div class="h-[1px] bg-[#6E727A]/20 my-1 mx-4"></div>
-                    <a href="gallery.html?filter=sakura" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#6E727A] transition-colors">Sakura Series</a>
-                </div>
-            </div>
-
-            <a href="services.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">Services</a>
-            <a href="journal.html" class="text-[#121212] hover:text-[#6E727A] transition-colors font-bold border-b border-[#121212]">Journal</a>
-            <a href="about.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">About</a>
-        </div>
-
-        <!-- Mobile Menu Toggle Button -->
-        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden text-[#121212] p-2 focus:outline-none z-50" aria-label="Toggle Navigation Menu">
-            <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-            <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-        </button>
+<a class="skip-link" href="#main-content">Skip to content</a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html" class="site-brand">Story of Leo</a>
+      <div class="site-links"><a href="index.html">Home</a><a href="portfolio.html">Portfolio</a><a href="gallery.html">Gallery</a><a href="journal.html" aria-current="page">Journal</a><a href="about.html">About</a></div>
+      <div class="nav-actions"><button id="mobile-menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation">Menu</button></div>
+      <div id="mobile-menu" class="mobile-navigation" hidden><a href="index.html">Home</a><a href="portfolio.html">Portfolio</a><a href="gallery.html">Gallery</a><a href="journal.html" aria-current="page">Journal</a><a href="about.html">About</a><a href="mailto:hello@storyofleo.com">Start a conversation ↗</a></div>
     </nav>
 
-    <!-- Mobile Navigation Drawer Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 top-[65px] bg-[#F9F9FB]/98 backdrop-blur-xl z-40 md:hidden flex flex-col p-8 opacity-0 invisible -translate-y-4 transition-all duration-300 overflow-y-auto">
-        <div class="flex flex-col gap-6 text-sm uppercase tracking-[0.3em] font-sans font-medium text-[#121212] pt-4">
-            <a href="index.html" onclick="toggleMobileMenu()" class="border-b border-[#6E727A]/20 pb-3 hover:text-[#6E727A]">Home</a>
-            
-            <div class="flex flex-col gap-3 border-b border-[#6E727A]/20 pb-4">
-                <a href="gallery.html" onclick="toggleMobileMenu()" class="font-bold flex justify-between items-center text-[#121212]">
-                    <span>Gallery</span>
-                    <span class="text-xs text-[#6E727A]">&rarr;</span>
-                </a>
-                <div class="pl-4 flex flex-col gap-2 text-xs tracking-widest text-[#6E727A]">
-                    <a href="gallery.html?filter=prints" onclick="toggleMobileMenu()" class="hover:text-[#121212]">Fine Art Prints</a>
-                    <a href="gallery.html?filter=portraiture" onclick="toggleMobileMenu()" class="hover:text-[#121212]">Portraiture</a>
-                    <a href="gallery.html?filter=adventure" onclick="toggleMobileMenu()" class="hover:text-[#121212]">Adventure</a>
-                    <a href="gallery.html?filter=sakura" onclick="toggleMobileMenu()" class="hover:text-[#121212]">Sakura Series</a>
-                </div>
-            </div>
-
-            <a href="services.html" onclick="toggleMobileMenu()" class="border-b border-[#6E727A]/20 pb-3 hover:text-[#6E727A]">Services &amp; Pricing</a>
-            <a href="journal.html" onclick="toggleMobileMenu()" class="border-b border-[#6E727A]/20 pb-3 hover:text-[#6E727A]">Journal</a>
-            <a href="about.html" onclick="toggleMobileMenu()" class="border-b border-[#6E727A]/20 pb-3 hover:text-[#6E727A]">About &amp; Contact</a>
-        </div>
-
-        <div class="mt-auto pt-8 border-t border-[#6E727A]/20 text-center">
-            <a href="mailto:hello@storyofleo.com" class="text-xs uppercase tracking-[0.2em] font-sans text-[#121212] font-bold">hello@storyofleo.com</a>
-        </div>
-    </div>
-
-    <main class="pt-28 md:pt-32 px-4 sm:px-6 max-w-7xl mx-auto">
+    <main id="main-content" class="pt-28 md:pt-32 px-4 sm:px-6 max-w-7xl mx-auto">
         
         <div id="journal-index">
             <header class="mb-24">
@@ -113,7 +47,7 @@
 
             <!-- Dynamic Journal Feed -->
             <section class="mb-32 border-t border-[#6E727A]/20 pt-24">
-                <div id="post-list" class="grid grid-cols-1 md:grid-cols-2 gap-24">
+                <div id="post-list" aria-live="polite" class="grid grid-cols-1 md:grid-cols-2 gap-24">
                     <!-- Posts will be injected here -->
                     <div class="md:col-span-2 py-20 text-center animate-pulse">
                         <p class="text-[#6E727A] uppercase tracking-widest text-[10px] font-sans">Loading Archives...</p>
@@ -135,96 +69,18 @@
 
     </main>
 
-    <script>
-        const repoOwner = 'starstrider10';
-        const repoName = 'starstrider10.github.io';
-
-        async function fetchPosts() {
-            try {
-                const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/posts`);
-                const files = await response.json();
-                
-                const postList = document.getElementById('post-list');
-                postList.innerHTML = '';
-
-                if (!Array.isArray(files) || files.length === 0) {
-                    postList.innerHTML = `
-                        <div class="md:col-span-2 py-32 text-center bg-white border border-[#6E727A]/20 rounded-sm shadow-sm">
-                            <span class="text-[10px] uppercase tracking-[0.5em] text-[#6E727A] mb-4 block font-sans">First entries dropping soon</span>
-                            <h3 class="text-2xl font-normal font-serif italic text-[#121212]">Developing the narrative...</h3>
-                        </div>
-                    `;
-                    return;
-                }
-
-                files.filter(file => file.name.endsWith('.md')).forEach(file => {
-                    const title = file.name.replace('.md', '').replace(/-/g, ' ');
-                    const postCard = `
-                        <div onclick="loadPost('${file.path}')" class="group cursor-pointer">
-                            <span class="text-[10px] uppercase tracking-[0.3em] text-[#6E727A] group-hover:text-[#121212] transition-colors font-sans">Digital Entry</span>
-                            <h3 class="text-2xl md:text-3xl font-serif font-normal mt-4 mb-6 group-hover:italic transition-all capitalize text-[#121212]">${title}</h3>
-                            <div class="w-12 h-[1px] bg-[#6E727A]/30 group-hover:w-full transition-all duration-700"></div>
-                        </div>
-                    `;
-                    postList.innerHTML += postCard;
-                });
-            } catch (error) {
-                console.error('Error fetching posts:', error);
-                document.getElementById('post-list').innerHTML = '<p class="text-[#6E727A] italic text-center md:col-span-2 font-sans">Journal temporarily unavailable.</p>';
-            }
-        }
-
-        async function loadPost(path) {
-            try {
-                const response = await fetch(`https://raw.githubusercontent.com/${repoOwner}/${repoName}/main/${path}`);
-                const markdown = await response.text();
-                
-                document.getElementById('journal-index').classList.add('hidden');
-                document.getElementById('post-view').classList.remove('hidden');
-                
-                document.getElementById('post-content').innerHTML = marked.parse(markdown);
-                window.scrollTo(0, 0);
-            } catch (error) {
-                console.error('Error loading post:', error);
-            }
-        }
-
-        function showIndex() {
-            document.getElementById('journal-index').classList.remove('hidden');
-            document.getElementById('post-view').classList.add('hidden');
-            window.scrollTo(0, 0);
-        }
-
-        fetchPosts();
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            const hamburger = document.getElementById('hamburger-icon');
-            const close = document.getElementById('close-icon');
-            if (!menu) return;
-            const isOpen = menu.classList.contains('active');
-            if (isOpen) {
-                menu.classList.remove('active');
-                if (hamburger) hamburger.classList.remove('hidden');
-                if (close) close.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            } else {
-                menu.classList.add('active');
-                if (hamburger) hamburger.classList.add('hidden');
-                if (close) close.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            }
-        }
-    </script>
+    <script src="vendor/purify.min.js"></script>
+    <script src="journal.js" defer></script>
 
     <footer class="py-12 px-6 border-t border-[#6E727A]/20 text-[#6E727A] text-[10px] uppercase tracking-[0.3em] font-sans flex flex-col md:flex-row justify-between items-center gap-8 max-w-7xl mx-auto">
         <div>&copy; 2026 Story of Leo. All Rights Reserved.</div>
         <div class="flex gap-8">
-            <a href="https://www.instagram.com/leo.inframe/" target="_blank" class="hover:text-[#121212] transition-colors">Instagram</a>
-            <a href="https://www.tiktok.com/@leo.inframe" target="_blank" class="hover:text-[#121212] transition-colors">TikTok</a>
-            <a href="https://www.youtube.com/@leo.inframe/featured" target="_blank" class="hover:text-[#121212] transition-colors">YouTube</a>
+            <a href="https://www.instagram.com/leo.inframe/" target="_blank" rel="noopener noreferrer" class="hover:text-[#121212] transition-colors">Instagram</a>
+            <a href="https://www.tiktok.com/@leo.inframe" target="_blank" rel="noopener noreferrer" class="hover:text-[#121212] transition-colors">TikTok</a>
+            <a href="https://www.youtube.com/@leo.inframe/featured" target="_blank" rel="noopener noreferrer" class="hover:text-[#121212] transition-colors">YouTube</a>
         </div>
     </footer>
 
+    <script src="site.js" defer></script>
 </body>
 </html>

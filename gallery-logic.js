@@ -270,6 +270,8 @@ function optimizeUrl(url, width = 1000) {
 function renderGallery(category = 'all') {
     try {
         const container = document.getElementById('gallery-container');
+        container.querySelectorAll('*').forEach(item => item._tl?.kill());
+        gsap.killTweensOf(container.querySelectorAll('*'));
         container.innerHTML = ''; 
 
         const getModelName = (id) => {
@@ -336,8 +338,28 @@ function renderGallery(category = 'all') {
                 return;
             }
 
+            if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                const grid = document.createElement('div');
+                grid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6';
+                assets.forEach((photo, index) => {
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'relative aspect-[4/5] overflow-hidden';
+                    const image = document.createElement('img');
+                    image.src = optimizeUrl(photo.url, 800);
+                    image.alt = photo.print_title || getDisplayName(photo.public_id, photo.folder) || 'Archive photograph';
+                    image.loading = 'lazy';
+                    image.className = 'w-full h-full object-cover';
+                    button.append(image);
+                    button.addEventListener('click', () => openAlbum(assets, 'Gallery Archive', index));
+                    grid.append(button);
+                });
+                container.append(grid);
+                return;
+            }
+
             const archiveSection = document.createElement('section');
-            archiveSection.className = 'relative h-[100vh] w-[100vw] -mx-6 mt-4 mb-32 overflow-hidden bg-[#F9F9FB] border-y border-[#6E727A]/20';
+            archiveSection.className = 'relative h-[100vh] w-full mt-4 mb-32 overflow-hidden bg-[#F9F9FB] border-y border-[#6E727A]/20';
             archiveSection.innerHTML = `
                 <div class="absolute inset-0 flex items-center justify-center z-0 pointer-events-none">
                     <h2 class="text-[12vw] font-serif text-[#121212]/[0.04] uppercase tracking-tighter">${category === 'all' ? 'Archives' : category}</h2>
@@ -384,7 +406,8 @@ function renderGallery(category = 'all') {
                 const initialX = (i / assets.length) * totalWidth - buffer;
                 gsap.set(item, { x: initialX, rotation: rotation });
 
-                const tl = gsap.timeline({ repeat: -1 });
+                const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+                const tl = gsap.timeline({ repeat: reduceMotion ? 0 : -1, paused: reduceMotion });
                 tl.to(item, {
                     x: -buffer,
                     duration: duration * ((initialX + buffer) / totalWidth),
@@ -510,7 +533,7 @@ function renderGallery(category = 'all') {
             container.appendChild(gridContainer);
             
             gsap.from(gridContainer.children, {
-                duration: 0.8,
+                duration: matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 0.8,
                 y: 30,
                 opacity: 0,
                 stagger: 0.1,
@@ -562,7 +585,7 @@ function renderGallery(category = 'all') {
         });
 
         gsap.from(".album-section", {
-            duration: 1.2,
+            duration: matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1.2,
             y: 40,
             opacity: 0,
             stagger: 0.2,
@@ -575,6 +598,11 @@ function renderGallery(category = 'all') {
 }
 
 function filterGallery(category) {
+    const collection = document.getElementById('gallery-category');
+    if (collection) collection.value = category;
+    const url = new URL(location.href);
+    url.searchParams.set('filter', category);
+    history.replaceState({}, '', url);
     const btns = document.querySelectorAll('.filter-btn');
     btns.forEach(btn => btn.classList.remove('text-[#121212]', 'active', 'border-b', 'border-[#121212]'));
     
@@ -753,6 +781,10 @@ function closeModal() {
 async function updateModal() {
     const photo = currentAlbum[currentIndex];
     const img = document.getElementById('modal-img');
+    // Show the image immediately; remote product availability must not block viewing.
+    img.src = optimizeUrl(photo.url, 2000);
+    img.alt = photo.print_title || currentModel;
+    currentActiveVariant = null;
     const photoTitle = photo.print_title || currentModel;
     document.getElementById('modal-model-name').innerText = photoTitle;
     document.getElementById('modal-counter').innerText = `${currentIndex + 1} / ${currentAlbum.length}`;
@@ -767,6 +799,7 @@ async function updateModal() {
     let product = null;
     if (photo.is_print || photo.shopify_url) {
         product = await fetchShopifyProduct(photoTitle);
+        if (currentAlbum[currentIndex] !== photo) return;
         // If product has finish options defined in Shopify, reflect them dynamically
         if (product && product.options) {
             const finishOpt = product.options.find(o => o.name.toLowerCase() === 'finish' || o.name.toLowerCase() === 'material');
@@ -778,15 +811,17 @@ async function updateModal() {
         }
     }
     
+    if (currentAlbum[currentIndex] !== photo) return;
     // Detect orientation when image loads
     const tempImg = new Image();
     tempImg.onload = () => {
+        if (currentAlbum[currentIndex] !== photo) return;
         currentPhotoIsVertical = tempImg.naturalHeight > tempImg.naturalWidth;
         setupPrintSizeOptions(currentPhotoIsVertical);
         updatePrintPrice();
         if (isRoomView) updateRoomScale();
     };
-    tempImg.src = photo.url;
+    tempImg.src = optimizeUrl(photo.url, 64);
 
     // Use high res for modal, but still optimize format/quality
     img.src = optimizeUrl(photo.url, 2000);
@@ -1191,6 +1226,7 @@ document.addEventListener('keydown', (e) => {
     const modal = document.getElementById('album-modal');
     if (modal && modal.classList.contains('hidden')) return;
 
+    if (e.target.matches('input, select, textarea')) return;
     if (e.key === 'ArrowRight') nextPhoto();
     else if (e.key === 'ArrowLeft') prevPhoto();
     else if (e.key === 'Escape') closeModal();
@@ -1208,7 +1244,10 @@ window.addEventListener('load', () => {
     initCart();
 
     const urlParams = new URLSearchParams(window.location.search);
-    const initialCategory = urlParams.get('filter') || 'prints';
+    const requestedCategory = urlParams.get('filter') || 'prints';
+    const validCategories = ['prints','prints:alpine','prints:urban','prints:wildlife','prints:travel','portraiture','sakura','adventure','backpacking','outdoors','street','all'];
+    const initialCategory = validCategories.includes(requestedCategory) ? requestedCategory : 'prints';
+    document.getElementById('gallery-category').value = initialCategory;
     renderGallery(initialCategory);
     
     setTimeout(() => {

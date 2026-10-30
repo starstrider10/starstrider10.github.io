@@ -5,18 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Practice | Story of Leo</title>
     <!-- Tailwind browser script -->
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="utilities.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        @import "tailwindcss";
 
-        @theme {
-            --color-offblack: #121212;
-            --color-offwhite: #F9F9FB;
-            --color-mutedslate: #6E727A;
-            --font-serif: "Playfair Display", Georgia, serif;
-            --font-sans: "Inter", "DM Sans", sans-serif;
-        }
         /* Custom dark theme specifically for practice mode to make photos pop */
         body {
             background-color: #0A0A0A;
@@ -26,6 +18,14 @@
             color: #EF4444; /* Tailwind red-500 */
         }
     </style>
+
+<meta name="description" content="A private, browser-based storytelling practice tool. Choose your own photographs and practice with a timed prompt.">
+<link rel="canonical" href="https://www.storyofleo.com/practice.html">
+<meta property="og:title" content="Practice | Story of Leo">
+<meta property="og:description" content="A private, browser-based storytelling practice tool. Choose your own photographs and practice with a timed prompt.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#F9F9FB">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body class="min-h-screen flex flex-col font-sans selection:bg-[#F9F9FB] selection:text-[#0A0A0A]">
 
@@ -69,7 +69,7 @@
                 <label for="folder-input" class="cursor-pointer border border-[#F9F9FB]/30 px-8 py-4 text-xs md:text-sm uppercase tracking-[0.2em] hover:bg-[#F9F9FB] hover:text-[#0A0A0A] transition-colors">
                     Load Practice Folder
                 </label>
-                <input type="file" id="folder-input" webkitdirectory directory multiple class="hidden" accept="image/*">
+                <input type="file" id="folder-input" webkitdirectory directory multiple class="sr-only" accept="image/*">
             </div>
 
         </div>

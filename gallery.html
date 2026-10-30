@@ -4,113 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery | Story of Leo</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        offblack: '#121212',
-                        offwhite: '#F9F9FB',
-                        mutedslate: '#6E727A'
-                    },
-                    fontFamily: {
-                        serif: ['Playfair Display', 'Georgia', 'serif'],
-                        sans: ['Inter', 'DM Sans', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="vendor/gsap.min.js"></script>
+    <script src="vendor/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="utilities.css">
     <link rel="stylesheet" href="style.css">
     <style>
         .gallery-image { transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease; }
         .gallery-item:hover .gallery-image { transform: scale(1.05); opacity: 0.9; }
     </style>
+
+<meta name="description" content="Explore Story of Leo’s personal photography archive and fine-art print collections, from alpine landscapes to travel stories and portraits.">
+<link rel="canonical" href="https://www.storyofleo.com/gallery.html">
+<meta property="og:title" content="Gallery | Story of Leo">
+<meta property="og:description" content="Explore Story of Leo’s personal photography archive and fine-art print collections, from alpine landscapes to travel stories and portraits.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#F9F9FB">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body class="bg-[#F9F9FB] text-[#121212] selection:bg-[#121212] selection:text-[#F9F9FB]">
 
     <!-- Navigation Header -->
-    <nav class="fixed top-0 w-full z-50 px-6 py-5 md:py-6 flex justify-between items-center bg-[#F9F9FB]/95 border-b border-[#6E727A]/20 backdrop-blur-md">
-        <a href="index.html" class="text-xs md:text-sm font-bold tracking-[0.2em] uppercase text-[#121212] font-sans">Story of Leo</a>
-        
-        <!-- Desktop Menu -->
-        <div class="hidden md:flex gap-8 text-xs uppercase tracking-[0.3em] font-medium items-center font-sans">
-            <a href="index.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">Home</a>
-            
-            <!-- Gallery Dropdown -->
-            <div class="relative group">
-                <a href="gallery.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">Gallery</a>
-                <div class="absolute left-0 mt-2 w-52 bg-[#F9F9FB] border border-[#6E727A]/30 shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 flex flex-col py-2 z-50">
-                    <a href="gallery.html?filter=prints" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#121212] font-bold transition-colors">Fine Art Prints</a>
-                    <a href="gallery.html?filter=portraiture" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#121212] transition-colors">Portraiture</a>
-                    <a href="gallery.html?filter=adventure" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#121212] transition-colors">Adventure (All)</a>
-                    <a href="gallery.html?filter=backpacking" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#121212] transition-colors">Backpacking</a>
-                    <a href="gallery.html?filter=outdoors" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#121212] transition-colors">Outdoors</a>
-                    <div class="h-[1px] bg-[#6E727A]/20 my-1 mx-4"></div>
-                    <a href="gallery.html?filter=sakura" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#6E727A] transition-colors">Sakura Series</a>
-                </div>
-            </div>
-
-            <a href="services.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">Services</a>
-            <a href="journal.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">Journal</a>
-            <a href="about.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">About</a>
-
-            <!-- Cart Trigger -->
-            <button onclick="toggleCartDrawer()" class="flex items-center gap-1.5 text-[#121212] hover:text-[#6E727A] transition-colors focus:outline-none ml-2 cursor-pointer" aria-label="Open Cart">
-                <span>Cart</span>
-                <span id="cart-counter-badge" class="bg-[#121212] text-[#F9F9FB] text-[9px] px-1.5 py-0.5 rounded-full font-bold hidden">0</span>
-            </button>
-        </div>
-
-        <!-- Mobile Actions -->
-        <div class="md:hidden flex items-center gap-4">
-            <button onclick="toggleCartDrawer()" class="flex items-center gap-1.5 text-xs uppercase tracking-widest font-sans font-medium text-[#121212] focus:outline-none cursor-pointer" aria-label="Open Cart">
-                <span>Cart</span>
-                <span id="cart-counter-badge-mobile" class="bg-[#121212] text-[#F9F9FB] text-[9px] px-1.5 py-0.5 rounded-full font-bold hidden">0</span>
-            </button>
-            <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="text-[#121212] p-2 focus:outline-none z-50" aria-label="Toggle Navigation Menu">
-                <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-                <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-        </div>
+<a class="skip-link" href="#main-content">Skip to content</a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html" class="site-brand">Story of Leo</a>
+      <div class="site-links"><a href="index.html">Home</a><a href="portfolio.html">Portfolio</a><a href="gallery.html" aria-current="page">Gallery</a><a href="journal.html">Journal</a><a href="about.html">About</a></div>
+      <div class="nav-actions"><button type="button" onclick="toggleCartDrawer()" aria-label="Open Cart">Bag <span id="cart-count-desktop">0</span></button><button id="mobile-menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation">Menu</button></div>
+      <div id="mobile-menu" class="mobile-navigation" hidden><a href="index.html">Home</a><a href="portfolio.html">Portfolio</a><a href="gallery.html" aria-current="page">Gallery</a><a href="journal.html">Journal</a><a href="about.html">About</a><a href="mailto:hello@storyofleo.com">Start a conversation ↗</a></div>
     </nav>
 
-    <!-- Mobile Navigation Drawer Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 top-[65px] bg-[#F9F9FB]/98 backdrop-blur-xl z-40 md:hidden flex flex-col p-8 opacity-0 invisible -translate-y-4 transition-all duration-300 overflow-y-auto">
-        <div class="flex flex-col gap-6 text-sm uppercase tracking-[0.3em] font-sans font-medium text-[#121212] pt-4">
-            <a href="index.html" onclick="toggleMobileMenu()" class="border-b border-[#6E727A]/20 pb-3 hover:text-[#6E727A]">Home</a>
-            
-            <div class="flex flex-col gap-3 border-b border-[#6E727A]/20 pb-4">
-                <a href="gallery.html" onclick="toggleMobileMenu()" class="font-bold flex justify-between items-center text-[#121212]">
-                    <span>Gallery</span>
-                    <span class="text-xs text-[#6E727A]">&rarr;</span>
-                </a>
-                <div class="pl-4 flex flex-col gap-2 text-xs tracking-widest text-[#6E727A]">
-                    <a href="gallery.html?filter=prints" onclick="toggleMobileMenu()" class="hover:text-[#121212]">Fine Art Prints</a>
-                    <a href="gallery.html?filter=portraiture" onclick="toggleMobileMenu()" class="hover:text-[#121212]">Portraiture</a>
-                    <a href="gallery.html?filter=adventure" onclick="toggleMobileMenu()" class="hover:text-[#121212]">Adventure</a>
-                    <a href="gallery.html?filter=sakura" onclick="toggleMobileMenu()" class="hover:text-[#121212]">Sakura Series</a>
-                </div>
-            </div>
-
-            <a href="services.html" onclick="toggleMobileMenu()" class="border-b border-[#6E727A]/20 pb-3 hover:text-[#6E727A]">Services &amp; Pricing</a>
-            <a href="journal.html" onclick="toggleMobileMenu()" class="border-b border-[#6E727A]/20 pb-3 hover:text-[#6E727A]">Journal</a>
-            <a href="about.html" onclick="toggleMobileMenu()" class="border-b border-[#6E727A]/20 pb-3 hover:text-[#6E727A]">About &amp; Contact</a>
-        </div>
-
-        <div class="mt-auto pt-8 border-t border-[#6E727A]/20 text-center">
-            <a href="mailto:hello@storyofleo.com" class="text-xs uppercase tracking-[0.2em] font-sans text-[#121212] font-bold">hello@storyofleo.com</a>
-        </div>
-    </div>
-
-    <main class="pt-28 md:pt-32 px-4 sm:px-10 lg:px-16 w-full max-w-[2400px] mx-auto">
+    <main id="main-content" class="pt-28 md:pt-32 px-4 sm:px-10 lg:px-16 w-full max-w-[2400px] mx-auto">
         
         <!-- Header & Series Filter -->
         <header class="mb-8">
@@ -156,6 +78,7 @@
             </div>
         </header>
 
+        <div class="gallery-category-control"><label for="gallery-category">Collection</label><select id="gallery-category" onchange="filterGallery(this.value)"><option value="prints">All Fine Art Prints</option><option value="prints:alpine">Alpine &amp; Wilderness Prints</option><option value="prints:urban">Urban &amp; Skyline Prints</option><option value="prints:wildlife">Wildlife Prints</option><option value="prints:travel">Travel Prints</option><option value="portraiture">All Portraits</option><option value="sakura">Sakura Series</option><option value="adventure">All Adventure</option><option value="backpacking">Backpacking</option><option value="outdoors">Outdoors</option><option value="street">Street</option><option value="all">All Work (Archive)</option></select></div>
         <!-- Hero / Album Preview Section -->
         <div id="gallery-container" class="space-y-12 mb-32">
             <!-- Dynamic Album Sections will be injected here -->
@@ -181,7 +104,7 @@
                 
                 <!-- Standard Fullscreen Image Area -->
                 <div id="modal-standard-view" class="w-full h-full flex items-center justify-center relative">
-                    <img id="modal-img" src="" class="max-w-full max-h-full object-contain shadow-2xl transition-opacity duration-300">
+                    <img decoding="async" id="modal-img" alt="Selected photograph" src="" class="max-w-full max-h-full object-contain shadow-2xl transition-opacity duration-300">
                 </div>
 
                 <!-- Interactive Room Scale Visualizer Canvas -->
@@ -205,7 +128,7 @@
                             <div id="room-framed-print" class="relative transition-all duration-500 shadow-[0_25px_60px_rgba(0,0,0,0.55)] bg-[#121212] p-2 md:p-3 border border-black/90 flex items-center justify-center max-w-[90%] max-h-[85vh]">
                                 <!-- White Fine Art Mat -->
                                 <div class="bg-[#FDFBF7] p-2 md:p-3 shadow-inner border border-black/10 flex items-center justify-center w-full h-full">
-                                    <img id="room-print-img" src="" class="w-full h-full object-contain shadow-sm transition-all duration-300">
+                                    <img decoding="async" id="room-print-img" alt="Selected print displayed in a room preview" src="" class="w-full h-full object-contain shadow-sm transition-all duration-300">
                                 </div>
                             </div>
                         </div>
@@ -249,7 +172,7 @@
 
                     <div class="flex items-center gap-2 text-[10px] font-sans uppercase tracking-widest text-[#F9F9FB]">
                         <span class="opacity-60">Finish:</span>
-                        <select id="print-finish-select" onchange="updatePrintPrice()" class="bg-[#121212] border border-[#F9F9FB]/30 text-[#F9F9FB] px-2 py-1 text-[10px] font-sans focus:outline-none">
+                        <select aria-label="Print finish" id="print-finish-select" onchange="updatePrintPrice()" class="bg-[#121212] border border-[#F9F9FB]/30 text-[#F9F9FB] px-2 py-1 text-[10px] font-sans focus:outline-none">
                             <option value="Studio Archival Matte" selected>Studio Archival Matte</option>
                             <option value="Fine Art Giclée Cotton Rag">Fine Art Giclée Cotton Rag</option>
                             <option value="Metallic">Metallic</option>
@@ -258,7 +181,7 @@
                     </div>
                     <div class="flex items-center gap-2 text-[10px] font-sans uppercase tracking-widest text-[#F9F9FB]">
                         <span class="opacity-60">Size:</span>
-                        <select id="print-size-select" onchange="updatePrintPrice()" class="bg-[#121212] border border-[#F9F9FB]/30 text-[#F9F9FB] px-2 py-1 text-[10px] font-sans focus:outline-none">
+                        <select aria-label="Print size" id="print-size-select" onchange="updatePrintPrice()" class="bg-[#121212] border border-[#F9F9FB]/30 text-[#F9F9FB] px-2 py-1 text-[10px] font-sans focus:outline-none">
                             <!-- Populated dynamically -->
                         </select>
                     </div>
@@ -320,7 +243,7 @@
             <p class="text-[9px] text-[#6E727A] font-sans tracking-wide">
                 Archival packaging &amp; shipping calculated at checkout.
             </p>
-            <a id="cart-checkout-btn" href="#" target="_blank" class="w-full bg-[#F9F9FB] text-[#121212] hover:bg-white text-center py-3 text-xs font-bold uppercase tracking-[0.25em] font-sans transition-all duration-300 shadow-md">
+            <a id="cart-checkout-btn" href="#" target="_blank" rel="noopener noreferrer" class="w-full bg-[#F9F9FB] text-[#121212] hover:bg-white text-center py-3 text-xs font-bold uppercase tracking-[0.25em] font-sans transition-all duration-300 shadow-md">
                 Proceed to Checkout &rarr;
             </a>
         </div>
@@ -328,27 +251,12 @@
 
 
     <script src="gallery-data.js"></script>
+    <script src="gallery-local-data.js"></script>
     <script src="gallery-logic.js"></script>
 
     <script>
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            const hamburger = document.getElementById('hamburger-icon');
-            const close = document.getElementById('close-icon');
-            if (!menu) return;
-            const isOpen = menu.classList.contains('active');
-            if (isOpen) {
-                menu.classList.remove('active');
-                if (hamburger) hamburger.classList.remove('hidden');
-                if (close) close.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            } else {
-                menu.classList.add('active');
-                if (hamburger) hamburger.classList.add('hidden');
-                if (close) close.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            }
-        }
+
     </script>
+    <script src="site.js" defer></script>
 </body>
 </html>

@@ -4,95 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About & Vision | Story of Leo</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        offblack: '#121212',
-                        offwhite: '#F9F9FB',
-                        mutedslate: '#6E727A'
-                    },
-                    fontFamily: {
-                        serif: ['Playfair Display', 'Georgia', 'serif'],
-                        sans: ['Inter', 'DM Sans', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="utilities.css">
     <link rel="stylesheet" href="style.css">
+
+<meta name="description" content="Meet Leo, the photographer and filmmaker behind Story of Leo. Get in touch about portraits, events, short-form content or fine-art prints.">
+<link rel="canonical" href="https://www.storyofleo.com/about.html">
+<meta property="og:title" content="About & Vision | Story of Leo">
+<meta property="og:description" content="Meet Leo, the photographer and filmmaker behind Story of Leo. Get in touch about portraits, events, short-form content or fine-art prints.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#F9F9FB">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body class="bg-[#F9F9FB] text-[#121212] selection:bg-[#121212] selection:text-[#F9F9FB]">
 
     <!-- Navigation Header -->
-    <nav class="fixed top-0 w-full z-50 px-6 py-5 md:py-6 flex justify-between items-center bg-[#F9F9FB]/95 border-b border-[#6E727A]/20 backdrop-blur-md">
-        <a href="index.html" class="text-xs md:text-sm font-bold tracking-[0.2em] uppercase text-[#121212] font-sans">Story of Leo</a>
-        
-        <!-- Desktop Menu -->
-        <div class="hidden md:flex gap-8 text-xs uppercase tracking-[0.3em] font-medium items-center font-sans">
-            <a href="index.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">Home</a>
-            
-            <!-- Gallery Dropdown -->
-            <div class="relative group">
-                <a href="gallery.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">Gallery</a>
-                <div class="absolute left-0 mt-2 w-52 bg-[#F9F9FB] border border-[#6E727A]/30 shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 flex flex-col py-2 z-50">
-                    <a href="gallery.html?filter=prints" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#121212] font-bold transition-colors">Fine Art Prints</a>
-                    <a href="gallery.html?filter=portraiture" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#121212] transition-colors">Portraiture</a>
-                    <a href="gallery.html?filter=adventure" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#121212] transition-colors">Adventure (All)</a>
-                    <a href="gallery.html?filter=backpacking" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#121212] transition-colors">Backpacking</a>
-                    <a href="gallery.html?filter=outdoors" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#121212] transition-colors">Outdoors</a>
-                    <div class="h-[1px] bg-[#6E727A]/20 my-1 mx-4"></div>
-                    <a href="gallery.html?filter=sakura" class="px-4 py-2 hover:bg-[#6E727A]/10 text-[#6E727A] transition-colors">Sakura Series</a>
-                </div>
-            </div>
-
-            <a href="services.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">Services</a>
-            <a href="journal.html" class="text-[#121212] hover:text-[#6E727A] transition-colors">Journal</a>
-            <a href="about.html" class="text-[#121212] hover:text-[#6E727A] transition-colors font-bold border-b border-[#121212]">About</a>
-        </div>
-
-        <!-- Mobile Menu Toggle Button -->
-        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden text-[#121212] p-2 focus:outline-none z-50" aria-label="Toggle Navigation Menu">
-            <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-            <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-        </button>
+<a class="skip-link" href="#main-content">Skip to content</a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html" class="site-brand">Story of Leo</a>
+      <div class="site-links"><a href="index.html">Home</a><a href="portfolio.html">Portfolio</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="about.html" aria-current="page">About</a></div>
+      <div class="nav-actions"><button id="mobile-menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation">Menu</button></div>
+      <div id="mobile-menu" class="mobile-navigation" hidden><a href="index.html">Home</a><a href="portfolio.html">Portfolio</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="about.html" aria-current="page">About</a><a href="mailto:hello@storyofleo.com">Start a conversation ↗</a></div>
     </nav>
 
-    <!-- Mobile Navigation Drawer Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 top-[65px] bg-[#F9F9FB]/98 backdrop-blur-xl z-40 md:hidden flex flex-col p-8 opacity-0 invisible -translate-y-4 transition-all duration-300 overflow-y-auto">
-        <div class="flex flex-col gap-6 text-sm uppercase tracking-[0.3em] font-sans font-medium text-[#121212] pt-4">
-            <a href="index.html" onclick="toggleMobileMenu()" class="border-b border-[#6E727A]/20 pb-3 hover:text-[#6E727A]">Home</a>
-            
-            <div class="flex flex-col gap-3 border-b border-[#6E727A]/20 pb-4">
-                <a href="gallery.html" onclick="toggleMobileMenu()" class="font-bold flex justify-between items-center text-[#121212]">
-                    <span>Gallery</span>
-                    <span class="text-xs text-[#6E727A]">&rarr;</span>
-                </a>
-                <div class="pl-4 flex flex-col gap-2 text-xs tracking-widest text-[#6E727A]">
-                    <a href="gallery.html?filter=prints" onclick="toggleMobileMenu()" class="hover:text-[#121212]">Fine Art Prints</a>
-                    <a href="gallery.html?filter=portraiture" onclick="toggleMobileMenu()" class="hover:text-[#121212]">Portraiture</a>
-                    <a href="gallery.html?filter=adventure" onclick="toggleMobileMenu()" class="hover:text-[#121212]">Adventure</a>
-                    <a href="gallery.html?filter=sakura" onclick="toggleMobileMenu()" class="hover:text-[#121212]">Sakura Series</a>
-                </div>
-            </div>
-
-            <a href="services.html" onclick="toggleMobileMenu()" class="border-b border-[#6E727A]/20 pb-3 hover:text-[#6E727A]">Services &amp; Pricing</a>
-            <a href="journal.html" onclick="toggleMobileMenu()" class="border-b border-[#6E727A]/20 pb-3 hover:text-[#6E727A]">Journal</a>
-            <a href="about.html" onclick="toggleMobileMenu()" class="border-b border-[#6E727A]/20 pb-3 hover:text-[#6E727A]">About &amp; Contact</a>
-        </div>
-
-        <div class="mt-auto pt-8 border-t border-[#6E727A]/20 text-center">
-            <a href="mailto:hello@storyofleo.com" class="text-xs uppercase tracking-[0.2em] font-sans text-[#121212] font-bold">hello@storyofleo.com</a>
-        </div>
-    </div>
-
-    <main class="pt-28 md:pt-32 px-4 sm:px-6 max-w-7xl mx-auto">
+    <main id="main-content" class="pt-28 md:pt-32 px-4 sm:px-6 max-w-7xl mx-auto">
 
         <!-- Hero Header -->
         <header class="mb-20">
@@ -105,9 +39,9 @@
         <!-- Profile Section -->
         <section class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center mb-32 border-t border-[#6E727A]/20 pt-16">
             <div class="lg:col-span-6 relative aspect-[4/5] overflow-hidden bg-white border border-[#6E727A]/20 shadow-md">
-                <img src="https://res.cloudinary.com/decv98oqz/image/upload/f_auto,q_auto,w_1200/v1778177040/leoworking_dv7wgo.jpg" 
+                <img decoding="async" src="https://res.cloudinary.com/decv98oqz/image/upload/f_auto,q_auto,w_1200/v1778177040/leoworking_dv7wgo.jpg"
                      alt="Leo Photography" 
-                     class="w-full h-full object-cover">
+                     class="w-full h-full object-cover" srcset="https://res.cloudinary.com/decv98oqz/image/upload/f_auto,q_auto,w_640/v1778177040/leoworking_dv7wgo.jpg 640w, https://res.cloudinary.com/decv98oqz/image/upload/f_auto,q_auto,w_1200/v1778177040/leoworking_dv7wgo.jpg 1200w, https://res.cloudinary.com/decv98oqz/image/upload/f_auto,q_auto,w_2000/v1778177040/leoworking_dv7wgo.jpg 2000w" sizes="(max-width: 767px) 100vw, 66vw">
             </div>
             
             <div class="lg:col-span-6 space-y-8">
@@ -133,31 +67,15 @@
         <div class="flex gap-8">
             <a href="index.html" class="hover:text-[#121212] transition-colors">Home</a>
             <a href="gallery.html" class="hover:text-[#121212] transition-colors">Prints &amp; Gallery</a>
-            <a href="services.html" class="hover:text-[#121212] transition-colors">Services</a>
+            <a href="portfolio.html" class="hover:text-[#121212] transition-colors">Portfolio</a>
             <a href="journal.html" class="hover:text-[#121212] transition-colors">Journal</a>
             <a href="about.html" class="hover:text-[#121212] transition-colors">About</a>
         </div>
     </footer>
 
     <script>
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            const hamburger = document.getElementById('hamburger-icon');
-            const close = document.getElementById('close-icon');
-            if (!menu) return;
-            const isOpen = menu.classList.contains('active');
-            if (isOpen) {
-                menu.classList.remove('active');
-                if (hamburger) hamburger.classList.remove('hidden');
-                if (close) close.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            } else {
-                menu.classList.add('active');
-                if (hamburger) hamburger.classList.add('hidden');
-                if (close) close.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            }
-        }
+
     </script>
+    <script src="site.js" defer></script>
 </body>
 </html>
