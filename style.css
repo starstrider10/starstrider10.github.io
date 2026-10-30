@@ -218,7 +218,8 @@ label:has(+input[type="file"]:focus-visible) { outline: 2px solid currentColor; 
 .project-title-note { color: #62666e; font-size: 11px; line-height: 1.7; margin: -12px 0 22px; }
 .project-copy .project-credits { color: #121212; font-size: 11px; line-height: 1.9; margin: 24px 0; }
 .project-credits>span { display: block; font-weight: 600; margin-bottom: 4px; }
-.portfolio-project .vertical-video { aspect-ratio: 9/16; max-height: 660px; object-fit: contain; background: #121212; }
+.portfolio-project .native-video { display: block; width: 100%; height: auto; max-height: none; object-fit: contain; background: #121212; margin-bottom: 14px; }
+.portfolio-project .native-video.vertical-video { max-width: 330px; margin-inline: auto; }
 @media(max-width: 767px) {
   .reel-project { grid-template-columns: 1fr; gap: 28px; }
   .reel-link-card, .vertical-video { max-width: 330px; margin-inline: auto; }

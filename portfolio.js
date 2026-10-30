@@ -13,7 +13,9 @@ function projectImage(image, index, projectIndex) {
 function projectMedia(project) {
     const title = escapeHTML(project.title);
     if (project.video) {
-        return `<video class="${project.format === 'vertical' ? 'vertical-video' : ''}" controls playsinline preload="none" poster="${escapeHTML(project.video.poster || '')}" aria-label="${title}"><source src="${escapeHTML(project.video.src)}">${project.video.captions ? `<track kind="captions" src="${escapeHTML(project.video.captions)}" srclang="en" label="English" default>` : ''}<a href="${escapeHTML(project.video.src)}">Watch ${title}</a></video>`;
+        const dimensions = Number.isFinite(project.video.width) && Number.isFinite(project.video.height)
+            ? ` width="${project.video.width}" height="${project.video.height}"` : '';
+        return `<div class="native-film"><video class="native-video ${project.format === 'vertical' ? 'vertical-video' : ''}"${dimensions} controls playsinline preload="none" poster="${escapeHTML(project.video.poster || '')}" aria-label="${title}"><source src="${escapeHTML(project.video.src)}">${project.video.captions ? `<track kind="captions" src="${escapeHTML(project.video.captions)}" srclang="en" label="English" default>` : ''}<a href="${escapeHTML(project.video.src)}">Watch ${title}</a></video><p class="film-privacy"><a href="${escapeHTML(project.video.src)}" target="_blank" rel="noopener noreferrer">Open video ↗</a></p></div>`;
     }
     if (project.youtube) {
         const url = `https://www.youtube.com/watch?v=${escapeHTML(project.youtube)}`;
@@ -41,6 +43,7 @@ function filterPortfolio(category, updateURL = true) {
     if (!allowedCategories.includes(category)) category = 'all';
     document.querySelectorAll('[data-category]').forEach(project => {
         project.hidden = category !== 'all' && project.dataset.category !== category;
+        if (project.hidden) project.querySelectorAll('video').forEach(video => video.pause());
     });
     filters.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.filter === category)));
     const count = [...document.querySelectorAll('[data-category]')].filter(project => !project.hidden).length;
@@ -55,6 +58,11 @@ function filterPortfolio(category, updateURL = true) {
 filters.forEach(button => button.addEventListener('click', () => filterPortfolio(button.dataset.filter)));
 window.addEventListener('popstate', () => filterPortfolio(new URLSearchParams(location.search).get('category') || 'all', false));
 filterPortfolio(new URLSearchParams(location.search).get('category') || 'all', false);
+
+const portfolioVideos = document.querySelectorAll('#portfolio-projects video');
+portfolioVideos.forEach(video => video.addEventListener('play', () => {
+    portfolioVideos.forEach(other => { if (other !== video) other.pause(); });
+}));
 
 document.querySelectorAll('[data-package]').forEach(button => button.addEventListener('click', () => {
     const select = document.getElementById('package-select');

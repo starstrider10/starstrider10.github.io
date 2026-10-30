@@ -55,6 +55,10 @@ const portfolioProjects = [
     delivery: 'One vertical Reel, published on Instagram.',
     credits: ['Direction', 'Filming', 'Editing', 'Color'],
     images: [], format: 'vertical',
+    video: {
+      src: 'https://res.cloudinary.com/decv98oqz/video/upload/v1793340569/Video-6606_fhpgfa.mp4',
+      poster: 'assets/made-of-stars-poster.jpg', width: 720, height: 1280
+    },
     instagramUrl: 'https://www.instagram.com/reel/Des13xtSB4X/',
     titleNote: 'Descriptive working title.'
   },
@@ -63,9 +67,13 @@ const portfolioProjects = [
     title: 'Music-video promo',
     summary: 'A short promotional piece for a music video.',
     approach: 'Music-video work presented in a short promotional format.',
-    delivery: 'One vertical promo Reel, published on Instagram.',
+    delivery: 'One music-video promo, also published on Instagram.',
     credits: ['Direction', 'Filming', 'Editing', 'Color'],
-    images: [], format: 'vertical',
+    images: [], format: 'landscape',
+    video: {
+      src: 'https://res.cloudinary.com/decv98oqz/video/upload/v1793340509/Video-73917_ubxwcy.mp4',
+      poster: 'assets/music-video-promo-poster.jpg', width: 1276, height: 718
+    },
     instagramUrl: 'https://www.instagram.com/reel/DbkTd0fsNxf/'
   },
   {

@@ -2,6 +2,16 @@
 
 Prepared October 29, 2026. Local implementation is ready for design/content review. Publication has not been performed and is not authorized yet.
 
+## Cloudinary playback update — latest
+
+Connected the two owner-supplied Cloudinary MP4s to native on-page players. Inspection and sample frames identify `Video-6606_fhpgfa.mp4` as the reflective short (720×1280, 80.94 seconds) and `Video-73917_ubxwcy.mp4` as the music-video promo (1276×718, 15.86 seconds). Both have H.264 video and AAC audio.
+
+The promo is landscape, not vertical. Its entry now uses the wide editorial layout with intrinsic width/height and `height: auto; object-fit: contain`. The reflective short retains its 9:16 side-by-side desktop presentation and stacked mobile presentation. Locally extracted real frames provide posters without new Cloudinary transformations. Both players have controls, inline playback, no autoplay and no video preload, plus a direct-video fallback link. Starting one video pauses the other; filtering a video out pauses it.
+
+Verified both videos actually decode and advance during playback in the local browser, not just that their controls appear. Verified the promo's rendered ratio at desktop width 1440 (1.777179) and mobile width 390 (1.777165), matching the source ratio 1276/718 (1.777159) within subpixel rounding. The reflective short's mobile ratio is 0.562502, matching 9/16. No horizontal overflow or console errors observed. Category filtering and pause-on-hide behavior pass. Eight automated regression checks pass, now covering actual source URLs, poster files, dimensions, controls and landscape promo classification.
+
+Video files remain hosted in the owner's Cloudinary account; this task did not upload or alter them. The full music video and earlier personal film still use their YouTube links. Updated screenshots: `../promo-player-desktop.jpg`, `../promo-player-mobile.jpg`.
+
 ## Filmmaking update
 
 Added the three supplied pieces: Made of Stars (explicitly a descriptive working title), a music-video promo, and Young and Beautiful (Cover) M/V. Each shows Leo Fan's confirmed direction, filming, editing and color credits. The promo and full film remain separate entries; no relationship between their productions is asserted. The original personal film remains.

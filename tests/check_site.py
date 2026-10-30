@@ -102,11 +102,25 @@ console.log(vm.runInContext(`JSON.stringify({
             self.assertEqual(by_id[project_id]['credits'], ['Direction', 'Filming', 'Editing', 'Color'])
         for project_id, reel_id in [('made-of-stars', 'Des13xtSB4X'), ('music-video-promo', 'DbkTd0fsNxf')]:
             project = by_id[project_id]
-            links = [a for tag, a in Document(project['media']).nodes if tag == 'a']
-            self.assertEqual(links[0]['href'], f'https://www.instagram.com/reel/{reel_id}/')
-            self.assertIn(project['title'], links[0]['aria-label'])
-            self.assertEqual(project['format'], 'vertical')
-            self.assertNotIn('<img', project['media'])
+            self.assertEqual(project['instagramUrl'], f'https://www.instagram.com/reel/{reel_id}/')
+            video = next(a for tag, a in Document(project['media']).nodes if tag == 'video')
+            self.assertEqual(video['aria-label'], project['title'])
+            self.assertIn('controls', video)
+            self.assertIn('playsinline', video)
+            self.assertNotIn('autoplay', video)
+            self.assertEqual(video['preload'], 'none')
+            self.assertTrue((ROOT / video['poster']).is_file())
+        for project_id, width, height, filename in [
+            ('made-of-stars', 720, 1280, 'Video-6606_fhpgfa.mp4'),
+            ('music-video-promo', 1276, 718, 'Video-73917_ubxwcy.mp4')
+        ]:
+            project = by_id[project_id]
+            self.assertEqual((project['video']['width'], project['video']['height']), (width, height))
+            self.assertTrue(project['video']['src'].endswith(filename))
+            video = next(a for tag, a in Document(project['media']).nodes if tag == 'video')
+            self.assertEqual((int(video['width']), int(video['height'])), (width, height))
+        self.assertEqual(by_id['music-video-promo']['format'], 'landscape')
+        self.assertNotIn('vertical-video', by_id['music-video-promo']['media'])
         film = by_id['young-and-beautiful']
         self.assertIn('https://www.youtube.com/watch?v=YpRT2H2vnTw', film['media'])
         self.assertIn('https://i.ytimg.com/vi/YpRT2H2vnTw/hqdefault.jpg', film['media'])
