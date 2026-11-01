@@ -6,3 +6,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 .DS_Store
+
+# ponytail: local visual QA stays outside published source.
+outputs/homepage-redesign/

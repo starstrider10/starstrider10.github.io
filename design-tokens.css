@@ -1,0 +1,31 @@
+/* ponytail: additive tokens; migrate remaining routes only during their design phase. */
+:root {
+  --carbon: #17191B;
+  --graphite: #282B2E;
+  --bone: #F2F0EA;
+  --paper: #FAF9F6;
+  --signal-amber: #D9B75E;
+  --steel: #94999D;
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-label: 'IBM Plex Mono', monospace;
+  --space-1: .5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-6: 3rem;
+  --space-8: 4rem;
+  --space-12: 6rem;
+  --space-16: 8rem;
+  --page-gutter: clamp(20px, 4.5vw, 80px);
+  --grid-gap: clamp(16px, 2vw, 32px);
+  --content-width: 1440px;
+  --rule-dark: #17191B30;
+  --rule-light: #FAF9F630;
+  --motion-short: 180ms;
+  --motion-ease: cubic-bezier(.2, .7, .2, 1);
+}
+.editorial-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--grid-gap); }
+@media (max-width: 767px) {
+  .editorial-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}

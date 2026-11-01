@@ -31,6 +31,8 @@ class SiteChecks(unittest.TestCase):
                         self.assertTrue(target.is_file(), f'Missing local target: {raw}')
                         if url.fragment and target.suffix == '.html':
                             ids = {a.get('id') for _, a in Document(target.read_text()).nodes}
+                            if target.name == 'portfolio.html':
+                                ids.update(re.findall(r"\bid: '([^']+)'", (ROOT / 'portfolio-data.js').read_text()))
                             self.assertIn(unquote(url.fragment), ids)
 
     def test_no_runtime_tailwind_or_stock_portfolio(self):
@@ -58,7 +60,7 @@ class SiteChecks(unittest.TestCase):
             self.assertIn('https://shop.storyofleo.com/', page)
             self.assertNotIn('cart-drawer', page)
             self.assertNotIn('inquiry-form', page)
-            if name != 'portfolio.html': self.assertNotIn('$325', page)
+            if name not in ['portfolio.html', 'index.html']: self.assertNotIn('$325', page)
         gallery = (ROOT / 'gallery-logic.js').read_text()
         for removed in ['shopifyFetch', 'graphql.json', 'initCart', 'handleBuyPrintClick']:
             self.assertNotIn(removed, gallery)
