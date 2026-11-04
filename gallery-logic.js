@@ -18,6 +18,25 @@ let currentIndex = 0;
 let currentModel = "";
 let slideshowInterval = null;
 let isSlideshowActive = false;
+let archiveMotionPaused = false;
+const galleryMotionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+const archiveMotionButton = document.getElementById('archive-motion-toggle');
+// ponytail: retain drifting archive, with an explicit pause control.
+archiveMotionButton.addEventListener('click', () => {
+    archiveMotionPaused = !archiveMotionPaused;
+    document.querySelectorAll('#floating-archive > div').forEach(item => {
+        if (archiveMotionPaused) item._tl?.pause();
+        else if (item.style.zIndex !== '2000') item._tl?.play();
+    });
+    archiveMotionButton.setAttribute('aria-pressed', String(archiveMotionPaused));
+    archiveMotionButton.textContent = archiveMotionPaused ? 'Resume archive motion' : 'Pause archive motion';
+});
+galleryMotionPreference.addEventListener('change', () => {
+    const container = document.getElementById('gallery-container');
+    const restoreFocus = container.contains(document.activeElement);
+    renderGallery(document.getElementById('gallery-category').value);
+    if (restoreFocus) document.getElementById('gallery-category').focus();
+});
 
 // Helper to optimize Cloudinary URLs on the fly
 function optimizeUrl(url, width = 1000) {
@@ -33,7 +52,15 @@ function renderGallery(category = 'all') {
         const container = document.getElementById('gallery-container');
         container.querySelectorAll('*').forEach(item => item._tl?.kill());
         gsap.killTweensOf(container.querySelectorAll('*'));
-        container.innerHTML = ''; 
+        container.innerHTML = '';
+        document.getElementById('gallery-status').textContent = '';
+        archiveMotionButton.hidden = !['all', 'street'].includes(category) || galleryMotionPreference.matches;
+        document.querySelectorAll('.gallery-filters button').forEach(button => {
+            const value = button.getAttribute('onclick').match(/'([^']+)'/)[1];
+            const active = value === category || (value === 'prints' && category.startsWith('prints:')) ||
+                (value === 'portraiture' && category === 'sakura') || (value === 'adventure' && ['outdoors', 'backpacking'].includes(category));
+            button.setAttribute('aria-pressed', String(active));
+        });
 
         const getModelName = (id) => {
             const parts = id.split('-');
@@ -168,7 +195,7 @@ function renderGallery(category = 'all') {
                 gsap.set(item, { x: initialX, rotation: rotation });
 
                 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-                const tl = gsap.timeline({ repeat: reduceMotion ? 0 : -1, paused: reduceMotion });
+                const tl = gsap.timeline({ repeat: reduceMotion ? 0 : -1, paused: reduceMotion || archiveMotionPaused });
                 tl.to(item, {
                     x: -buffer,
                     duration: duration * ((initialX + buffer) / totalWidth),
@@ -224,7 +251,7 @@ function renderGallery(category = 'all') {
                     rotation: el._rotation,
                     duration: 1, 
                     ease: "power3.inOut",
-                    onComplete: () => el._tl.play()
+                    onComplete: () => { if (!archiveMotionPaused) el._tl.play(); }
                 });
                 el.querySelector('span:last-child').innerText = "Click to Select";
                 focusedItem = null;
@@ -294,10 +321,10 @@ function renderGallery(category = 'all') {
             container.appendChild(gridContainer);
             
             gsap.from(gridContainer.children, {
-                duration: matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 0.8,
-                y: 30,
+                duration: galleryMotionPreference.matches ? 0 : 0.45,
+                y: 8,
                 opacity: 0,
-                stagger: 0.1,
+                stagger: 0.02,
                 ease: "power3.out"
             });
             return;
@@ -346,15 +373,20 @@ function renderGallery(category = 'all') {
         });
 
         gsap.from(".album-section", {
-            duration: matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1.2,
-            y: 40,
+            duration: galleryMotionPreference.matches ? 0 : 0.45,
+            y: 8,
             opacity: 0,
-            stagger: 0.2,
+            stagger: 0.04,
             ease: "power3.out"
         });
 
     } catch (e) {
         console.error("Error rendering gallery:", e);
+        document.getElementById('gallery-status').textContent = 'Collection could not load. Please try another collection.';
+    } finally {
+        const count = document.querySelectorAll('#gallery-container img').length;
+        if (count) document.getElementById('gallery-status').textContent = `${count} ${['portraiture', 'sakura'].includes(category) ? 'series' : 'photographs'} shown.`;
+        else if (!document.getElementById('gallery-status').textContent.includes('could not load')) document.getElementById('gallery-status').textContent = 'No photographs in this collection.';
     }
 }
 
@@ -489,7 +521,7 @@ function updateRoomScale() {
 
     if (badge) badge.innerText = badgeText;
     
-    if (window.gsap) {
+    if (window.gsap && !galleryMotionPreference.matches) {
         gsap.to(frame, {
             width: widthPercent,
             duration: 0.6,
@@ -536,7 +568,7 @@ function closeModal() {
         const roomView = document.getElementById('room-view');
         if (stdView) stdView.classList.remove('hidden');
         if (roomView) roomView.classList.add('hidden');
-    }, 500);
+    }, galleryMotionPreference.matches ? 0 : 180);
 }
 
 function updateModal() {
@@ -600,6 +632,7 @@ function updateSlideshowUI() {
     const label = document.getElementById('slideshow-label');
     const btn = document.getElementById('slideshow-toggle-btn');
     if (!btn) return;
+    btn.setAttribute('aria-pressed', String(isSlideshowActive));
     if (isSlideshowActive) {
         if (icon) icon.innerText = '❚❚';
         if (label) label.innerText = 'Pause Exhibition';
@@ -639,6 +672,7 @@ document.addEventListener('keydown', (e) => {
     if (modal && modal.classList.contains('hidden')) return;
 
     if (e.target.matches('input, select, textarea')) return;
+    if ((e.key === ' ' || e.code === 'Space') && e.target.closest('button, a, summary')) return;
     if (e.key === 'ArrowRight') nextPhoto();
     else if (e.key === 'ArrowLeft') prevPhoto();
     else if (e.key === 'Escape') closeModal();

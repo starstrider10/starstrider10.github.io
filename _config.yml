@@ -1,0 +1,11 @@
+# ponytail: native Pages exclusions; no custom build pipeline.
+exclude:
+  - AGENTS.md
+  - AUDIT.md
+  - REVIEW.md
+  - README.md
+  - HOMEPAGE-REDESIGN.md
+  - MEDIA-WORKFLOW.md
+  - tests
+  - outputs
+  - sync_cloudinary.py

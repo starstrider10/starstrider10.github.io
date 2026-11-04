@@ -1,0 +1,37 @@
+/* ponytail: color-only bridge; retain interior typography, layout and behavior. */
+.portfolio-page {
+  --color-offblack: var(--obsidian);
+  --color-offwhite: var(--porcelain);
+  --color-mutedslate: var(--text-muted-light);
+  background: var(--porcelain);
+  color: var(--obsidian);
+}
+.portfolio-page ::selection { background: var(--raspberry); color: var(--porcelain); }
+.portfolio-page :focus-visible { outline-color: var(--accent-on-light) !important; }
+.portfolio-page .site-nav, .portfolio-page .mobile-navigation { background: var(--porcelain); border-color: var(--rule-dark); }
+.portfolio-page .site-links a[aria-current], .portfolio-page .site-nav a:hover { color: var(--accent-on-light); border-color: var(--accent-on-light); }
+.portfolio-page .mobile-navigation a { border-color: var(--rule-dark); }
+.portfolio-page .skip-link { background: var(--raspberry); color: var(--porcelain); }
+.portfolio-page .eyebrow, .portfolio-page .intro-copy p, .portfolio-page .project-copy p,
+.portfolio-page .project-copy dd, .portfolio-page .project-title-note, .portfolio-page .project-credits,
+.portfolio-page .portfolio-filters button, .portfolio-page .commission-intro,
+.portfolio-page .commission-other, .portfolio-page .commission-package p,
+.portfolio-page .commission-package details, .portfolio-page .portfolio-gallery-link p,
+.portfolio-page .site-footer { color: var(--text-muted-light); }
+.portfolio-page .intro-copy p:first-child, .portfolio-page .commission-package .commission-price { color: var(--obsidian); }
+.portfolio-page .portfolio-filters button[aria-pressed="true"] { color: var(--accent-on-light); border-color: var(--accent-on-light); }
+.portfolio-page .text-link { border-color: var(--accent-on-light); }
+.portfolio-page .text-link:hover, .portfolio-page .commission-package summary:hover { color: var(--accent-on-light); }
+.portfolio-page .work-toolbar, .portfolio-page .project-copy details, .portfolio-page .commission-guide,
+.portfolio-page .commission-package, .portfolio-page .portfolio-gallery-link, .portfolio-page .site-footer { border-color: var(--rule-accent); }
+.portfolio-page .project-images figure { background: var(--neutral-light); }
+.portfolio-page .film-project { background: var(--obsidian); color: var(--porcelain); border-color: var(--deep-plum); }
+.portfolio-page .film-project :focus-visible { outline-color: var(--accent-on-dark) !important; }
+.portfolio-page .film-project .eyebrow, .portfolio-page .film-project .project-credits { color: var(--accent-on-dark); }
+.portfolio-page .film-project .project-copy p, .portfolio-page .film-project .project-copy dd,
+.portfolio-page .film-project .project-title-note, .portfolio-page .film-project .film-privacy { color: var(--text-muted-dark); }
+.portfolio-page .film-project .project-credits span { color: var(--porcelain); }
+.portfolio-page .film-project .text-link, .portfolio-page .film-project .project-copy details { border-color: var(--soft-rose); }
+.portfolio-page .film-project .text-link:hover { color: var(--accent-on-dark); }
+.portfolio-page .film-player, .portfolio-page .reel-link-card { background: var(--deep-plum); color: var(--porcelain); border-color: var(--soft-rose); }
+.portfolio-page .reel-card-format, .portfolio-page .reel-card-action { color: var(--soft-rose); border-color: var(--soft-rose); }

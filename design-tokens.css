@@ -1,11 +1,24 @@
 /* ponytail: additive tokens; migrate remaining routes only during their design phase. */
 :root {
-  --carbon: #17191B;
-  --graphite: #282B2E;
-  --bone: #F2F0EA;
-  --paper: #FAF9F6;
-  --signal-amber: #D9B75E;
-  --steel: #94999D;
+  --obsidian: #18171B;
+  --deep-plum: #422633;
+  --raspberry: #A45175;
+  --soft-rose: #D9A8BA;
+  --porcelain: #F7F0F2;
+  /* ponytail: neutral support and semantic roles; no duplicate page palettes. */
+  --neutral-light: #F3EFF0;
+  --text-muted-light: #71616A;
+  --text-muted-dark: #B8B0B5;
+  --accent-on-light: var(--raspberry);
+  --accent-on-dark: var(--soft-rose);
+  --button-surface: var(--raspberry);
+  --button-text: var(--porcelain);
+  --rule-accent: #A4517540;
+  --image-fade: #17171785;
+  --image-caption-surface: #171717D9;
+  --image-label-surface: #171717A6;
+  --image-bottom-fade: #17171760;
+  --image-neutral: #171717;
   --font-heading: 'Space Grotesk', sans-serif;
   --font-body: 'Inter', sans-serif;
   --font-label: 'IBM Plex Mono', monospace;
@@ -20,9 +33,17 @@
   --page-gutter: clamp(20px, 4.5vw, 80px);
   --grid-gap: clamp(16px, 2vw, 32px);
   --content-width: 1440px;
-  --rule-dark: #17191B30;
-  --rule-light: #FAF9F630;
+  --rule-dark: #18171B30;
+  --rule-light: #F7F0F230;
   --motion-short: 180ms;
+  --motion-entrance: 450ms;
+  --motion-panel: 240ms;
+  --motion-image: 500ms;
+  --motion-stagger: 70ms;
+  --motion-section-limit: 650ms;
+  --motion-opening-travel: 12px;
+  --motion-section-travel: 8px;
+  --motion-arrow-travel: 4px;
   --motion-ease: cubic-bezier(.2, .7, .2, 1);
 }
 .editorial-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--grid-gap); }

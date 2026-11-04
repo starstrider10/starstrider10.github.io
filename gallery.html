@@ -6,12 +6,11 @@
     <title>Gallery | Story of Leo</title>
     <script src="vendor/gsap.min.js"></script>
     <script src="vendor/ScrollTrigger.min.js"></script>
-    <link rel="stylesheet" href="utilities.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&amp;family=Inter:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="design-tokens.css?v=motion-1">
+<link rel="stylesheet" href="utilities.css">
     <link rel="stylesheet" href="style.css?v=20261030-personal">
-    <style>
-        .gallery-image { transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease; }
-        .gallery-item:hover .gallery-image { transform: scale(1.05); opacity: 0.9; }
-    </style>
+
 
 <meta name="description" content="Explore Story of Leo’s personal photography archive, from alpine landscapes to travel stories and portraits.">
 <link rel="canonical" href="https://www.storyofleo.com/gallery.html">
@@ -28,67 +27,29 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://www.storyofleo.com/assets/social-preview.jpg">
 <meta name="twitter:image:alt" content="Story of Leo — photography and filmmaking, beside a photograph of a person on a beach at sunset.">
-<meta name="theme-color" content="#F9F9FB">
+<meta name="theme-color" content="#F7F0F2">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="interior.css?v=editorial-1">
+<link rel="stylesheet" href="site-chrome.css?v=editorial-1">
 </head>
-<body class="bg-[#F9F9FB] text-[#121212] selection:bg-[#121212] selection:text-[#F9F9FB]">
+<body class="gallery-page editorial-interior">
 
     <!-- Navigation Header -->
 <a class="skip-link" href="#main-content">Skip to content</a>
-    <nav class="site-nav" aria-label="Main navigation">
-      <a href="index.html" class="site-brand">Story of Leo</a>
-      <div class="site-links"><a href="index.html">Home</a><a href="portfolio.html">Portfolio</a><a href="gallery.html" aria-current="page">Gallery</a><a href="about.html">About</a></div>
-      <div class="nav-actions"><button id="mobile-menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation">Menu</button></div>
-      <div id="mobile-menu" class="mobile-navigation" hidden><a href="index.html">Home</a><a href="portfolio.html">Portfolio</a><a href="gallery.html" aria-current="page">Gallery</a><a href="about.html">About</a><a href="mailto:hello@storyofleo.com">Say hello ↗</a></div>
-    </nav>
+    <nav class="site-nav" aria-label="Main navigation"><a href="index.html" class="site-brand"><span class="brand-mark" aria-hidden="true"></span>STORY OF LEO</a><div class="site-links"><a href="index.html">Home</a><a href="portfolio.html">Work</a><a href="portfolio.html#investment">Services</a><a href="gallery.html" aria-current="page">Gallery</a><a href="about.html">About</a><a href="mailto:hello@storyofleo.com">Contact ↗</a></div><button id="mobile-menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation">Menu</button><div id="mobile-menu" class="mobile-navigation" hidden><a href="index.html">Home</a><a href="portfolio.html">Work</a><a href="portfolio.html#investment">Services</a><a href="gallery.html" aria-current="page">Gallery</a><a href="about.html">About</a><a href="mailto:hello@storyofleo.com">Contact ↗</a></div></nav>
 
-    <main id="main-content" class="pt-28 md:pt-32 px-4 sm:px-10 lg:px-16 w-full max-w-[2400px] mx-auto">
+    <main id="main-content" class="gallery-main">
 
-        <!-- Header & Series Filter -->
-        <header class="mb-8">
-            <h1 class="text-xs uppercase tracking-[0.5em] text-[#6E727A] mb-4 md:mb-6 font-bold font-sans">Visual Archives</h1>
-            <div class="flex overflow-x-auto no-scrollbar border-b border-[#6E727A]/20 pb-4 md:pb-6 items-center gap-6 md:gap-16 whitespace-nowrap">
-                <div class="relative group h-full py-2">
-                    <button onclick="filterGallery('prints')" class="text-xl md:text-2xl font-serif hover:text-[#6E727A] transition-all tracking-tight filter-btn active text-[#121212] border-b border-[#121212] flex items-center gap-3">
-                        Selected Photographs <span class="text-[8px] opacity-60 translate-y-[1px] group-hover:rotate-180 transition-transform">▼</span>
-                    </button>
-                    <div class="absolute top-full left-0 mt-0 bg-[#F9F9FB] border border-[#6E727A]/30 py-4 px-6 hidden group-hover:block z-50 min-w-[210px] shadow-xl backdrop-blur-md">
-                        <button onclick="filterGallery('prints')" class="block text-[10px] uppercase tracking-[0.3em] font-sans hover:text-[#121212] text-[#121212] font-bold transition-colors py-2 text-left w-full filter-btn">All Selected Photographs</button>
-                        <button onclick="filterGallery('prints:alpine')" class="block text-[10px] uppercase tracking-[0.3em] font-sans hover:text-[#121212] text-[#6E727A] transition-colors py-2 text-left w-full filter-btn">Alpine &amp; Wilderness</button>
-                        <button onclick="filterGallery('prints:urban')" class="block text-[10px] uppercase tracking-[0.3em] font-sans hover:text-[#121212] text-[#6E727A] transition-colors py-2 text-left w-full filter-btn">Urban &amp; Skylines</button>
-                        <button onclick="filterGallery('prints:wildlife')" class="block text-[10px] uppercase tracking-[0.3em] font-sans hover:text-[#121212] text-[#6E727A] transition-colors py-2 text-left w-full filter-btn">Wildlife &amp; Fine Art</button>
-                        <button onclick="filterGallery('prints:travel')" class="block text-[10px] uppercase tracking-[0.3em] font-sans hover:text-[#121212] text-[#6E727A] transition-colors py-2 text-left w-full filter-btn">Travel Story Prints</button>
-                    </div>
-                </div>
-
-                <div class="relative group h-full py-2">
-                    <button onclick="filterGallery('portraiture')" class="text-xl md:text-2xl font-serif hover:text-[#6E727A] transition-all tracking-tight filter-btn text-[#6E727A] flex items-center gap-3">
-                        Portraiture <span class="text-[8px] opacity-60 translate-y-[1px] group-hover:rotate-180 transition-transform">▼</span>
-                    </button>
-                    <div class="absolute top-full left-0 mt-0 bg-[#F9F9FB] border border-[#6E727A]/30 py-4 px-6 hidden group-hover:block z-50 min-w-[180px] shadow-xl backdrop-blur-md">
-                        <button onclick="filterGallery('sakura')" class="block text-[10px] uppercase tracking-[0.3em] font-sans hover:text-[#121212] text-[#6E727A] transition-colors py-2 text-left w-full filter-btn">Sakura Series</button>
-                        <button onclick="filterGallery('portraiture')" class="block text-[10px] uppercase tracking-[0.3em] font-sans hover:text-[#121212] text-[#6E727A] transition-colors py-2 text-left w-full filter-btn">All Portraits</button>
-                    </div>
-                </div>
-
-                <div class="relative group h-full py-2">
-                    <button onclick="filterGallery('adventure')" class="text-xl md:text-2xl font-serif hover:text-[#6E727A] transition-all tracking-tight filter-btn text-[#6E727A] flex items-center gap-3">
-                        Adventure <span class="text-[8px] opacity-60 translate-y-[1px] group-hover:rotate-180 transition-transform">▼</span>
-                    </button>
-                    <div class="absolute top-full left-0 mt-0 bg-[#F9F9FB] border border-[#6E727A]/30 py-4 px-6 hidden group-hover:block z-50 min-w-[180px] shadow-xl backdrop-blur-md">
-                        <button onclick="filterGallery('backpacking')" class="block text-[10px] uppercase tracking-[0.3em] font-sans hover:text-[#121212] text-[#6E727A] transition-colors py-2 text-left w-full filter-btn">Backpacking</button>
-                        <button onclick="filterGallery('outdoors')" class="block text-[10px] uppercase tracking-[0.3em] font-sans hover:text-[#121212] text-[#6E727A] transition-colors py-2 text-left w-full filter-btn">Outdoors</button>
-                        <button onclick="filterGallery('adventure')" class="block text-[10px] uppercase tracking-[0.3em] font-sans hover:text-[#121212] text-[#6E727A] transition-colors py-2 text-left w-full filter-btn">All Adventure</button>
-                    </div>
-                </div>
-
-                <button onclick="filterGallery('street')" class="text-xl md:text-2xl font-serif hover:text-[#6E727A] transition-all tracking-tight filter-btn text-[#6E727A]">Street</button>
-
-                <button onclick="filterGallery('all')" class="text-xl md:text-2xl font-serif hover:text-[#6E727A] transition-all tracking-tight filter-btn text-[#6E727A] ml-auto">All Work (Archive)</button>
-            </div>
-        </header>
-
+        <header class="gallery-intro"><p class="eyebrow">Story of Leo / Visual archive</p><div class="gallery-intro-grid"><h1>Another way<br>to see.</h1><a class="text-link" href="portfolio.html">Selected work ↗</a></div></header>
+        <div class="gallery-filters" role="group" aria-label="Filter gallery">
+          <button type="button" class="filter-btn" onclick="filterGallery('prints')">Selected photographs</button>
+          <button type="button" class="filter-btn" onclick="filterGallery('portraiture')">Portraiture</button>
+          <button type="button" class="filter-btn" onclick="filterGallery('adventure')">Adventure</button>
+          <button type="button" class="filter-btn" onclick="filterGallery('street')">Street</button>
+          <button type="button" class="filter-btn" onclick="filterGallery('all')">Full archive</button>
+        </div>
         <div class="gallery-category-control"><label for="gallery-category">Collection</label><select id="gallery-category" onchange="filterGallery(this.value)"><option value="prints">All Selected Photographs</option><option value="prints:alpine">Alpine &amp; Wilderness Prints</option><option value="prints:urban">Urban &amp; Skyline Prints</option><option value="prints:wildlife">Wildlife Prints</option><option value="prints:travel">Travel Prints</option><option value="portraiture">All Portraits</option><option value="sakura">Sakura Series</option><option value="adventure">All Adventure</option><option value="backpacking">Backpacking</option><option value="outdoors">Outdoors</option><option value="street">Street</option><option value="all">All Work (Archive)</option></select></div>
+        <div class="gallery-status-row"><p id="gallery-status" role="status" aria-live="polite"></p><button type="button" id="archive-motion-toggle" aria-pressed="false" hidden>Pause archive motion</button></div>
         <!-- Hero / Album Preview Section -->
         <div id="gallery-container" class="space-y-12 mb-32">
             <!-- Dynamic Album Sections will be injected here -->
@@ -193,23 +154,16 @@
             </div>
         </div>
 
-        <!-- Call to Action -->
-        <footer class="py-24 text-center border-t border-[#6E727A]/20">
-            <h2 class="text-3xl md:text-5xl font-serif font-normal tracking-tight mb-8 italic text-[#121212]">Thanks for <span class="italic text-[#6E727A]">looking.</span></h2>
-            <a href="mailto:hello@storyofleo.com" class="text-[10px] uppercase tracking-[0.4em] font-bold font-sans text-[#121212] border-b border-[#121212]/30 hover:border-[#121212] transition-all pb-2">
-                hello@storyofleo.com
-            </a>
-        <a href="https://shop.storyofleo.com/" target="_blank" rel="noopener noreferrer">Print shop ↗</a></footer>
-
     </main>
+<footer class="site-footer"><p>© 2026 Story of Leo</p><a href="mailto:hello@storyofleo.com">hello@storyofleo.com ↗</a><nav aria-label="Footer navigation"><a href="practice.html">Storytelling practice</a><a href="https://shop.storyofleo.com/" target="_blank" rel="noopener noreferrer">Print shop ↗</a></nav></footer>
 
     <script src="gallery-data.js"></script>
     <script src="gallery-local-data.js"></script>
-    <script src="gallery-logic.js?v=20261030-personal"></script>
+    <script src="gallery-logic.js?v=editorial-1"></script>
 
     <script>
 
     </script>
-    <script src="site.js" defer></script>
+    <script src="site.js?v=editorial-1" defer></script>
 </body>
 </html>

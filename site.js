@@ -88,3 +88,30 @@ const previous = document.querySelector('button[onclick="prevPhoto()"]');
 const next = document.querySelector('button[onclick="nextPhoto()"]');
 previous?.setAttribute('aria-label', 'Previous photograph');
 next?.setAttribute('aria-label', 'Next photograph');
+
+// ponytail: one shared navigation indicator; native links remain the fallback.
+(() => {
+  const links = document.querySelector('.site-links');
+  if (links && 'ResizeObserver' in window) {
+    const indicator = document.createElement('span');
+    indicator.className = 'nav-motion-indicator';
+    indicator.setAttribute('aria-hidden', 'true');
+    links.append(indicator);
+    function select(link) {
+      if (!link) return;
+      indicator.style.width = `${link.offsetWidth}px`;
+      indicator.style.transform = `translateX(${link.offsetLeft}px)`;
+    }
+    const current = () => links.querySelector('a[aria-current]');
+    links.querySelectorAll('a').forEach(link => {
+      link.addEventListener('pointerenter', () => select(link));
+      link.addEventListener('focus', () => select(link));
+    });
+    links.addEventListener('pointerleave', () => select(links.querySelector('a:focus-visible') || current()));
+    links.addEventListener('focusout', event => {
+      if (!links.contains(event.relatedTarget)) select(current());
+    });
+    new ResizeObserver(() => select(links.querySelector('a:focus-visible') || current())).observe(links);
+    select(current());
+  }
+})();
