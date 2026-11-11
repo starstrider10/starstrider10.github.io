@@ -57,13 +57,17 @@ test('section entrances run once; section timing stays within budget', () => {
 
 test('reduced motion skips startup and cancels running entrances when changed', () => {
   assert.equal(page({ reduced: true }).calls.length, 0);
-  const p = page(); p.preference.matches = true; p.preference.change();
+  const p = page();
+  p.observers[0].callback([{ isIntersecting: true, target: p.section }]);
+  p.preference.matches = true; p.preference.change();
   assert.ok(p.calls.every(a => a.cancelled));
   assert.ok(p.observers[0].disconnected);
 });
 
 test('touch travel halves; unsupported browsers and restored content stay static', () => {
-  assert.equal(page({ touch: true }).calls[0].frames[0].transform, 'translateX(-6px)');
+  const touch = page({ touch: true });
+  touch.observers[0].callback([{ isIntersecting: true, target: touch.section }]);
+  assert.equal(touch.calls[0].frames[0].transform, 'translateX(-4px)');
   assert.equal(page({ unsupported: true }).calls.length, 0);
   const p = page({ restored: true });
   assert.equal(p.calls.length, 0);
@@ -81,4 +85,88 @@ test('keyboard focus settles active text; reduced-motion resume does not replay 
   const before = p.calls.length;
   p.observers.at(-1).callback([{ isIntersecting: true, target: p.section }]);
   assert.equal(p.calls.length, before);
+});
+
+// Run current Home runtime with a small DOM and a clock we can advance.
+function exhibitionPage() {
+  const listeners = {};
+  const lanes = [];
+  const classes = new Set();
+  const preference = {
+    matches: false,
+    addEventListener(_, fn) { this.change = fn; }
+  };
+  const control = { setAttribute() {} };
+  const home = {
+    append(lane) { lanes.push(lane); },
+    addEventListener(name, fn) { listeners[name] = fn; }
+  };
+  const dialog = {
+    open: false, querySelector: () => ({}), setAttribute() {}, addEventListener() {}
+  };
+  const document = {
+    hidden: false,
+    body: {
+      append() {},
+      classList: { toggle(name, on) { on ? classes.add(name) : classes.delete(name); } }
+    },
+    getElementById: id => ({ exhibition: home, 'motion-toggle': control })[id],
+    createElement: tag => tag === 'dialog' ? dialog : {
+      scrollLeft: 0, scrollWidth: 900, clientWidth: 400, addEventListener() {}
+    },
+    addEventListener() {},
+    querySelectorAll: () => []
+  };
+  let nextFrame;
+  const context = vm.createContext({
+    document, window: { addEventListener() {} },
+    matchMedia: query => query.includes('reduce') ? preference : { matches: false },
+    requestAnimationFrame: fn => { nextFrame = fn; }
+  });
+  for (const file of ['portfolio-data.js', 'exhibition.js']) {
+    vm.runInContext(fs.readFileSync(require('node:path').join(__dirname, '..', file), 'utf8'), context);
+  }
+  return { document, preference, lanes, classes, listeners, control, dialog,
+    tick: time => nextFrame(time) };
+}
+
+test('exhibition pauses for manual control, viewer, and hidden tab', () => {
+  const p = exhibitionPage();
+  const left = () => p.lanes[0].scrollLeft;
+  p.tick(20);
+  const moving = left();
+  assert.ok(moving > 0);
+  p.control.onclick({currentTarget:p.control});
+  p.tick(60);
+  assert.equal(left(), moving);
+  p.control.onclick({currentTarget:p.control});
+  p.dialog.open = true;
+  p.tick(80);
+  assert.equal(left(), moving);
+  p.dialog.open = false;
+  p.document.hidden = true;
+  p.tick(100);
+  assert.equal(left(), moving);
+  p.document.hidden = false;
+  p.tick(120);
+  assert.ok(left() > moving);
+});
+
+test('exhibition preference changes stop drift without rebuilding tiles', () => {
+  const p = exhibitionPage();
+  p.tick(20);
+  const lane = p.lanes[0];
+  const initial = lane.scrollLeft;
+  p.preference.matches = true;
+  p.preference.change();
+  p.tick(40);
+  assert.equal(lane.scrollLeft, initial);
+  assert.equal(p.lanes.length, 3);
+  assert.ok(p.classes.has('static-exhibition'));
+  assert.ok(p.control.hidden);
+  p.preference.matches = false;
+  p.preference.change();
+  p.tick(60);
+  assert.ok(lane.scrollLeft > initial);
+  assert.equal(p.control.hidden, false);
 });

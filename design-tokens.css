@@ -46,6 +46,10 @@
   --motion-arrow-travel: 4px;
   --motion-ease: cubic-bezier(.2, .7, .2, 1);
 }
+/* ponytail: one desktop label size; each page keeps its mobile sizing. */
+@media (min-width: 768px) {
+  :root { --desktop-label-size: .875rem; }
+}
 .editorial-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--grid-gap); }
 @media (max-width: 767px) {
   .editorial-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }

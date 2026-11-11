@@ -4,19 +4,29 @@ const portfolioProjects = [
   {
     "id": "spring-portraits",
     "category": "portraits",
-    "label": "Portraits / Spring & graduation selection",
-    "imageLayout": "portrait-pair",
-    "title": "A portrait of spring.",
-    "summary": "Personal and graduation portraits in spring light. People and place, held in the same frame.",
-    "approach": "Seasonal colour, natural surroundings and space for the person within the landscape.",
+    "label": "Photo story / Sakura",
+    "photoStory": true,
+    "title": "A Portrait of Spring",
+    "year": "2025",
+    "summary": "Cherry blossoms connect a close portrait of Anabel to a wider sense of place.",
     "images": [
       {
         "src": "https://res.cloudinary.com/decv98oqz/image/upload/f_auto,q_auto,w_1200/v1776367252/20250331-LEO05614-anabel_tzhkoc.jpg",
-        "alt": "Portrait from the existing spring Sakura series"
+        "alt": "Close portrait of Anabel with pale blossoms softly out of focus behind her",
+        "width": 1200,
+        "height": 800
       },
       {
-        "src": "https://res.cloudinary.com/decv98oqz/image/upload/f_auto,q_auto,w_1000/v1776312213/20260331-LEO02645-christie_ynp7ql.jpg",
-        "alt": "Close graduation portrait in natural light from the existing spring gallery"
+        "src": "https://res.cloudinary.com/decv98oqz/image/upload/f_auto,q_auto,w_1200/v1776367251/20250331-LEO05535-anabel_ju8x6c.jpg",
+        "alt": "Anabel sitting at the foot of a cherry tree beneath a broad canopy of blossoms",
+        "width": 1200,
+        "height": 800
+      },
+      {
+        "src": "https://res.cloudinary.com/decv98oqz/image/upload/f_auto,q_auto,w_1200/v1776367251/20250331-LEO05491-anabel_dhtvvq.jpg",
+        "alt": "Anabel seen from behind beneath backlit cherry blossoms",
+        "width": 1200,
+        "height": 800
       }
     ],
     "link": "gallery.html?filter=sakura",
@@ -78,7 +88,7 @@ const portfolioProjects = [
   },
   {
     "id": "life-outdoors",
-    "category": "events",
+    "category": "adventures",
     "label": "Lifestyle / Personal outdoor photography",
     "title": "Life beyond the everyday.",
     "summary": "A personal outdoor series: alpine landscape, movement and a sense of scale.",
@@ -94,6 +104,22 @@ const portfolioProjects = [
     "reviewNote": "Local review note: add an approved event project, brief and delivered image set before publication."
   },
   {
+    "id": "the-life-i-promised",
+    "category": "content",
+    "label": "Featured short film / Two Lives, Part 2",
+    "title": "The Life I Promised Myself",
+    "summary": "What happens when you come face to face with the life you once promised yourself?",
+    "images": [],
+    "instagramUrl": "https://www.instagram.com/reel/Dffx2Dqv0LU/",
+    "video": {
+      "src": "assets/video/life-i-promised.mp4",
+      "preview": "assets/video/life-i-promised-preview.mp4",
+      "poster": "assets/life-i-promised-poster.jpg",
+      "width": 720,
+      "height": 1280
+    }
+  },
+  {
     "id": "rest-vs-rot",
     "category": "content",
     "label": "Short film",
@@ -104,6 +130,7 @@ const portfolioProjects = [
     "compact": true,
     "video": {
       "src": "assets/video/rest-vs-rot.mp4",
+      "preview": "assets/video/rest-vs-rot-preview.mp4",
       "poster": "assets/rest-vs-rot-poster.jpg",
       "width": 720,
       "height": 1280
@@ -121,6 +148,7 @@ const portfolioProjects = [
     "compact": true,
     "video": {
       "src": "assets/video/full-moon.mp4",
+      "preview": "assets/video/full-moon-preview.mp4",
       "poster": "assets/full-moon-poster.jpg",
       "width": 720,
       "height": 1280
@@ -145,6 +173,7 @@ const portfolioProjects = [
     "format": "vertical",
     "video": {
       "src": "https://res.cloudinary.com/decv98oqz/video/upload/v1793340569/Video-6606_fhpgfa.mp4",
+      "preview": "assets/video/made-of-stars-preview.mp4",
       "poster": "assets/made-of-stars-poster.jpg",
       "width": 720,
       "height": 1280
@@ -163,6 +192,12 @@ const portfolioProjects = [
     "delivery": "One personal YouTube film, approximately one minute as described by Leo.",
     "images": [],
     "youtube": "1FaijuGNto0",
+    "preview": {
+      "src": "assets/video/minute-of-storytelling-preview.mp4",
+      "poster": "assets/minute-of-storytelling-poster.jpg",
+      "width": 854,
+      "height": 480
+    },
     "youtubeEmbed": false,
     "link": "https://www.instagram.com/leo.inframe/",
     "linkLabel": "Visit leo.inframe",
@@ -185,7 +220,29 @@ const portfolioProjects = [
     ],
     "images": [],
     "youtube": "YpRT2H2vnTw",
+    "preview": {
+      "src": "assets/video/young-and-beautiful-preview.mp4",
+      "poster": "assets/young-and-beautiful-poster.jpg",
+      "width": 854,
+      "height": 480
+    },
     "youtubeEmbed": false,
     "compact": true
   }
+];
+
+// ponytail: explicit curation references existing projects; no duplicate media catalog.
+const homeSelection = [
+  {project: 'spring-portraits', image: 0},
+  {project: 'the-life-i-promised'},
+  {project: 'outdoor-portraits', image: 1},
+  {project: 'outdoor-portraits', image: 0},
+  {project: 'full-moon'},
+  {project: 'spring-portraits', image: 1},
+  {project: 'outdoor-portraits', image: 2},
+  {project: 'rest-vs-rot'},
+  {project: 'life-outdoors', image: 0},
+  {project: 'outdoor-portraits', image: 4},
+  {project: 'made-of-stars'},
+  {project: 'spring-portraits', image: 2}
 ];

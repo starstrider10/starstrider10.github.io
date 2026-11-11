@@ -12,16 +12,16 @@
   const sections = [...document.querySelectorAll('main > section')];
   let observer;
 
-  function enter(element, index, opening = false) {
+  function enter(element, index) {
     if (reduced.matches) return;
     const duration = token('entrance');
     const delay = Math.min(index * token('stagger'), token('section-limit') - duration);
-    const distance = token(opening ? 'opening-travel' : 'section-travel') / (touch.matches ? 2 : 1);
+    const distance = token('section-travel') / (touch.matches ? 2 : 1);
     const horizontal = element.matches('.label');
     const animation = element.animate([
       { opacity: 0, transform: `translate${horizontal ? 'X' : 'Y'}(${horizontal ? -distance : distance}px)` },
       { opacity: 1, transform: 'translate(0, 0)' }
-    ], { duration, delay: opening ? index * token('stagger') : delay, easing: ease, fill: 'backwards' });
+    ], { duration, delay, easing: ease, fill: 'backwards' });
     active.add(animation);
     animation.finished.then(() => {
       active.delete(animation);
@@ -51,10 +51,6 @@
   }
 
   if (!reduced.matches) {
-    if (!location.hash && scrollY === 0) {
-      document.querySelectorAll('.hero-copy > .label, .hero-line, .hero-description, .hero-actions')
-        .forEach((element, index) => enter(element, index, true));
-    }
     observeSections(Boolean(location.hash || scrollY > 0));
   }
   reduced.addEventListener('change', () => {

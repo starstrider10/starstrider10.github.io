@@ -25,7 +25,7 @@ img { display: block; width: 100%; height: auto; }
 .hero-backdrop { position: absolute; inset: 0; z-index: -2; pointer-events: none; background: var(--obsidian); }
 .hero-backdrop img { height: 100%; object-fit: cover; object-position: center; opacity: .28; }
 .hero-backdrop::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, var(--obsidian), transparent 85%), linear-gradient(0deg, var(--obsidian), transparent 40%); }
-.section-index, .technical-label, .placeholder-label, .hero-baseline, figcaption { font: 400 10px/1.8 var(--font-label); text-transform: uppercase; letter-spacing: .09em; }
+.section-index, .technical-label, .placeholder-label, .hero-baseline, figcaption { font: 400 var(--desktop-label-size, 10px)/1.8 var(--font-label); text-transform: uppercase; letter-spacing: .09em; }
 .section-index { display: flex; justify-content: space-between; gap: 24px; padding-block: 28px; color: var(--text-muted-dark); }
 .section-index span:first-child { color: var(--soft-rose); }
 .about-hero .section-index { color: var(--porcelain); }
@@ -39,9 +39,9 @@ h1 span { color: var(--soft-rose); }
 .dark-panel { background: var(--obsidian); max-width: 430px; }
 .placeholder-label { color: var(--soft-rose); margin-bottom: 18px; }
 .copy-panel h2 { font: 400 clamp(24px, 2.5vw, 36px)/1.15 var(--font-heading); letter-spacing: -.045em; margin-bottom: 18px; overflow-wrap: anywhere; }
-.copy-panel > p:last-of-type { color: var(--text-muted-dark); font-size: 13px; line-height: 1.8; }
+.copy-panel > p:last-of-type { color: var(--text-muted-dark); font-size: var(--desktop-label-size, 13px); line-height: 1.8; }
 .about-actions { display: flex; flex-wrap: wrap; gap: 30px; margin-top: 28px; }
-.about-link { display: inline-flex; justify-content: space-between; gap: 28px; align-items: center; padding-block: 9px; border-bottom: 1px solid var(--soft-rose); font-size: 12px; }
+.about-link { display: inline-flex; justify-content: space-between; gap: 28px; align-items: center; padding-block: 9px; border-bottom: 1px solid var(--soft-rose); font-size: var(--desktop-label-size, 12px); }
 .about-link span { font-size: 19px; line-height: 1; }
 .profile-image { grid-column: 8 / -1; position: relative; padding: 12px 0 0 12px; border-top: 1px solid var(--rule-light); border-left: 1px solid var(--rule-light); }
 .profile-image::before { content: ''; position: absolute; width: 18px; height: 18px; top: -1px; left: -1px; border-top: 2px solid var(--soft-rose); border-left: 2px solid var(--soft-rose); }
