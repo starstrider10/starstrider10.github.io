@@ -135,10 +135,12 @@ class SiteChecks(unittest.TestCase):
             ['node', '-e', script + '\nconsole.log(JSON.stringify({portfolioProjects, homeSelection}));'],
             cwd=ROOT))
         projects = {p['id']: p for p in data['portfolioProjects']}
-        self.assertEqual(len(projects), 9)
+        self.assertEqual(len(projects), 15)
         self.assertEqual(sum(p['category'] == 'content' for p in projects.values()), 6)
         self.assertEqual(projects['life-outdoors']['category'], 'adventures')
-        self.assertEqual(projects['outdoor-portraits']['category'], 'portraits')
+        self.assertEqual(projects['outdoor-portraits']['category'], 'archive')
+        self.assertEqual([p['id'] for p in projects.values() if p['category'] == 'portraits'],
+                         ['nicole', 'christie', 'isabella', 'spring-portraits'])
         for project in projects.values():
             if project['category'] != 'content':
                 continue
@@ -146,6 +148,8 @@ class SiteChecks(unittest.TestCase):
             for asset in [preview['poster'], preview.get('preview') or preview['src']]:
                 self.assertTrue((ROOT / asset).is_file(), asset)
         self.assertEqual(len(projects['spring-portraits']['images']), 3)
+        self.assertEqual(len(projects['wiux-panel']['images']), 8)
+        self.assertEqual(projects['wiux-panel']['coverIndex'], 2)
         self.assertEqual(len(projects['outdoor-portraits']['images']), 7)
         self.assertTrue(any('expedition-portrait' in i['src'] for i in projects['outdoor-portraits']['images']))
         for item in data['homeSelection']:

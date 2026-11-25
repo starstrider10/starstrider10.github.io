@@ -351,10 +351,18 @@ function renderGallery(category = 'all') {
             return acc;
         }, {});
 
+        const archiveTitle = 'General portraits';
+        if (category === 'portraiture') {
+            const archive = portfolioProjects.find(project => project.id === 'outdoor-portraits');
+            groups[archiveTitle] = archive.images.map(image => ({
+                url: image.src, folder: 'portraits', public_id: image.alt
+            }));
+        }
+
         Object.keys(groups).sort().forEach(groupName => {
             const photos = groups[groupName];
             if (photos.length < 4) return; // Filter out subjects/sets with < 4 images
-            const displayPhotos = photos.slice(0, 6); // 4 to 6 cohesive shots
+            const displayPhotos = groupName === archiveTitle ? photos : photos.slice(0, 6); // 4 to 6 cohesive shots
 
             const section = document.createElement('div');
             section.className = 'album-section group cursor-pointer relative h-[50vh] overflow-hidden rounded-sm bg-white border border-[#6E727A]/20 shadow-sm';
@@ -368,8 +376,10 @@ function renderGallery(category = 'all') {
                     <span class="mt-4 text-[8px] uppercase tracking-widest text-white/90 opacity-0 group-hover:opacity-100 transition-opacity underline decoration-white/40 underline-offset-8 font-sans">Explore Album</span>
                 </div>
             `;
+            if (groupName === archiveTitle) section.id = "outdoor-portraits";
             section.onclick = () => openAlbum(displayPhotos, groupName);
             albumGrid.appendChild(section);
+            if (section.id && location.hash === '#' + section.id) section.scrollIntoView();
         });
 
         gsap.from(".album-section", {

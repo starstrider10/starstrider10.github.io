@@ -115,3 +115,12 @@ next?.setAttribute('aria-label', 'Next photograph');
     select(current());
   }
 })();
+
+// ponytail: direction only; browser owns navigation, history, and scroll restoration.
+window.addEventListener('pagereveal', () => {
+  const activation = window.navigation?.activation;
+  document.documentElement.toggleAttribute('data-page-back', Boolean(
+    activation?.navigationType === 'traverse' &&
+    activation.entry.index < activation.from.index
+  ));
+});

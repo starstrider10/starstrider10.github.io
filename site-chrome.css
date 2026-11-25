@@ -5,6 +5,8 @@
 .site-brand::before { content: none; }
 .site-links { display: flex; position: relative; align-items: center; gap: clamp(18px, 2.2vw, 36px); font: 500 .9375rem/1.5 var(--font-label); }
 .site-links a { font: inherit; letter-spacing: normal; text-transform: none; padding: 12px 0; border: 0; color: inherit; }
+/* ponytail: enlarge desktop navigation once, across every main page. */
+@media (min-width: 1024px) { .site-links { font-size: 1.0625rem; } }
 .site-links a[aria-current] { border-bottom: 0; }
 .site-links a[aria-current], .site-nav a:hover { color: var(--accent-on-light); border-color: transparent; }
 .home-cinematic .site-links a[aria-current], .home-cinematic .site-nav a:hover { color: var(--accent-on-dark); }
@@ -38,3 +40,26 @@
 
 /* Soft About surfaces need a darker text accent than Porcelain sections. */
 .about-aero .site-links a[aria-current], .about-aero .site-nav a:hover, .about-aero .mobile-navigation a[aria-current], .about-aero .site-footer a:hover { color: var(--deep-plum); }
+
+/* ponytail: native page transitions; unsupported browsers keep instant navigation. */
+@view-transition { navigation: auto; }
+::view-transition-group(root) { animation-duration: 420ms; }
+::view-transition-old(root) { animation: none; }
+::view-transition-new(root) {
+  animation: page-wipe-up 420ms cubic-bezier(.22, .68, .2, 1) both;
+  mix-blend-mode: normal;
+}
+@keyframes page-wipe-up {
+  from { clip-path: inset(100% 0 0 0); }
+  to { clip-path: inset(0); }
+}
+@keyframes page-wipe-down {
+  from { clip-path: inset(0 0 100% 0); }
+  to { clip-path: inset(0); }
+}
+html[data-page-back]::view-transition-new(root) { animation-name: page-wipe-down; }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(root), ::view-transition-old(root), ::view-transition-new(root) {
+    animation: none !important;
+  }
+}

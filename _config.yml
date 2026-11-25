@@ -4,6 +4,7 @@ exclude:
   - AUDIT.md
   - REVIEW.md
   - README.md
+  - ROADMAP.md
   - HOMEPAGE-REDESIGN.md
   - MEDIA-WORKFLOW.md
   - tests

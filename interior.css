@@ -33,6 +33,16 @@
 .commission-package .commission-price { font-family: var(--font-heading); }
 .commission-package { padding-block: 24px; }
 .commission-package h3 { font-size: 23px; }
+.portfolio-page .commission-package .commission-price { font-size: clamp(24px, 2.5vw, 32px); line-height: 1.2; white-space: nowrap; }
+/* ponytail: standalone Services gets its own heading rhythm; rates stay untouched. */
+.portfolio-main > h1:not(.visually-hidden) { font: 400 clamp(48px, 6.7vw, 96px)/1.04 var(--font-heading); letter-spacing: -.065em; margin: 0 0 40px; }
+.portfolio-main > h1 + .commission-guide { margin: 0; }
+.portfolio-page .commission-intro, .portfolio-page .commission-other,
+.portfolio-page .commission-package :is(p:not(.commission-price), details),
+.booking-notes p { font-size: 1rem; line-height: 1.8; }
+.booking-notes h2 { font: 400 clamp(28px, 3vw, 36px)/1.2 var(--font-heading); letter-spacing: -.045em; margin-bottom: 20px; }
+.commission-package summary { min-height: 44px; padding-block: 10px; }
+.portfolio-filters button, .gallery-filters button { min-height: 44px; }
 .portfolio-gallery-link h2 { font-size: clamp(36px, 5vw, 64px); }
 .gallery-intro { margin-bottom: 56px; }
 .gallery-intro-grid { display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: var(--grid-gap); align-items: end; }

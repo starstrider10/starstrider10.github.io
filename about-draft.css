@@ -1,7 +1,7 @@
 /* ponytail: editorial field notes; existing tokens and shared navigation, no extra JS. */
 * { box-sizing: border-box; }
 html { scroll-padding-top: 24px; }
-body { margin: 0; background: var(--obsidian); color: var(--porcelain); font: 400 14px/1.8 var(--font-body); -webkit-font-smoothing: antialiased; }
+body { margin: 0; background: var(--obsidian); color: var(--porcelain); font: 400 1rem/1.8 var(--font-body); -webkit-font-smoothing: antialiased; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; cursor: pointer; }
 figure, h1, h2, p { margin: 0; }
@@ -39,7 +39,7 @@ h1 span { color: var(--soft-rose); }
 .dark-panel { background: var(--obsidian); max-width: 430px; }
 .placeholder-label { color: var(--soft-rose); margin-bottom: 18px; }
 .copy-panel h2 { font: 400 clamp(24px, 2.5vw, 36px)/1.15 var(--font-heading); letter-spacing: -.045em; margin-bottom: 18px; overflow-wrap: anywhere; }
-.copy-panel > p:last-of-type { color: var(--text-muted-dark); font-size: var(--desktop-label-size, 13px); line-height: 1.8; }
+.copy-panel > p:last-of-type { color: var(--text-muted-dark); font-size: 1rem; line-height: 1.8; }
 .about-actions { display: flex; flex-wrap: wrap; gap: 30px; margin-top: 28px; }
 .about-link { display: inline-flex; justify-content: space-between; gap: 28px; align-items: center; padding-block: 9px; border-bottom: 1px solid var(--soft-rose); font-size: var(--desktop-label-size, 12px); }
 .about-link span { font-size: 19px; line-height: 1; }

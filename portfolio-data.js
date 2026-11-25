@@ -2,11 +2,135 @@
 // Image dimensions preserve framing; add responsive -480/-960/-1440.webp siblings.
 const portfolioProjects = [
   {
+    "id": "nicole",
+    "category": "portraits",
+    "title": "Nicole",
+    "cover": {
+      "src": "assets/portrait-projects/nicole-wide-walk.jpg",
+      "alt": "Nicole walking away along a path beside tall reeds",
+      "width": 1280,
+      "height": 720
+    },
+    "sequence": [
+      {
+        "clip": "assets/portrait-projects/nicole-wide-walk.mp4",
+        "poster": "assets/portrait-projects/nicole-wide-walk.jpg",
+        "label": "Nicole walking away along the path"
+      },
+      1,
+      {
+        "clip": "assets/portrait-projects/nicole-close-turn.mp4",
+        "poster": "assets/portrait-projects/nicole-close-turn.jpg",
+        "label": "Nicole turns away in a closer view"
+      },
+      0
+    ],
+    "images": [
+      {
+        "src": "assets/portrait-projects/nicole-dscf4643-1440.webp",
+        "alt": "Nicole looks back over her shoulder beside tall reeds",
+        "width": 1440,
+        "height": 960
+      },
+      {
+        "src": "assets/portrait-projects/nicole-dscf4656-1440.webp",
+        "alt": "Nicole faces the camera by a creek framed by autumn trees",
+        "width": 1440,
+        "height": 960
+      }
+    ]
+  },
+  {
+    "id": "christie",
+    "category": "portraits",
+    "title": "Christie",
+    "coverIndex": 1,
+    "background": "https://res.cloudinary.com/decv98oqz/image/upload/f_auto,q_auto,w_1600/v1776312209/20260331-LEO02409-christie_b9fuye.jpg",
+    "images": [
+      {
+        "src": "https://res.cloudinary.com/decv98oqz/image/upload/f_auto,q_auto,w_1200/v1776312213/20260331-LEO02645-christie_ynp7ql.jpg",
+        "alt": "Christie — portrait 1",
+        "width": 1200,
+        "height": 1796
+      },
+      {
+        "src": "https://res.cloudinary.com/decv98oqz/image/upload/f_auto,q_auto,w_1200/v1776312211/20260331-LEO02454-christie_vpilnj.jpg",
+        "alt": "Christie in graduation robes on a path beneath cherry blossoms",
+        "width": 1200,
+        "height": 1796
+      },
+      {
+        "src": "https://res.cloudinary.com/decv98oqz/image/upload/f_auto,q_auto,w_1200/v1776312210/20260331-LEO02435-christie_b1utmx.jpg",
+        "alt": "Christie — portrait 3",
+        "width": 1200,
+        "height": 1796
+      },
+      {
+        "src": "https://res.cloudinary.com/decv98oqz/image/upload/f_auto,q_auto,w_1200/v1776312209/20260331-LEO02409-christie_b9fuye.jpg",
+        "alt": "Christie in profile on the lawn beneath cherry blossoms",
+        "width": 1200,
+        "height": 800
+      },
+      {
+        "src": "https://res.cloudinary.com/decv98oqz/image/upload/f_auto,q_auto,w_1200/v1776312207/20260331-LEO02395-christie_wrauru.jpg",
+        "alt": "Christie — portrait 5",
+        "width": 1200,
+        "height": 1796
+      }
+    ]
+  },
+  {
+    "id": "isabella",
+    "category": "portraits",
+    "title": "Isabella",
+    "coverIndex": 2,
+    "images": [
+      {
+        "src": "assets/portrait-projects/isabella-bbb04965-1440.webp",
+        "alt": "Isabella — portrait 1",
+        "width": 1440,
+        "height": 2161
+      },
+      {
+        "src": "assets/portrait-projects/isabella-dscf4527-1440.webp",
+        "alt": "Isabella — portrait 2",
+        "width": 1440,
+        "height": 960
+      },
+      {
+        "src": "assets/portrait-projects/isabella-bbb05093-1440.webp",
+        "alt": "Isabella — portrait 3",
+        "width": 1440,
+        "height": 960
+      },
+      {
+        "src": "assets/portrait-projects/isabella-dscf4551-1440.webp",
+        "alt": "Isabella — portrait 4",
+        "width": 1440,
+        "height": 960
+      },
+      {
+        "src": "assets/portrait-projects/isabella-bbb05185-1440.webp",
+        "alt": "Isabella — portrait 5",
+        "width": 1440,
+        "height": 2161
+      },
+      {
+        "src": "assets/portrait-projects/isabella-bbb05198-1440.webp",
+        "alt": "Isabella — portrait 6",
+        "width": 1440,
+        "height": 960
+      }
+    ],
+    "background": "assets/portrait-projects/isabella-background-1600.webp"
+  },
+  {
     "id": "spring-portraits",
     "category": "portraits",
     "label": "Photo story / Sakura",
     "photoStory": true,
     "title": "A Portrait of Spring",
+    "coverIndex": 2,
     "year": "2025",
     "summary": "Cherry blossoms connect a close portrait of Anabel to a wider sense of place.",
     "images": [
@@ -34,7 +158,7 @@ const portfolioProjects = [
   },
   {
     "id": "outdoor-portraits",
-    "category": "portraits",
+    "category": "archive",
     "label": "Portraits / Environmental storytelling",
     "imageLayout": "environmental-sequence",
     "title": "Environmental portraits.",
@@ -85,6 +209,174 @@ const portfolioProjects = [
       }
     ],
     "compact": true
+  },
+  {
+    "id": "wiux-panel",
+    "category": "events",
+    "title": "Women in UX \u2014 UX Role Possibilities Panel",
+    "coverIndex": 2,
+    "images": [
+      {
+        "src": "assets/event-projects/wiux-panel-bbb06188-1440.webp",
+        "alt": "Audience members frame a panel discussion beneath a career question",
+        "width": 1440,
+        "height": 960
+      },
+      {
+        "src": "assets/event-projects/wiux-panel-bbb06198-1440.webp",
+        "alt": "Three organizers stand behind the lectern during the discussion",
+        "width": 1440,
+        "height": 960
+      },
+      {
+        "src": "assets/event-projects/wiux-panel-bbb06185-1440.webp",
+        "alt": "A panelist gestures with both hands as another listens",
+        "width": 1440,
+        "height": 960
+      },
+      {
+        "src": "assets/event-projects/wiux-panel-bbb06246-1440.webp",
+        "alt": "An attendee speaks from her seat during the discussion",
+        "width": 1440,
+        "height": 960
+      },
+      {
+        "src": "assets/event-projects/wiux-panel-bbb06220-1440.webp",
+        "alt": "Panelists share a laugh during the conversation",
+        "width": 1440,
+        "height": 960
+      },
+      {
+        "src": "assets/event-projects/wiux-panel-bbb06252-1440.webp",
+        "alt": "An organizer listens in the foreground with the panel behind her",
+        "width": 1440,
+        "height": 960
+      },
+      {
+        "src": "assets/event-projects/wiux-panel-bbb06300-1440.webp",
+        "alt": "A panelist gestures during a conversation with attendees after the talk",
+        "width": 1440,
+        "height": 960
+      },
+      {
+        "src": "assets/event-projects/wiux-panel-bbb06282-1440.webp",
+        "alt": "Panelists and attendees gather for a celebratory group photograph",
+        "width": 1440,
+        "height": 960
+      }
+    ]
+  },
+  {
+    "id": "women-in-ux",
+    "category": "events",
+    "title": "Women in UX",
+    "coverIndex": 1,
+    "images": [
+      {
+        "src": "assets/event-projects/women-in-ux-bbb05368-1440.webp",
+        "alt": "Wide view of the lecture room with the presentation projected at the front",
+        "width": 1440,
+        "height": 960
+      },
+      {
+        "src": "assets/event-projects/women-in-ux-bbb05236-1440.webp",
+        "alt": "Presenter in a blue beanie gestures beside the monitor",
+        "width": 1440,
+        "height": 960
+      },
+      {
+        "src": "assets/event-projects/women-in-ux-bbb05300-1440.webp",
+        "alt": "View of the audience from behind the presenter",
+        "width": 1440,
+        "height": 960
+      },
+      {
+        "src": "assets/event-projects/women-in-ux-bbb05256-1440.webp",
+        "alt": "An attendee listens with her hands clasped",
+        "width": 1440,
+        "height": 960
+      },
+      {
+        "src": "assets/event-projects/women-in-ux-bbb05377-1440.webp",
+        "alt": "Hands on a laptop keyboard beside a tumbler",
+        "width": 1440,
+        "height": 960
+      },
+      {
+        "src": "assets/event-projects/women-in-ux-bbb05325-1440.webp",
+        "alt": "Attendees smile as they talk at their desks",
+        "width": 1440,
+        "height": 960
+      },
+      {
+        "src": "assets/event-projects/women-in-ux-bbb05293-1440.webp",
+        "alt": "Six people pose together by the lecture room windows",
+        "width": 1440,
+        "height": 960
+      }
+    ]
+  },
+  {
+    "id": "figma-event",
+    "category": "events",
+    "title": "Figma event",
+    "coverIndex": 4,
+    "images": [
+      {
+        "src": "assets/event-projects/figma-event-bbb05908-1440.webp",
+        "alt": "Wide view of the room and rows of workshop tables",
+        "width": 1440,
+        "height": 960
+      },
+      {
+        "src": "assets/event-projects/figma-event-bbb05990-1440.webp",
+        "alt": "A facilitator leans over a table to speak with participants",
+        "width": 1440,
+        "height": 960
+      },
+      {
+        "src": "assets/event-projects/figma-event-bbb05950-1440.webp",
+        "alt": "Hands work with a stylus on a tablet beside colorful pieces",
+        "width": 1440,
+        "height": 960
+      },
+      {
+        "src": "assets/event-projects/figma-event-bbb05973-1440.webp",
+        "alt": "Participants lean toward a laptop at a shared table",
+        "width": 1440,
+        "height": 960
+      },
+      {
+        "src": "assets/event-projects/figma-event-bbb05969-1440.webp",
+        "alt": "A participant laughs beside an open laptop",
+        "width": 1440,
+        "height": 960
+      },
+      {
+        "src": "assets/event-projects/figma-event-bbb05865-1440.webp",
+        "alt": "Side portrait of a smiling attendee wearing colorful hair clips",
+        "width": 1440,
+        "height": 2160
+      },
+      {
+        "src": "assets/event-projects/figma-event-bbb06012-1440.webp",
+        "alt": "Three attendees pose as another person takes their photo",
+        "width": 1440,
+        "height": 960
+      },
+      {
+        "src": "assets/event-projects/figma-event-bbb05838-1440.webp",
+        "alt": "Attendees look off frame in purple light",
+        "width": 1440,
+        "height": 960
+      },
+      {
+        "src": "assets/event-projects/figma-event-bbb06094-1440.webp",
+        "alt": "Group poses behind a table, holding up colorful pieces",
+        "width": 1440,
+        "height": 960
+      }
+    ]
   },
   {
     "id": "life-outdoors",
@@ -235,14 +527,14 @@ const portfolioProjects = [
 const homeSelection = [
   {project: 'spring-portraits', image: 0},
   {project: 'the-life-i-promised'},
-  {project: 'outdoor-portraits', image: 1},
-  {project: 'outdoor-portraits', image: 0},
+  {project: 'nicole', image: 0},
+  {project: 'isabella', image: 0},
   {project: 'full-moon'},
   {project: 'spring-portraits', image: 1},
-  {project: 'outdoor-portraits', image: 2},
+  {project: 'christie', image: 0},
   {project: 'rest-vs-rot'},
   {project: 'life-outdoors', image: 0},
-  {project: 'outdoor-portraits', image: 4},
+  {project: 'isabella', image: 2},
   {project: 'made-of-stars'},
   {project: 'spring-portraits', image: 2}
 ];

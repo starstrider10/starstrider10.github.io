@@ -122,6 +122,7 @@ body:has(.exhibit-dialog[open]) { overflow: hidden; }
 .photo-collection { padding-bottom: 24px; }
 .photo-collection > p { color: var(--text-muted-light); font-size: 14px; margin: 0; }
 .photo-grid { columns: 3; column-gap: clamp(8px, 1vw, 15px); }
+.photo-collection[data-collection="events"] .photo-grid { columns: 2; }
 .photo-grid > .project-cover { break-inside: avoid; margin-bottom: clamp(8px, 1vw, 15px); }
 .photo-grid:has(> :only-child) { columns: 1; width: min(100%, 950px); }
 .film-grid { display: grid; gap: clamp(10px, 1.45vw, 22px); grid-template-columns: repeat(4,minmax(0,1fr)); }
@@ -167,3 +168,18 @@ body:has(.exhibit-dialog[open]) { overflow: hidden; }
   .static-exhibition .exhibit-lane .exhibit-tile { height: auto; max-width: 100%; }
 }
 @media(prefers-reduced-motion:reduce) { .exhibit-tile::after { transition: none; } .exhibit-dialog[open]:not(.is-spotlight), .exhibit-dialog.is-spotlight::backdrop { animation: none; } .exhibition-intro { display: none !important; } }
+
+.exhibit-dialog.has-story-background::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: var(--story-background) center / cover no-repeat;
+  opacity: .5;
+  pointer-events: none;
+}
+.has-story-background :is(.viewer-body, footer) { position: relative; }
+.viewer-story { gap: clamp(12px, 2vw, 28px); }
+.viewer-story > img { align-self: center; }
+
+.viewer-mixed { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; }
+.viewer-mixed > video { width: 100%; height: auto; min-width: 0; max-height: none; aspect-ratio: 16 / 9; background: var(--obsidian); }
