@@ -215,6 +215,7 @@ const portfolioProjects = [
     "category": "events",
     "title": "Women in UX \u2014 UX Role Possibilities Panel",
     "coverIndex": 2,
+    "coverIndices": [2, 4, 5],
     "images": [
       {
         "src": "assets/event-projects/wiux-panel-bbb06188-1440.webp",
@@ -271,6 +272,7 @@ const portfolioProjects = [
     "category": "events",
     "title": "Women in UX",
     "coverIndex": 1,
+    "coverIndices": [1, 2],
     "images": [
       {
         "src": "assets/event-projects/women-in-ux-bbb05368-1440.webp",
@@ -321,6 +323,7 @@ const portfolioProjects = [
     "category": "events",
     "title": "Figma event",
     "coverIndex": 4,
+    "coverIndices": [4, 3, 8],
     "images": [
       {
         "src": "assets/event-projects/figma-event-bbb05908-1440.webp",

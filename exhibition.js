@@ -107,6 +107,7 @@
     title.classList.toggle('visually-hidden', story && !current.sequence);
     body.classList.toggle('viewer-story', story);
     body.classList.toggle('viewer-mixed', Boolean(story && current.sequence));
+    body.classList.toggle('viewer-event', story && current.category === 'events');
     dialog.classList.toggle('has-story-background', Boolean(story && current.background));
     if (story && current.background) dialog.style.setProperty('--story-background', `url(${JSON.stringify(current.background)})`);
     else dialog.style.removeProperty('--story-background');
@@ -173,7 +174,7 @@
     story = !home && !isFilm(current);
     const spotlight = home && !isFilm(current);
     dialog.classList.toggle('is-spotlight', spotlight);
-    const thumbnail = button.querySelector('img');
+    const thumbnail = button.querySelector('img:last-of-type');
     const origin = (thumbnail || button).getBoundingClientRect();
     stopPreviews(); dialog.showModal(); paintViewer(); dialog.scrollTop = 0;
     close.focus({preventScroll:true});
@@ -371,7 +372,9 @@
       const photo = Object.hasOwn(categories, collection);
       const tab = photo ? 'photography' : selected;
       document.body.dataset.view = tab;
-      motionControl.hidden = reduce.matches || tab === 'photography';
+      document.body.dataset.collection = collection;
+      motionControl.hidden = reduce.matches || (tab === 'photography' && collection !== 'events');
+      motionControl.textContent = `${manualPause ? 'Resume' : 'Pause'} ${tab === 'film' ? 'previews' : 'covers'}`;
       projects.querySelector('.photo-subnav').hidden = tab === 'film';
       projects.querySelector('#short-films').hidden = tab === 'photography';
       projects.querySelector('.photo-wall').hidden = tab === 'film';
@@ -418,11 +421,38 @@
     window.addEventListener('popstate', () => { filter(); legacy(); });
     window.addEventListener('hashchange', legacy);
     filter(); observePreviews(); legacy();
+    // ponytail: one timer for selected covers; load only visible cards, keep native framing.
+    setInterval(() => {
+      if (reduce.matches || manualPause || document.hidden || dialog.open) return;
+      projects.querySelectorAll('.exhibit-tile').forEach(async button => {
+        const project = lookup(button.dataset.project);
+        const choices = project.coverIndices;
+        if (!choices || button.closest('[hidden]') || button.contains(document.activeElement)) return;
+        const bounds = button.getBoundingClientRect();
+        if (bounds.bottom <= 0 || bounds.top >= innerHeight || button.querySelectorAll('img').length !== 1) return;
+        const index = choices[(choices.indexOf(Number(button.dataset.image)) + 1) % choices.length];
+        const holder = document.createElement('div');
+        holder.innerHTML = imageTag(project.images[index], '(max-width:767px) 45vw, 45vw');
+        const next = holder.firstElementChild;
+        try { await next.decode(); } catch { return; }
+        if (reduce.matches || manualPause || document.hidden || dialog.open || button.closest('[hidden]') || button.contains(document.activeElement)) return;
+        const previous = button.querySelector('img');
+        next.className = 'cycling-cover';
+        button.append(next);
+        button.dataset.image = index;
+        if (next.animate) {
+          const fade = next.animate([{opacity:0}, {opacity:1}], {duration:650, easing:'ease-out'});
+          animations.push(fade);
+          const settle = () => { previous.remove(); animations = animations.filter(item => item !== fade); };
+          fade.finished.then(settle, settle);
+        } else previous.remove();
+      });
+    }, 5000);
   }
   if (motionControl) motionControl.onclick = () => {
     manualPause = !manualPause;
-    if (home) motionControl.setAttribute('aria-pressed', String(manualPause));
-    motionControl.textContent = `${manualPause ? 'Resume' : 'Pause'} ${home ? 'motion' : 'previews'}`;
+    motionControl.setAttribute('aria-pressed', String(manualPause));
+    motionControl.textContent = `${manualPause ? 'Resume' : 'Pause'} ${home ? 'motion' : document.body.dataset.view === 'film' ? 'previews' : 'covers'}`;
     updatePreviews();
   };
   reduce.addEventListener('change', () => {
@@ -433,7 +463,7 @@
       document.body.classList.toggle('static-exhibition', reduce.matches);
       motionControl.hidden = reduce.matches;
     }
-    if (projects) motionControl.hidden = reduce.matches || document.body.dataset.view === 'photography';
+    if (projects) motionControl.hidden = reduce.matches || (document.body.dataset.view === 'photography' && document.body.dataset.collection !== 'events');
     updatePreviews();
   });
   document.addEventListener('visibilitychange', updatePreviews);

@@ -183,3 +183,18 @@ body:has(.exhibit-dialog[open]) { overflow: hidden; }
 
 .viewer-mixed { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; }
 .viewer-mixed > video { width: 100%; height: auto; min-width: 0; max-height: none; aspect-ratio: 16 / 9; background: var(--obsidian); }
+
+/* ponytail: vary event frame scale; preserve original ratios and reading order. */
+@media (min-width: 768px) {
+  .viewer-event { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(24px, 3vw, 48px); padding-block: 36px 60px; }
+  .viewer-event > img { grid-column: span 4; }
+  .viewer-event > img:nth-child(8n + 1) { grid-column: span 7; }
+  .viewer-event > img:nth-child(8n + 2),
+  .viewer-event > img:nth-child(8n + 4),
+  .viewer-event > img:nth-child(8n + 7) { grid-column: span 5; }
+  .viewer-event > img:nth-child(8n + 5),
+  .viewer-event > img:nth-child(8n + 6) { grid-column: span 3; }
+}
+
+/* ponytail: overlay incoming cover; card dimensions never change. */
+.project-cover .cycling-cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
